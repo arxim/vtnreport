@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<jsp:include page="../../../resource/template/script-header.jsp"></jsp:include>
+<jsp:include page="../../../resources/template/script-header.jsp"></jsp:include>
+<script src="${pageContext.request.contextPath}/resource/js/pages/report/doctor_report.js" type="text/javascript"></script>
 <title>Doctor Report</title>
 </head>
 <body>
