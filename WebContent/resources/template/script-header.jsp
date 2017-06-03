@@ -6,17 +6,17 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- CSS Import -->
-<link href="${pageContext.request.contextPath}/resource/libraries/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
-<link href="${pageContext.request.contextPath}/resource/libraries/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" />
-<link href="${pageContext.request.contextPath}/resource/libraries/datatables-1.10.13/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="${pageContext.request.contextPath}/resource/libraries/datatables-1.10.13/extensions/Responsive/css/responsive.dataTables.min.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/resources/libraries/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/resources/libraries/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/resources/libraries/datatables-1.10.13/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/resources/libraries/datatables-1.10.13/extensions/Responsive/css/responsive.dataTables.min.css" rel="stylesheet" />
 
 <!-- Java Script Import -->
-<script src="${pageContext.request.contextPath}/resource/libraries/jquery-1.12.4.min.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/resource/libraries/bootstrap-3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/resource/libraries/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/resource/libraries/datatables-1.10.13/js/jquery.dataTables.min.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/resource/libraries/datatables-1.10.13/extensions/Responsive/js/dataTables.responsive.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/libraries/jquery-1.12.4.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/libraries/bootstrap-3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/libraries/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/libraries/datatables-1.10.13/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/libraries/datatables-1.10.13/extensions/Responsive/js/dataTables.responsive.min.js" type="text/javascript"></script>
 
 </head>
 
