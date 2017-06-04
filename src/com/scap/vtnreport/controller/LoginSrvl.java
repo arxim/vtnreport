@@ -46,16 +46,11 @@ public class LoginSrvl extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String hospitalcode = request.getParameter("hospitalcode");
-//		String username = "nobel";
-//		String password = "password";
-//		String hospitalcode = "BH";
+ 
 		LoginService  loginService = new  LoginService(); 
 		String isLogin = loginService.doLoginProcess(username, password, hospitalcode);
-		if(isLogin =="LDAPLOGIN" || isLogin =="SYSLOGIN" ){
-//			 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/forms/helloPage.html");
-//			 rd.forward(request, response);
-			 
-			  request.getRequestDispatcher("/WEB-INF/forms/helloPage.html").include(request, response);  
+		if(isLogin =="LDAPLOGIN" || isLogin =="SYSLOGIN" ){ 
+			  request.getRequestDispatcher("/WEB-INF/pages/forms/NewFile.jsp").include(request, response);  
 			  HttpSession session=request.getSession();  
 		      session.setAttribute("hospitalcode",hospitalcode);  
 		} 
