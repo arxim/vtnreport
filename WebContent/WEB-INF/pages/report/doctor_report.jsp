@@ -5,11 +5,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../../../resources/template/script-header.jsp"></jsp:include>
+<jsp:include page="../../../resources/template/navbar-header.jsp"></jsp:include>
 <script src="${pageContext.request.contextPath}/resource/js/pages/report/doctor_report.js" type="text/javascript"></script>
+<style type="text/css">
+	span.glyphicon.cfr{
+	font-size: 50px;
+	}
+</style>
 <title>Doctor Report</title>
 </head>
 <body>
-	<div class="form-group"></div>
+<!-- 	<div class="text-center">
+			<a href="#" class="btn"> 
+				<span class="glyphicon glyphicon-list-alt text-warning cfr"></span><br>
+				<span>View Report</span>
+			</a>
+			<a href="#" class="btn"> 
+				<span class="glyphicon glyphicon-envelope text-success cfr"></span><br>
+				<span>Sent Email</span>
+			</a>
+	</div> -->
 	<div id="page-content-wrapper">
 		<div class="container-fluid">
 			<div class="panel panel-primary">
