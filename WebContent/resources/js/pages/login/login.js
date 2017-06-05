@@ -23,6 +23,9 @@ function  loadHospitalDropdown() {
 	 });  
 }
 $(document).on('submit','#frmLogin',function(e) {
+	// global variable
+	var iterationCount = 1000;
+	var keySize = 128;
 	
 	var username = $('#username').val();
 	var password = $('#password').val();
@@ -41,7 +44,7 @@ $(document).on('submit','#frmLogin',function(e) {
     }else {
     	var iv = CryptoJS.lib.WordArray.random(128/8).toString(CryptoJS.enc.Hex);
 	    var salt = CryptoJS.lib.WordArray.random(128/8).toString(CryptoJS.enc.Hex);
-	    var aesUtil = new AesUtil(keySize, iterationCount);
+	    var aesUtil = new  AesUtil(keySize, iterationCount);
 	    var passwordCipher = aesUtil.encrypt(salt, iv, passphrase, password);
 	    
 	    $('#hidIv').val(iv);
@@ -50,7 +53,7 @@ $(document).on('submit','#frmLogin',function(e) {
 	    $('#hidKeySize').val(keySize);
 	    
 	    // clear
-	    $('#pwdPassword').val(passwordCipher);
+	    $('#password').val(passwordCipher);
     }
 });
 

@@ -22,10 +22,9 @@ public class AuthenticationLDAP {
 //	}
     //PASS มีตัวตนในระบบ
 	//FAIL ไม่มีตัวตนในระบบ
-	public String verifyUser(String userName, String password,String hospitalcode) {
+	public boolean verifyUser(String userName, String password,String hospitalcode) {
 		DirContext ctx = null;
 		ReadProperties prop = new ReadProperties();
-		String message = "FAIL";
 		try {
 			Map<String, String>  propData = prop.getDataReadPropertiesFile("db.properties");
 			String userContext = propData.get("ldap.user.context");
@@ -55,10 +54,11 @@ public class AuthenticationLDAP {
 				Attributes attrs = ((SearchResult) nes.next()).getAttributes();
 				System.out.println("mail: " + attrs.get("mail").get());
 				System.out.println("cn: " + attrs.get("cn").get());
-				message = "PASS";
 			}
 		} catch (NamingException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			return false;
+			
 		} finally {
 			if (ctx != null)
 				try {
@@ -66,6 +66,6 @@ public class AuthenticationLDAP {
 				} catch (NamingException ex) {
 				}
 		}
-		return message;
+		return true;
 	}
 }

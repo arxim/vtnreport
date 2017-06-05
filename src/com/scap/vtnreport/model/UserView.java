@@ -4,6 +4,10 @@ package com.scap.vtnreport.model;
  * @author Eakarat
  *
  */
+/**
+ * @author Eakarat
+ *
+ */
 public class UserView {
 	 private String userId;
 	    private String password;
@@ -12,9 +16,9 @@ public class UserView {
 	    private String email;
 	    private String roleId;
 	    private String hospitalId;
-//	    private String used;
-//	    private String active;
-//	    private String roleName;
+	    private String used;
+	    private String active;
+	    private String roleName;
 		public String getUserId() {
 			return userId;
 		}
@@ -56,6 +60,24 @@ public class UserView {
 		}
 		public void setHospitalId(String hospitalId) {
 			this.hospitalId = hospitalId;
+		}
+		public String getUsed() {
+			return used;
+		}
+		public void setUsed(String used) {
+			this.used = used;
+		}
+		public String getActive() {
+			return active;
+		}
+		public void setActive(String active) {
+			this.active = active;
+		}
+		public String getRoleName() {
+			return roleName;
+		}
+		public void setRoleName(String roleName) {
+			this.roleName = roleName;
 		}
 	    
 	    
