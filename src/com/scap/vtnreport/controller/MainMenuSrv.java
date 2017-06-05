@@ -30,7 +30,7 @@ public class MainMenuSrv extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		RequestDispatcher dispatcher =this.getServletContext().getRequestDispatcher("/WEB-INF/pages/main_report.jsp");
+		RequestDispatcher dispatcher =this.getServletContext().getRequestDispatcher("/WEB-INF/pages/main_menu/main_report.jsp");
 		dispatcher.forward(request, response);
 	}
 
