@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <nav class="navbar navbar-default no-margin">
-	<div class="container-fluid" style="background-color: #5B429C">
+	<div class="container-fluid" style="background-color: #294783">
 		<!-- navbar-header-->
 
 		<!-- Brand and toggle get grouped for better mobile display -->
