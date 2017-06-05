@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import com.lowagie.text.pdf.PdfWriter;
+import com.scap.vtnreport.utils.DbConnector;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -66,7 +67,8 @@ public class JasperBuilderService {
 		Connection conn = null;
 		try {
 			// get connecttion
-			// ++ conn = DBConnector.getDBConnection();
+			DbConnector con = new DbConnector();
+			conn = con.getConnection();
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, conn);
 
 			response.setContentType(contentType);

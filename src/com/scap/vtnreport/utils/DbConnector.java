@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
@@ -210,6 +211,34 @@ public class DbConnector {
 			return null;
 		}
 	}
+	//New version
+	
+	public static List<Map<String,String>> getData(ResultSet rs){
+		List<Map<String,String>> lsQueryData = new ArrayList<Map<String,String>>();
+		try {
+			ResultSetMetaData rsMetaData = rs.getMetaData();
+			while (rs.next()) {
+				Map<String, String> rtnData = new HashMap<String, String>();
+				for (int i = 1; i <= rsMetaData.getColumnCount(); i++) {
+					String value = "";
+					if (rs.getString(i) != null && !rs.getString(i).equals("")) {
+						value = rs.getString(i);
+						rtnData.put(rsMetaData.getColumnName(i), value);
+					} else {
+						rtnData.put(rsMetaData.getColumnName(i), value);
+					}
+				}
+				lsQueryData.add(rtnData);
+			}
+			rs.close(); 
+		} catch (Exception e) {
+			System.out.println("Error " + e.getMessage());
+		}
+		return lsQueryData;
+    }
+	
+	
+	
     public ArrayList<HashMap<String,String>> getData(String sql) {
 		ArrayList<HashMap<String,String>> lsQueryData = new ArrayList<HashMap<String,String>>();
 		ResultSet rs = null;
