@@ -35,8 +35,7 @@ public class LoadLoginSrvl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
-		PrintWriter pw = response.getWriter();
-//		request.getRequestDispatcher("/index.html").include(request,response);
+		PrintWriter pw = response.getWriter(); 
 		String passphrase = AesUtil.random(16); 
 		
 		try { 

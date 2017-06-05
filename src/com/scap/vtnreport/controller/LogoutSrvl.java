@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.scap.vtnreport.utils.Encrytion;
+
 /**
  * Servlet implementation class LogoutSrvl
  */
@@ -33,7 +35,9 @@ public class LogoutSrvl extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
 		HttpSession session = request.getSession();
-		session.invalidate();
+		 
+		session.invalidate(); 
+		request.setAttribute("vaMessage","LOGOUT");
 		RequestDispatcher rd = request.getRequestDispatcher("/index.html");
 	    rd.forward(request, response);
 	}
