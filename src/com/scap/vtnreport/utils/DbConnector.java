@@ -12,9 +12,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
+import java.sql.SQLException;
+
+
+
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+
 
 public class DbConnector {
     private Connection conn;
@@ -31,7 +37,7 @@ public class DbConnector {
         try {
         	Map<String, String>  propData = prop.getDataReadPropertiesFile("db.properties");
         	this.conn_url = propData.get("url");
-        	this.conn_class = propData.get("drivers");
+        	this.conn_class = propData.get("driverClassName");
         	this.conn_user = propData.get("user");
         	this.conn_password = propData.get("password");       
             Class.forName(conn_class);
@@ -46,6 +52,25 @@ public class DbConnector {
     public Connection getConnection(){
     	return this.conn;
     }
+    public static Connection getDBConnection() {
+		Connection connection = null;
+		ReadProperties prop = new ReadProperties();
+	       
+        try {
+        	Map<String, String>  propData = prop.getDataReadPropertiesFile("db.properties");
+        	String conn_url = propData.get("url");
+        	String conn_class = propData.get("driverClassName");
+        	String conn_user = propData.get("user");
+        	String conn_password = propData.get("password");       
+            Class.forName(conn_class);
+            connection = DriverManager.getConnection(conn_url,conn_user,conn_password);
+            
+        } 
+        catch (ClassNotFoundException e) { System.out.println(e); } 
+        catch (SQLException e) { System.out.println(e); } 
+        catch (Exception e) { System.out.println(e); }
+		return connection;
+	}
 
     public void doPrepareConnect(String sql){
     	try {
