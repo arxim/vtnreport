@@ -58,6 +58,7 @@ public class AuthenticationLDAP {
 		} catch (NamingException e) {
 //			e.printStackTrace();
 			return false;
+			
 		} finally {
 			if (ctx != null)
 				try {
