@@ -75,7 +75,7 @@ public class DropDownListGeneratorSrvl extends HttpServlet {
 	        if(request.getParameter("tb").equals("HOSPITAL_LOGIN")){
 	        	ReadProperties prop = new ReadProperties();
 	        	dropdown = prop.getDataObjReadPropertiesFile("hospital.properties");
-	        	System.out.println("options "+dropdown);
+	        	
 	        } else {
 	            DbConnector db = new DbConnector();
 				db.doConnect();
