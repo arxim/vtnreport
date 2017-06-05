@@ -5,14 +5,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../../../resources/template/script-header.jsp"></jsp:include>
-<script src="${pageContext.request.contextPath}/resource/js/pages/report/doctor_report.js" type="text/javascript"></script>
+<jsp:include page="../../../resources/template/navbar-header.jsp"></jsp:include>
+<script src="${pageContext.request.contextPath}/resources/js/pages/report/doctor_report.js" type="text/javascript"></script>
 <title>Doctor Report</title>
 </head>
 <body>
-	<div class="form-group"></div>
 	<div id="page-content-wrapper">
 		<div class="container-fluid">
-			<div class="panel panel-primary">
+			<div class="panel panel-vtn">
 				<div class="panel-heading text-center">
 					<b>Doctor Report</b>
 				</div>
