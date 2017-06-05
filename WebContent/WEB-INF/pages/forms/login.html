@@ -49,8 +49,8 @@
         <p class="submit"><input type="submit" name="commit" value="Login"></p>
     
        <!-- HIDDEN SESSION -->
-      
-      <input id="hidPassphrase" name="hidPassphrase" type="hidden" value="${passphrase}"/>
+        <p><%= session.getAttribute( "hospitalcode" ) %></p>
+      <input id="hidPassphrase" name="hidPassphrase" type="hidden" value="${hospitalcode}"/>
       <input id="hidIv" name="hidIv" type="hidden" />
 	  <input id="hidSalt" name="hidSalt" type="hidden" />
 	  <input id="hidIterationCount" name="hidIterationCount" type="hidden" />
