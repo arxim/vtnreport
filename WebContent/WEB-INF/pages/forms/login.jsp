@@ -47,8 +47,7 @@
           </label>
         </p>
         <p class="submit"><input type="submit" name="commit" value="Login"></p>
-        <p><span><label>status : </label></label><%= request.getAttribute( "vaMessage" ) %></span></p>
-    
+         
        <!-- HIDDEN SESSION -->
         
       <input id="hidPassphrase" name="hidPassphrase" type="hidden" value="${passphrase}"/>
