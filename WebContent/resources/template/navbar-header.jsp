@@ -26,7 +26,7 @@
 					</li>
 					<li>
 						<div class="btn btn-lg">
-							<a href="javascript:void(0);" style="color: #ffffff">
+							<a href="${pageContext.request.contextPath}/LogoutSrvl" style="color: #ffffff">
 						 	<span class="glyphicon glyphicon-log-out"></span><br/>
 						 	 Logout 
 						 </a>
