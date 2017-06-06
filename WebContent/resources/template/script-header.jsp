@@ -42,6 +42,13 @@
 	background-color: #36ADE6;
 	border-color: #ddd;
 }
+.container-fluid{
+	padding-left: 0;
+    padding-right: 0;
+}
+.navbar {
+    margin-bottom: 0;
+}
 </style>
 
 

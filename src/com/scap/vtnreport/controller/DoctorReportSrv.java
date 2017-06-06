@@ -1,5 +1,6 @@
 package com.scap.vtnreport.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.scap.vtnreport.service.JasperBuilderService;
+import com.scap.vtnreport.service.SentEmailService;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperReport;
@@ -41,7 +43,9 @@ public class DoctorReportSrv extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		JasperBuilderService voJasperBuilder = new JasperBuilderService();
-		String value = request.getParameter("");
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		SentEmailService sentEmail = new SentEmailService();
+		String message = "";
 
 		// add params to hash map
 		Map<String, Object> params = new HashMap<>();
@@ -59,7 +63,10 @@ public class DoctorReportSrv extends HttpServlet {
 		try {
 			InputStream jasperStream = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/ExpenseDetail.jasper");
 			JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-			voJasperBuilder.jasperBuilder(jasperStream, jasperReport, response, params, "application/pdf","InterfaceDfTransaction");
+//			voJasperBuilder.jasperBuilder(jasperStream, jasperReport, response, params, "application/pdf","InterfaceDfTransaction");
+			bos = voJasperBuilder.jasperBuilderPdfEncrypt(jasperStream, jasperReport, response, params, "application/pdf","InterfaceDfTransaction");
+			message  = sentEmail.Sentmail(bos, "sompong21153001@hotmail.co.th");
+			System.out.println(message);
 		} catch (JRException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,8 +75,8 @@ public class DoctorReportSrv extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		RequestDispatcher dispatcher = this.getServletContext()
-				.getRequestDispatcher("/WEB-INF/pages/report/doctor_report.jsp");
+//		RequestDispatcher dispatcher = this.getServletContext()
+//				.getRequestDispatcher("/WEB-INF/pages/report/doctor_report.jsp");
 
 		//dispatcher.forward(request, response);
 	}
