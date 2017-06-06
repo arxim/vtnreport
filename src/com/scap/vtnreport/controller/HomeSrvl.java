@@ -1,9 +1,7 @@
 package com.scap.vtnreport.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,19 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.scap.vtnreport.utils.Encrytion;
-
 /**
- * Servlet implementation class LogoutSrvl
+ * Servlet implementation class HomeSrvl
  */
-@WebServlet("/LogoutSrvl")
-public class LogoutSrvl extends HttpServlet {
+@WebServlet("/HomeSrvl")
+public class HomeSrvl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutSrvl() {
+    public HomeSrvl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,17 +28,14 @@ public class LogoutSrvl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html");
-		PrintWriter pw = response.getWriter();
+		// TODO Auto-generated method stub
+		System.out.println("home   !!!! "); 
 		HttpSession session = request.getSession(false);
-		System.out.println("hospital="+session.getAttribute("hospital"));
-		if(session!=null){
-				session.invalidate(); 
-		}
-	
-		request.setAttribute("vaMessage","LOGOUT");
-		RequestDispatcher rd = request.getRequestDispatcher("/index.html");
-	    rd.forward(request, response);
+		session.setAttribute("hoisLoginRolespitalcode", session.getAttribute("hospitalcode"));
+		session.setAttribute("role", session.getAttribute("role"));
+		session.setAttribute("vaMessage", session.getAttribute("vaMessage"));
+		request.setAttribute("vaMessage",request.getAttribute("vaMessage"));
+		request.getRequestDispatcher("/WEB-INF/pages/forms/home.jsp").include(request, response);
 	}
 
 	/**

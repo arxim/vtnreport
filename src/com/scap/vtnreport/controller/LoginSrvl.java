@@ -14,7 +14,12 @@ import javax.servlet.http.HttpSession;
 
  
 
+
+
+
 import com.scap.vtnreport.service.LoginService;
+import com.scap.vtnreport.utils.AesUtil;
+import com.scap.vtnreport.utils.Encrytion;
 
 /**
  * Servlet implementation class LoginAuthenticationSrvl
@@ -36,7 +41,7 @@ public class LoginSrvl extends HttpServlet {
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		 
 	}
 
 	/**
@@ -48,38 +53,49 @@ public class LoginSrvl extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter(); 
+		
 		String hospitalcode = request.getParameter("hospitalcode");
 		String passphrase = request.getParameter("hidPassphrase"); 
-
+        
 		 try {
 		 
 			HttpSession sessionPass = request.getSession(false); 
 			String sessionInSrvl = sessionPass.getAttribute("passphrase").toString();
- 
+        
 			if(sessionInSrvl != null && sessionInSrvl.equals(passphrase)){
 				LoginService loginService = new LoginService();
-				String isLogin = loginService.doLoginProcess(request);
-				if (isLogin  != "FAIL") {
+				String isLoginRole = loginService.doLoginProcess(request);
+				if (isLoginRole  != "FAIL") {
+					
 					HttpSession session = request.getSession();
 					session.setAttribute("hospitalcode", hospitalcode);
+					session.setAttribute("role", isLoginRole);
+					session.setAttribute("vaMessage", "LOGIN");
 					request.setAttribute("vaMessage","LOGIN");
-					request.getRequestDispatcher("/WEB-INF/pages/forms/NewFile.jsp").include(request, response);
+//					request.getRequestDispatcher(request.getContextPath()+"/HomeSrvl").include(request, response);
+					response.sendRedirect(request.getContextPath()+"/HomeSrvl");
+//					request.getRequestDispatcher("/WEB-INF/pages/forms/home.jsp").include(request, response);
 				     
  
 				}else{
- 
-					request.setAttribute("vaMessage","FAIL"); 
+					 
+					request.setAttribute("vaMessage","FAIL");  
 					response.sendRedirect(request.getContextPath());
 				} 
 		
-		}else{ 
-			request.setAttribute("vaMessage","FAIL");
+		}
+		
+	   else{ 
+			 
+			
+			request.setAttribute("vaMessage","FAIL"); 
 			response.sendRedirect(request.getContextPath());
 		}
 		pw.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("vaMessage","FAIL");
+		 
 			response.sendRedirect(request.getContextPath());
 		}
 		
