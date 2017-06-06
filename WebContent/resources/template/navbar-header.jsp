@@ -18,8 +18,19 @@
 			<a class="navbar-brand" href="javascript:void(0);" style="color: #ffffff">
 			</a>   	
 	   	</div>
-		<div class="collapse navbar-collapse" id="divNavBar">
-			<ul class="nav navbar-nav navbar-right">
+		<div class="collapse navbar-collapse navbar-right" id="divNavBar">
+			<div class="container text-center">				
+		        <a href="#" class="btn btn-default">
+		        	<span class="btn-lg glyphicon glyphicon-list-alt"></span>   	
+		        </a>&nbsp;
+		        <a href="#" class="btn btn-default">
+		            <span class="btn-lg glyphicon glyphicon-usd"></span>
+		        </a>&nbsp;
+		        <a href="#" class="btn      btn-default">
+		            <span class="btn-lg glyphicon glyphicon-send"></span>
+		        </a>&nbsp;
+ 			
+	 			<ul class="nav navbar-nav navbar-right">
 					<li style="color: #FFFFFF">
 						<br/>
 						<a href="javascript:void(0);" style="color: #ede3e3">FirstName : &nbsp; LastName</a>
@@ -32,20 +43,8 @@
 						 </a>
 						</div>
 					</li>
-			</ul>
-			<div class="container text-center">
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;						
-		        <a href="#" class="btn btn-default">
-		        	<span class="btn-lg glyphicon glyphicon-home"></span>   	
-		        </a>&nbsp;
-		        <a href="#" class="btn btn-default">
-		            <span class="btn-lg glyphicon glyphicon-edit"></span>
-		        </a>&nbsp;
-		        <a href="#" class="btn btn-default">
-		            <span class="btn-lg glyphicon glyphicon-user"></span>
-		        </a>&nbsp;
- 			</div>
+				</ul>
+			</div>
 		</div>
 		<div class="navbar-header" >
 	</div>
