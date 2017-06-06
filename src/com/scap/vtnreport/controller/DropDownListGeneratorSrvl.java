@@ -13,8 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.scap.vtnreport.utils.DbConnector;
 import com.scap.vtnreport.utils.ReadProperties;
-
- 
+import com.scap.vtnreport.dao.DropDownDao;
 
 /**
  * Servlet implementation class DropDownListGeneratorSrvl
@@ -22,71 +21,60 @@ import com.scap.vtnreport.utils.ReadProperties;
 @WebServlet("/DropDownListGeneratorSrvl")
 public class DropDownListGeneratorSrvl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DropDownListGeneratorSrvl() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public DropDownListGeneratorSrvl() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
 			doProcess(request, response);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-		} 
+		}
 	}
 
-	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		  response.setContentType("application/html");
-	        response.setCharacterEncoding("UTF-8");
-	        PrintWriter out = response.getWriter();
-	        
-	        ArrayList<HashMap<String,String>> dropdown = new ArrayList<HashMap<String,String>>();
-	        String list = "";
-	    	String options = "";
-	    	
-	        if(request.getParameter("tb").equals("USERS")){
-	            list = "SELECT '' AS CODE, '--- เลือกพนักงาน ---' AS NAME FROM USERS "+
-	         		   "UNION "+
-	            	   "SELECT USER_ID AS CODE, NAME AS NAME FROM USERS";
-	        }else if(request.getParameter("tb").equals("USER_ROLE")){
-	        	list = "SELECT '' AS CODE, '--- รายละเอียดสิทธิ์ผู้ใช้งาน ---' AS NAME FROM USER_ROLE "+
-	        		   "UNION "+
-	        		   "SELECT ROLE_ID AS CODE, ROLE_NAME AS NAME FROM USER_ROLE ORDER BY CODE";
-	        }else {
-	        	
-	        }
-	        
-	        if(request.getParameter("tb").equals("HOSPITAL_LOGIN")){
-	        	ReadProperties prop = new ReadProperties();
-	        	dropdown = prop.getDataObjReadPropertiesFile("hospital.properties");
-	        	
-	        } else {
-	            DbConnector db = new DbConnector();
-				db.doConnect();
-				dropdown = db.getData(list);
-				db.doDisconnect();
-	        }
-	        for(int i = 0; i<dropdown.size(); i++){
-	        	options += "<option value=\""+dropdown.get(i).get("CODE")+"\"> "+dropdown.get(i).get("NAME")+" </option>";
-	        }
-	       
-	    	out.println(options);
-	    	out.close();
+	protected void doProcess(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("application/html");
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+		String writeOut = "";
+		DropDownDao dropDown = new DropDownDao();
+
+		switch (request.getParameter("url")) {
+		case "getHospital":
+			writeOut = dropDown.getHospital();
+			break;
+		case "getYYYY":
+			writeOut = dropDown.getYYYY();
+			break;
+
+		default:
+			break;
+		}
+
+		out.println(writeOut);
+		out.close();
 	}
 }
