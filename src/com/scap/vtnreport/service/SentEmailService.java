@@ -26,8 +26,8 @@ public class SentEmailService {
 
 		final String auth_host = "smtp.gmail.com";
 		final String auth_port = "465";
-		final String auth_email = "dubbril@gmail.com";
-		final String auth_password = "infusion@1234";
+		final String auth_email = "bourneberry1@gmail.com";
+		final String auth_password = "berry@1234";
 
 		Properties props = new Properties();
 		props.put("mail.smtp.host", auth_host);

@@ -32,7 +32,7 @@ public class JasperBuilderService {
 		Connection conn = null;
 		try {
 			// get connecttion
-			// conn = DBConnector.getDBConnection();
+			 conn = DbConnector.getDBConnection();
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, conn);
 
 			JRPdfExporter exporter = new JRPdfExporter();

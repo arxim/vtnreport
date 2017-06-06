@@ -10,8 +10,8 @@
 <title>Doctor Report</title>
 </head>
 <body>
-	<div id="page-content-wrapper">
-		<div class="container-fluid">
+<!-- 	<div id="page-content-wrapper"> -->
+<!-- 		<div class="container-fluid"> -->
 			<div class="panel panel-vtn">
 				<div class="panel-heading text-center">
 					<b>Doctor Report</b>
@@ -39,7 +39,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+<!-- 		</div> -->
+<!-- 	</div> -->
 </body>
 </html>
