@@ -10,13 +10,15 @@
     <jsp:include page="../../../resources/template/script-header.jsp"></jsp:include>
 	<jsp:include page="../../../resources/template/navbar-header.jsp"></jsp:include>
 	<script src="${pageContext.request.contextPath}/resources/js/pages/main_menu/main_menu.js" type="text/javascript"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/pages/menu_payment/payment.js" type="text/javascript"></script>
 </head>
 <body>
 	<div id="page-content-wrapper">
-		<div class="container-fluid" id="panelContent">
-
-		</div>
+		<form id="frmPayment" action="/vtnreport/getPaymentContentSrvl" method="post">
+		</form>
+		<form id="frmTax" action="/vtnreport/getTaxContentSrvl" method="post">
+		</form>
+		<form id="frmEmail" action="/vtnreport/getEmailContentSrvl" method="post">
+		</form>
 	</div>
 </body>
 </html>

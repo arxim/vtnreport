@@ -19,10 +19,10 @@
 		</div> 	
 		<div class="collapse navbar-collapse navbar-right" id="divNavBar">
 			<div class="container text-center">				
-		        <a href="#" class="btn btn-default" onclick="getPaymentContent()">
+		        <a href="#" class="btn btn-default" onclick="getPaymnet()">
 		        	<span class="btn-lg glyphicon glyphicon-list-alt"></span>   	
 		        </a>&nbsp;
-		        <a href="#" class="btn btn-default">
+		        <a href="#" class="btn btn-default" onclick="getTax()">
 		            <span class="btn-lg glyphicon glyphicon-usd"></span>
 		        </a>&nbsp;
 		        <a href="#" class="btn btn-default">

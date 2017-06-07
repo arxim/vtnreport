@@ -15,7 +15,7 @@
 <body>		
 	<div class="panel panel-vtn">
 			<div class="panel-heading text-center">
-				<b>Send Email</b>
+				<b>Tax</b>
 			</div>			
 		</div>
 		<div class="container">

@@ -16,6 +16,7 @@ function getYYYY(){
 			}
 	 }); 
 }
+
 function getTax(){
 	$('#frmTax').submit();
 }
