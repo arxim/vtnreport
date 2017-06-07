@@ -1,5 +1,7 @@
 package com.scap.vtnreport.model;
 
+import java.math.BigDecimal;
+
 /**
  * @author Eakarat
  *
@@ -9,77 +11,89 @@ package com.scap.vtnreport.model;
  *
  */
 public class UserView {
-	 private String userId;
-	    private String password;
-	    private String firstname;
-	    private String lastname;
-	    private String email;
-	    private String roleId;
-	    private String hospitalId;
-	    private String used;
-	    private String active;
-	    private String roleName;
-		public String getUserId() {
-			return userId;
-		}
-		public void setUserId(String userId) {
-			this.userId = userId;
-		}
-		public String getPassword() {
-			return password;
-		}
-		public void setPassword(String password) {
-			this.password = password;
-		}
-		public String getFirstname() {
-			return firstname;
-		}
-		public void setFirstname(String firstname) {
-			this.firstname = firstname;
-		}
-		public String getLastname() {
-			return lastname;
-		}
-		public void setLastname(String lastname) {
-			this.lastname = lastname;
-		}
-		public String getEmail() {
-			return email;
-		}
-		public void setEmail(String email) {
-			this.email = email;
-		}
-		public String getRoleId() {
-			return roleId;
-		}
-		public void setRoleId(String roleId) {
-			this.roleId = roleId;
-		}
-		public String getHospitalId() {
-			return hospitalId;
-		}
-		public void setHospitalId(String hospitalId) {
-			this.hospitalId = hospitalId;
-		}
-		public String getUsed() {
-			return used;
-		}
-		public void setUsed(String used) {
-			this.used = used;
-		}
-		public String getActive() {
-			return active;
-		}
-		public void setActive(String active) {
-			this.active = active;
-		}
-		public String getRoleName() {
-			return roleName;
-		}
-		public void setRoleName(String roleName) {
-			this.roleName = roleName;
-		}
-	    
+	
+ 
+    private String hospitalCode;
+	private String loginName;
+	private String password;
+	private String name;
+	private BigDecimal userGroupCode;
+	private String active;
+    private String loginDate;
+    private String loginTime;
+    private String ipAddress;
+    private String email;
+    private String langCode;
+	public String getHospitalCode() {
+		return hospitalCode;
+	}
+	public void setHospitalCode(String hospitalCode) {
+		this.hospitalCode = hospitalCode;
+	}
+	public String getLoginName() {
+		return loginName;
+	}
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public BigDecimal getUserGroupCode() {
+		return userGroupCode;
+	}
+	public void setUserGroupCode(BigDecimal userGroupCode) {
+		this.userGroupCode = userGroupCode;
+	}
+	public String getActive() {
+		return active;
+	}
+	public void setActive(String active) {
+		this.active = active;
+	}
+	public String getLoginDate() {
+		return loginDate;
+	}
+	public void setLoginDate(String loginDate) {
+		this.loginDate = loginDate;
+	}
+	public String getLoginTime() {
+		return loginTime;
+	}
+	public void setLoginTime(String loginTime) {
+		this.loginTime = loginTime;
+	}
+	public String getIpAddress() {
+		return ipAddress;
+	}
+	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getLangCode() {
+		return langCode;
+	}
+	public void setLangCode(String langCode) {
+		this.langCode = langCode;
+	}
+	
+	
+	  
+		
 	    
 	    
 }

@@ -10,7 +10,7 @@ import com.scap.vtnreport.utils.AesUtil;
 import com.scap.vtnreport.utils.StringUtils;
 
 public class LoginService {
-	public String doLoginProcess(HttpServletRequest request) {
+	public UserView doLoginProcess(HttpServletRequest request) {
 		String isLoginLdapPass = "FAIL";
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -21,6 +21,7 @@ public class LoginService {
 		int iterationCount = Integer.parseInt(request.getParameter("hidIterationCount"));
 		int keySize = Integer.parseInt(request.getParameter("hidKeySize"));
 		String view = null;
+		UserView isUserView = null;
 
 		try {
 			AesUtil aesUtil = new AesUtil(keySize, iterationCount);
@@ -30,14 +31,16 @@ public class LoginService {
 
 			if (StringUtils.isEmpty(username, password, hospitalcode, passphrase, iv, salt)) {
 				isLoginLdapPass = "FAIL";
+				isUserView = null;
 			} else {
 				// àªç¤ external database LDAP
 				AuthenticationLDAP voAuthenticationLDAP = new AuthenticationLDAP();
-				
-				if (voAuthenticationLDAP.verifyUser(username,decryptPwd, hospitalcode)) {
+				UserView isLdapUser = voAuthenticationLDAP.verifyUserObj(username,decryptPwd, hospitalcode);
+				if (isLdapUser != null) {
 					
 					isLoginLdapPass = "LDAPLOGIN";
-					//save user login history
+					isUserView = isLdapUser;
+					 
 				}
 				// àªç¤ internal database
 				else {
@@ -45,14 +48,17 @@ public class LoginService {
 				   UserDao userDao = new UserDao();
 			       UserView isUser = userDao.getUser(username, MD5.encrypt(decryptPwd), hospitalcode);
 			       if(isUser != null){
-			    	   if (isUser != null && isUser.getRoleId() != null) {
-			    		   isLoginLdapPass = isUser.getRoleId();
+			    	   if (isUser != null && isUser.getUserGroupCode() != null) {
+			    		   isLoginLdapPass = isUser.getUserGroupCode().toString();
+			    		   isUserView = isUser;
 			    	   }else{
-			    		   isLoginLdapPass = "NONEROLE";   
+			    		   isLoginLdapPass = "NONEROLE";  
+			    		   isUserView = null;
 			    	   } 
 			    		//save user login history
 			        }else{
 			        	isLoginLdapPass = "FAIL";
+			        	isUserView = null;
 			        }
 					 
 
@@ -65,7 +71,7 @@ public class LoginService {
 			e.printStackTrace();
 		}
 
-		return isLoginLdapPass;
+		return isUserView;
 
 	}
 
