@@ -19,7 +19,7 @@
 		</div> 	
 		<div class="collapse navbar-collapse navbar-right" id="divNavBar">
 			<div class="container text-center">				
-		        <a href="#" class="btn btn-default" onclick="remove()">
+		        <a href="#" class="btn btn-default" onclick="getPaymentContent()">
 		        	<span class="btn-lg glyphicon glyphicon-list-alt"></span>   	
 		        </a>&nbsp;
 		        <a href="#" class="btn btn-default">

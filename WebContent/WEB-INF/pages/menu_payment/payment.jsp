@@ -1,7 +1,7 @@
 
 			<div class="panel panel-vtn">
 				<div class="panel-heading text-center">
-					<b>Doctor Report</b>
+					<b>Payment</b>
 				</div>			
 			</div>
 			<div class="container">
@@ -26,7 +26,6 @@
 							<div class="col-xs-6 col-sm-3">
 								<div class="form-group-xs-6 form-group-sm-3 ">
 								     <select class="form-control">
-								    	  <option value="">----select month-----</option>
 								    	  <option value="01">January</option>
 										  <option value="02">February</option>
 										  <option value="03">March</option>
@@ -48,7 +47,9 @@
 									</p>
 							</div>
 							<div class="col-xs-6 col-sm-3">
-								<input id="txtYear" name="txtYear" type="text" class="form-control input-sm" />
+								<select class="form-control" id="dwlYear">
+									
+								</select>
 							</div>
 						</div>
 						<div class="row">

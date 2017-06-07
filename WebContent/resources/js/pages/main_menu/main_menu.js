@@ -12,7 +12,3 @@ function getPaymentContent(){
 			}
 	 }); 
 }
-function remove(){
-	 $('#panelContent').empty(); 
-	  
-}
