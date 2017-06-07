@@ -2,7 +2,7 @@ $(document).ready(function() {
 	getYYYY();
 });
 
-function getYYYY();{
+function getYYYY(){
 	 $('#dwlYear').empty(); 
 	  $.ajax({
 			type : "POST",
@@ -12,7 +12,6 @@ function getYYYY();{
 				url : "getYYYY"
 			}, 
 			success : function(data) {
-//				alert(data);
 				$("#dwlYear").append(data);
 			}
 	 }); 

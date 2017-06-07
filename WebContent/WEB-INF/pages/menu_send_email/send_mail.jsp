@@ -12,8 +12,8 @@
 	<script src="${pageContext.request.contextPath}/resources/js/pages/main_menu/main_menu.js" type="text/javascript"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/pages/menu_payment/payment.js" type="text/javascript"></script>
 </head>
-<body>		
-	<div class="panel panel-vtn">
+<body>
+		<div class="panel panel-vtn">
 			<div class="panel-heading text-center">
 				<b>Send Email</b>
 			</div>			
@@ -39,7 +39,7 @@
 						</div>
 						<div class="col-xs-6 col-sm-3">
 							<div class="form-group-xs-6 form-group-sm-3 ">
-							     <select class="form-control" id="lblMonth">
+							     <select class="form-control" id="dwlMonth">
 							    	  <option value="01">January</option>
 									  <option value="02">February</option>
 									  <option value="03">March</option>
@@ -62,20 +62,16 @@
 						</div>
 						<div class="col-xs-6 col-sm-3">
 							<select class="form-control" id="dwlYear">
-								
 							</select>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 text-right">
-							<button type="button" class="btn btn-default" id="btnView">view</button>
-						</div>
+						<button type="button" class="btn btn-default" onclick="sendEmail()">view</button>
 					</div>
 				</div>
 			</div>
-			<form id="frmPayment" action="/vtnreport/getPaymentContentSrvl" method="post"> </form>
-			<form id="frmTax" action="/vtnreport/getTaxContentSrvl" method="post"> </form>
-			<form id="frmEmail" action="/vtnreport/getTaxContentSrvl" method="post"> </form>
 		</div>
-	<body>
+	</div>
+</body>
 </html>

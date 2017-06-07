@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MainMenuSrv
+ * Servlet implementation class getEmailContent
  */
-@WebServlet("/MainMenuSrv")
-public class MainMenuSrv extends HttpServlet {
+@WebServlet("/getEmailContent")
+public class getEmailContent extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainMenuSrv() {
+    public getEmailContent() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,9 +29,8 @@ public class MainMenuSrv extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		RequestDispatcher dispatcher =this.getServletContext().getRequestDispatcher("/WEB-INF/pages/menu_payment/payment.jsp");
-		dispatcher.forward(request, response);
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
@@ -39,7 +38,9 @@ public class MainMenuSrv extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/pages/email/sent_mail_payment.jsp");
+//		rd.include(request, response);
+		rd.forward(request, response);
 	}
 
 }
