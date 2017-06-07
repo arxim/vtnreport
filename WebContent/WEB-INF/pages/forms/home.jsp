@@ -9,6 +9,7 @@
 </head>
 <body>
 <p>Login Success!!</p> 
+	<p><span><label>status : </label></label><%= session.getAttribute( "vaMessage" ) %></span></p>
 	<p><span><label>hospital session : </label></label><%= session.getAttribute( "hospitalcode" ) %></span></p>
 	<input type="hidden"  id="hidHospitalcode" value="${hospitalcode}" />
 	<p><a href="${pageContext.request.contextPath}/LogoutSrvl">Logout</a></p>

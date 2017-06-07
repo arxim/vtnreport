@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
  
+
+
+
+
 import com.scap.vtnreport.service.LoginService;
+import com.scap.vtnreport.utils.AesUtil;
+import com.scap.vtnreport.utils.Encrytion;
 
 /**
  * Servlet implementation class LoginAuthenticationSrvl
@@ -34,7 +41,7 @@ public class LoginSrvl extends HttpServlet {
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		 
 	}
 
 	/**
@@ -45,76 +52,51 @@ public class LoginSrvl extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
-		PrintWriter pw = response.getWriter();
-//		String username = request.getParameter("username");
-//		String password = request.getParameter("password");
+		PrintWriter pw = response.getWriter(); 
+		
 		String hospitalcode = request.getParameter("hospitalcode");
-		String passphrase = request.getParameter("hidPassphrase");
-//		String iv = request.getParameter("hidIv");
-//		String salt = request.getParameter("hidSalt");
-//		int iterationCount = Integer.parseInt(request.getParameter("hidIterationCount"));
-//		int keySize = Integer.parseInt(request.getParameter("hidKeySize"));
-//		String view = null;
-
+		String passphrase = request.getParameter("hidPassphrase"); 
+        
 		 try {
 		 
 			HttpSession sessionPass = request.getSession(false); 
 			String sessionInSrvl = sessionPass.getAttribute("passphrase").toString();
-//			System.out.println("sessionPass "+sessionPass.toString());
-//			System.out.println("sessionPass.getAttribute"+sessionPass.getAttribute("passphrase").toString());
-//			System.out.println("passphrase "+passphrase);
-//			System.out.println("sessionPass.equals(passphrase) "+sessionPass.equals(passphrase));
+        
 			if(sessionInSrvl != null && sessionInSrvl.equals(passphrase)){
 				LoginService loginService = new LoginService();
-				String isLogin = loginService.doLoginProcess(request);
-				if (isLogin  != "FAIL") {
+				String isLoginRole = loginService.doLoginProcess(request);
+				if (isLoginRole  != "FAIL") {
+					
 					HttpSession session = request.getSession();
 					session.setAttribute("hospitalcode", hospitalcode);
-					request.getRequestDispatcher("/WEB-INF/pages/forms/NewFile.jsp").include(request, response);
+					session.setAttribute("role", isLoginRole);
+					session.setAttribute("vaMessage", "LOGIN");
+					request.setAttribute("vaMessage","LOGIN");
+//					request.getRequestDispatcher(request.getContextPath()+"/HomeSrvl").include(request, response);
+					response.sendRedirect(request.getContextPath()+"/HomeSrvl");
+//					request.getRequestDispatcher("/WEB-INF/pages/forms/home.jsp").include(request, response);
 				     
-//					 RequestDispatcher rd =
-//							 request.getRequestDispatcher("/WEB-INF/pages/forms/NewFile.jsp");
-//							 rd.forward(request, response);
+ 
 				}else{
-//					 RequestDispatcher rd =
-//					 request.getRequestDispatcher("/index.html");
-//					 rd.forward(request, response);
+					 
+					request.setAttribute("vaMessage","FAIL");  
 					response.sendRedirect(request.getContextPath());
-				}
-				
-				
-//				AesUtil aesUtil = new AesUtil(keySize, iterationCount);
-//				
-//				// decrypt aes from passphrase session
-//		        String decryptPwd = aesUtil.decrypt(salt, iv, passphrase, password);
-//			    
-//		    	LoginService loginService = new LoginService();
-//				String isLogin = loginService.doLoginProcess(username, decryptPwd,hospitalcode);
-//				if (isLogin == "LDAPLOGIN" || isLogin == "SYSLOGIN") {
-//					request.getRequestDispatcher("/WEB-INF/pages/forms/NewFile.jsp").include(request, response);
-//					HttpSession session = request.getSession();
-//					session.setAttribute("hospitalcode", hospitalcode);
-//				} else {
-//					// RequestDispatcher rd =
-//					// request.getRequestDispatcher("/index.html");
-//					// rd.forward(request, response);
-//					request.getRequestDispatcher("/index.html").include(request,response);
-//				}
-			
-			
-			 
-
+				} 
 		
-		}else{
-//			 RequestDispatcher rd =
-//					 request.getRequestDispatcher("/index.html");
-//					 rd.forward(request, response);
+		}
+		
+	   else{ 
+			 
+			
+			request.setAttribute("vaMessage","FAIL"); 
 			response.sendRedirect(request.getContextPath());
 		}
-//		pw.close();
+		pw.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			// TODO: handle exception
+			request.setAttribute("vaMessage","FAIL");
+		 
+			response.sendRedirect(request.getContextPath());
 		}
 		
 	}

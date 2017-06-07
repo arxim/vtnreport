@@ -1,9 +1,7 @@
 package com.scap.vtnreport.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,20 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.scap.vtnreport.utils.AesUtil;
-import com.scap.vtnreport.utils.Encrytion;
-
 /**
- * Servlet implementation class LoadLogin
+ * Servlet implementation class HomeSrvl
  */
-@WebServlet("/LoadLoginSrvl")
-public class LoadLoginSrvl extends HttpServlet {
+@WebServlet("/HomeSrvl")
+public class HomeSrvl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoadLoginSrvl() {
+    public HomeSrvl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,21 +29,13 @@ public class LoadLoginSrvl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.setContentType("text/html");
-		PrintWriter pw = response.getWriter(); 
-		String passphrase = AesUtil.random(16); 
-		
-		try { 
-			HttpSession session = request.getSession();
-			session.setAttribute("passphrase", Encrytion.encrypt(passphrase));
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/pages/forms/login.jsp");
-			rd.forward(request, response);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		  
-		pw.close();
+		System.out.println("home   !!!! "); 
+		HttpSession session = request.getSession(false);
+		session.setAttribute("hoisLoginRolespitalcode", session.getAttribute("hospitalcode"));
+		session.setAttribute("role", session.getAttribute("role"));
+		session.setAttribute("vaMessage", session.getAttribute("vaMessage"));
+		request.setAttribute("vaMessage",request.getAttribute("vaMessage"));
+		request.getRequestDispatcher("/WEB-INF/pages/forms/home.jsp").include(request, response);
 	}
 
 	/**
@@ -56,7 +43,6 @@ public class LoadLoginSrvl extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

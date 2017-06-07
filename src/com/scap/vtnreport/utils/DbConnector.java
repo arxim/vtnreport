@@ -18,6 +18,7 @@ import java.sql.SQLException;
 
 
 
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -332,4 +333,27 @@ public class DbConnector {
     public String getDropDownList(String s){
     	return "";
     }
+    public static ArrayList<HashMap<String, String>> convertArrayListHashMap (ResultSet rs) throws Exception{
+		ArrayList<HashMap<String, String>> lsQueryData = new ArrayList<HashMap<String, String>>();
+		try {
+			ResultSetMetaData rsMetaData = rs.getMetaData();
+			while (rs.next()) {
+				HashMap<String, String> rtnData = new HashMap<String, String>();
+				for (int i = 1; i <= rsMetaData.getColumnCount(); i++) {
+					String value = "";
+					if (rs.getString(i) != null && !rs.getString(i).equals("")) {
+						value = rs.getString(i);
+						rtnData.put(rsMetaData.getColumnName(i), value);
+					} else {
+						rtnData.put(rsMetaData.getColumnName(i), value);
+					}
+				}
+				lsQueryData.add(rtnData);
+			}
+			rs.close();
+		} catch (Exception e) {
+			System.out.println("Error " + e.getMessage());
+		}
+		return lsQueryData;
+	}
 }

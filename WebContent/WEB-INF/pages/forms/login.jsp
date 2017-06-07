@@ -47,7 +47,7 @@
           </label>
         </p>
         <p class="submit"><input type="submit" name="commit" value="Login"></p>
-    
+         
        <!-- HIDDEN SESSION -->
         
       <input id="hidPassphrase" name="hidPassphrase" type="hidden" value="${passphrase}"/>
