@@ -25,7 +25,7 @@
 		        <a href="#" class="btn btn-default">
 		            <span class="btn-lg glyphicon glyphicon-usd"></span>
 		        </a>&nbsp;
-		        <a href="#" class="btn btn-default">
+		        <a href="#" class="btn btn-default" onclick="sendEmail()">
 		            <span class="btn-lg glyphicon glyphicon-send"></span>
 		        </a>&nbsp;
 	 			<ul class="nav navbar-nav navbar-right">
