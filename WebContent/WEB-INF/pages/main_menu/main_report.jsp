@@ -9,7 +9,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <jsp:include page="../../../resources/template/script-header.jsp"></jsp:include>
 	<jsp:include page="../../../resources/template/navbar-header.jsp"></jsp:include>
-	<script src="${pageContext.request.contextPath}/resources/js/pages/main_menu/main_report.js" type="text/javascript"></script>
 	
 </head>
 <body>
@@ -26,65 +25,11 @@
 						<div class="row">
 							<div class="col-xs-6 col-sm-3 control-label">
 								<p class="text-right">
-									<b id="lblFrmDoctorCode">From Doctor Code</b>
+									<b id="lblDoctorCode">Doctor Code</b>
 								</p>
 							</div>
 							<div class="col-xs-6 col-sm-3">
-								<input id="txtFrmDoctorCode" name="txtFrmDoctorCode" type="text" class="form-control input-sm" />
-							</div>
-							<div class="col-xs-6 col-sm-3 control-label">
-								<p class="text-right">
-									<b id="lblToDoctorCode">To Doctor Code</b>
-								</p>
-							</div>
-							<div class="col-xs-6 col-sm-3">
-								<input id="txtToDoctorCode" name="txtToDoctorCode" type="text" class="form-control input-sm" />
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-xs-6 col-sm-3 control-label">
-								<p class="text-right">
-									<b id="lblDoctorCategory">Doctor Category</b>
-								</p>
-							</div>
-							<div class="col-xs-6 col-sm-3">
-								<input id="txtDoctorCategory" name="txtDoctorCategory" type="text" class="form-control input-sm" />
-							</div>
-							<div class="col-xs-6 col-sm-3 control-label">
-								<p class="text-right">
-									<b id="lblDoctorDepartment">Doctor Department</b>
-								</p>
-							</div>
-							<div class="col-xs-6 col-sm-3">
-								<input id="txtDoctorDepartment" name="txtDoctorDepartment" type="text" class="form-control input-sm" />
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-xs-6 col-sm-3 control-label">
-								<p class="text-right">
-									<b id="lblExpenseCode">Expense Code</b>
-								</p>
-							</div>
-							<div class="col-xs-6 col-sm-3">
-								<input id="txtExpenseCode" name="txtExpenseCode" type="text" class="form-control input-sm" />
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-xs-6 col-sm-3 control-label">
-								<p class="text-right">
-									<b id="lblExpenseSign">Expense Sign</b>
-								</p>
-							</div>
-							<div class="col-xs-6 col-sm-3">
-								<input id="txtExpenseSign" name="txtExpenseSign" type="text" class="form-control input-sm" />
-							</div>
-							<div class="col-xs-6 col-sm-3 control-label">
-								<p class="text-right">
-									<b id="lblExpenseAccountCode">Expense Account Code</b>
-								</p>
-							</div>
-							<div class="col-xs-6 col-sm-3">
-								<input id="txtExpenseAccountCode" name="txtExpenseAccountCode" type="text" class="form-control input-sm" />
+								<input id="txtDoctorCode" name="txtDoctorCode" type="text" class="form-control input-sm" />
 							</div>
 						</div>
 						<div class="row">

@@ -70,12 +70,12 @@ public class LoginSrvl extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("hospitalcode", hospitalcode);
 					session.setAttribute("role", isLoginRole);
-					session.setAttribute("vaMessage", "LOGIN");
-					request.setAttribute("vaMessage","LOGIN");
+					session.setAttribute("vaMessage", "LOGIN"); 
 //					request.getRequestDispatcher(request.getContextPath()+"/HomeSrvl").include(request, response);
-					response.sendRedirect(request.getContextPath()+"/HomeSrvl");
+//					response.sendRedirect(request.getContextPath()+"/MainMenuSrv");
 //					request.getRequestDispatcher("/WEB-INF/pages/forms/home.jsp").include(request, response);
-				     
+					RequestDispatcher rd = request.getRequestDispatcher("/MainMenuSrv");
+					rd.forward(request, response);
  
 				}else{
 					 
