@@ -1,0 +1,73 @@
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8" --%>
+<%--     pageEncoding="UTF-8"%> --%>
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
+<!-- <html> -->
+<!-- <head> -->
+<!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
+<%-- <jsp:include page="../../../resources/template/script-header.jsp"></jsp:include> --%>
+<%-- <%-- <jsp:include page="../../../resources/template/navbar-header.jsp"></jsp:include> --%> --%>
+<%-- <script src="${pageContext.request.contextPath}/resources/js/pages/mail/sent_mail_payment.js" type="text/javascript"></script> --%>
+<!-- <title>Doctor Report</title> -->
+<!-- </head> -->
+<!-- <body> -->
+	<div id="page-content-wrapper">
+		<div class="container-fluid">
+			<div class="panel panel-vtn">
+				<div class="panel-heading text-center">
+					<b>Process Sent Email</b>
+				</div>
+			</div>
+			<div class="container">
+			<div class="panel-body">
+					<div class="form-horizontal">
+						<div class="row">
+							<div class="col-xs-6 col-sm-3 control-label">
+								<p class="text-right">
+									<b id="lblDoctorCode">Doctor Code : </b>
+								</p>
+							</div>
+							<div class="col-xs-6 col-sm-3">
+								<input id="txtDoctorCode" name="txtDoctorCode" type="text" class="form-control input-sm" />
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-6 col-sm-3 control-label">
+								<p class="text-right">
+									<b id="lblMM">Month : </b>
+								</p>
+							</div>
+							<div class="col-xs-6 col-sm-3">
+								 <select class="form-control" id="dwlMM">
+								 	<option value="">----select month-----</option>
+							    	  <option value="01">January</option>
+									  <option value="02">February</option>
+									  <option value="03">March</option>
+									  <option value="04">April</option>
+									  <option value="05">May</option>
+									  <option value="06">June</option>
+									  <option value="07">July</option>
+									  <option value="08">August</option>
+									  <option value="09">September</option>
+									  <option value="10">October</option>
+									  <option value="11">November</option>
+									  <option value="12">December</option>
+								 </select>
+							</div>
+							<div class="col-xs-6 col-sm-3 control-label">
+								<p class="text-right">
+									<b id="lblYYYY">Year : </b>
+								</p>
+							</div>
+							<div class="col-xs-6 col-sm-3">
+								 <select class="form-control" id="dwlYYYY">
+								 	<option value="">----select year-----</option>
+								 </select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- </body> -->
+<!-- </html> -->

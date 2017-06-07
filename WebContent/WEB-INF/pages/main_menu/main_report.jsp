@@ -9,6 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <jsp:include page="../../../resources/template/script-header.jsp"></jsp:include>
 	<jsp:include page="../../../resources/template/navbar-header.jsp"></jsp:include>
+	<script src="${pageContext.request.contextPath}/resources/js/pages/main_menu/main_report.js" type="text/javascript"></script>
 	
 </head>
 <body>
@@ -122,15 +123,16 @@
 						</div>
 						<div class="row">
 							<div class="col-xs-6 col-sm-6">
-								<button type="button" class="btn btn-default">reset</button>
+								<button type="button" class="btn btn-default" onclick="removeEmt()">reset</button>
 							</div>
 							<div class="col-xs-6 col-sm-6 text-right">
-								<button type="button" class="btn btn-default">view</button>
+								<button type="button" class="btn btn-default" onclick="getYYYY()">view</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<div class="containner" id="tbReport"></div>
 		</div>
 	</div>
 </body>
