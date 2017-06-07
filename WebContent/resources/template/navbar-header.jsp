@@ -25,7 +25,7 @@
 		        <a href="#" class="btn btn-default" onclick="getTax()">
 		            <span class="btn-lg glyphicon glyphicon-usd"></span>
 		        </a>&nbsp;
-		        <a href="#" class="btn btn-default" onclick="sendEmail()">
+		        <a href="#" class="btn btn-default" onclick="getEmail()">
 		            <span class="btn-lg glyphicon glyphicon-send"></span>
 		        </a>&nbsp;
 	 			<ul class="nav navbar-nav navbar-right">

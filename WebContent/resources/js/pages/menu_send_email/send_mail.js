@@ -16,6 +16,17 @@ function getYYYY(){
 			}
 	 }); 
 }
+
+function getPaymnet(){
+	$('#frmPayment').submit();
+}
+function getTax(){
+	$('#frmTax').submit();
+}
+function getEmail(){
+	$('#frmEmail').submit();
+}
+
 function sendEmail(){
 	var yyyy =  $('#dwlYear').val();
 	var mm = $('#dwlMonth').val()
