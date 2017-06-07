@@ -12,7 +12,7 @@ function  loadHospitalDropdown() {
 			type : "POST",
 			url : "/vtnreport/DropDownListGeneratorSrvl",
 			data : {
-				tb : "HOSPITAL_LOGIN"
+				url : "getHospital"
 			},
 			success : function(data) {
 				if($.trim(data) !=""){

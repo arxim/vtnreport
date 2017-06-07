@@ -10,13 +10,15 @@
 <title>Doctor Report</title>
 </head>
 <body>
-<!-- 	<div id="page-content-wrapper"> -->
-<!-- 		<div class="container-fluid"> -->
+	<div id="page-content-wrapper">
+		<div class="container-fluid">
 			<div class="panel panel-vtn">
 				<div class="panel-heading text-center">
-					<b>Doctor Report</b>
+					<b>Process Sent Email</b>
 				</div>
-				<div class="panel-body">
+			</div>
+			<div class="container">
+			<div class="panel-body">
 					<div class="form-horizontal">
 						<div class="row">
 							<div class="col-xs-6 col-sm-3 control-label">
@@ -39,7 +41,7 @@
 					</div>
 				</div>
 			</div>
-<!-- 		</div> -->
-<!-- 	</div> -->
+		</div>
+	</div>
 </body>
 </html>
