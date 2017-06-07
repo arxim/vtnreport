@@ -17,7 +17,7 @@ public class DropDownDao {
 		db.doDisconnect();
 
 		int year = Integer.parseInt(data.get(0).get("CODE"));
-		for (int i = 1; i < 13; i++) {
+		for (int i = 0; i < 13; i++) {
 			dropdown += "<option value=\"" + (year + i) + "\"> " + (year + i) + " </option>";
 		}
 		return dropdown;

@@ -1,6 +1,7 @@
 package com.scap.vtnreport.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,9 +30,15 @@ public class SentEmailSrv extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/pages/report/doctor_report.jsp");
-		dispatcher.forward(request, response);
+//		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("");
+//		dispatcher.forward(request, response);
 
+		PrintWriter out = response.getWriter();
+		out.println("In dispatcherServlet <BR>");
+ 
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/pages/mail/sent_mail_payment.jsp");
+		rd.include(request, response);
+		
 //		doGet(request, response);
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
