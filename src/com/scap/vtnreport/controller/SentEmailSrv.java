@@ -60,6 +60,7 @@ public class SentEmailSrv extends HttpServlet {
 		GetEmailDao vaEmail = new GetEmailDao();
 		ArrayList<HashMap<String, String>> arrData = vaEmail.getEmail(hospitalCode, doctorCode, yyyy, mm);
 		String email = arrData.get(0).get("EMAIL");
+		String password = arrData.get(0).get("PASS_ENCRYPT");
 		Map<String, Object> params = new HashMap<>();
 		params.put("hospital_code",arrData.get(0).get("HOSPITAL_CODE"));
 		params.put("from_doctor", arrData.get(0).get("DOCTOR_CODE"));
@@ -76,8 +77,12 @@ public class SentEmailSrv extends HttpServlet {
 			InputStream jasperStream = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/ExpenseDetail.jasper");
 			JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
 //			voJasperBuilder.jasperBuilder(jasperStream, jasperReport, response, params, "application/pdf","InterfaceDfTransaction");
-			bos = voJasperBuilder.jasperBuilderPdfEncrypt(jasperStream, jasperReport, response, params, "application/pdf","InterfaceDfTransaction");
-			message  = sentEmail.Sentmail(bos, email);
+			bos = voJasperBuilder.jasperBuilderPdfEncrypt(jasperStream, jasperReport, response, params, "application/pdf","InterfaceDfTransaction",password);
+			
+			for(int i = 0;i<=10;i++){
+				message  = sentEmail.Sentmail(bos, email)+i;
+			}
+			
 			System.out.println(message);
 		} catch (JRException e) {
 			// TODO Auto-generated catch block

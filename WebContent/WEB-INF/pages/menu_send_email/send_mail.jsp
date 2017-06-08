@@ -30,6 +30,9 @@
 						<div class="col-xs-6 col-sm-3">
 							<input id="txtDoctorCode" name="txtDoctorCode" type="text" class="form-control input-sm" />
 						</div>
+						<div class="col-xs-6 col-sm-6">
+							<input id="txtDoctorName" name="txtDoctorName" type="text" class="form-control input-sm" disabled="disabled" />
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-xs-6 col-sm-3 control-label">
@@ -65,22 +68,20 @@
 							</select>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-xs-12 col-sm-12 text-right">
-						<button type="button" class="btn btn-default" onclick="sendEmail()">view</button>
+					<div class="form-group"></div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 text-right">
+						<button type="button" class="btn btn-default" onclick="sendEmail()">Send Email</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<input type="hidden" id="hidUserCode" name="hidUserCode" value="<%= session.getAttribute("userid") %>">
 		<input type="hidden" id="hidRole" name="hidRole" value="<%= session.getAttribute("role") %>">
-		<input type="hidden" id="hidHospitalCode" name="hidHospitalCode" value="<%= session.getAttribute("hospital")%>">
-		<form id="frmPayment" action="/vtnreport/getPaymentContentSrvl" method="post">
-		</form>
-		<form id="frmTax" action="/vtnreport/getTaxContentSrvl" method="post">
-		</form>
-		<form id="frmEmail" action="/vtnreport/getEmailContentSrvl" method="post">
-		</form>
+		<input type="hidden" id="hidHospitalCode" name="hidHospitalCode" value="<%= session.getAttribute("hospitalcode")%>">
+		<form id="frmPayment" action="/vtnreport/getPaymentContentSrvl" method="post"> </form>
+		<form id="frmTax" action="/vtnreport/getTaxContentSrvl" method="post"> </form>
+		<form id="frmEmail" action="/vtnreport/getEmailContentSrvl" method="post"> </form>
 	</div>
 </body>
 </html>
