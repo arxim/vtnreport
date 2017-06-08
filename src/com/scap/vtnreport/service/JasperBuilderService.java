@@ -26,7 +26,7 @@ import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 public class JasperBuilderService {
 
 	public ByteArrayOutputStream jasperBuilderPdfEncrypt(InputStream jasperStream, JasperReport jasperReport,
-			HttpServletResponse response, Map<String, Object> params, String contentType, String vaFilesName)
+			HttpServletResponse response, Map<String, Object> params, String contentType, String vaFilesName,String password)
 			throws JRException, IOException, SQLException {
 		ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
 		Connection conn = null;
@@ -42,8 +42,8 @@ public class JasperBuilderService {
 			SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
 			configuration.setEncrypted(true);
 			configuration.set128BitKey(true);
-			configuration.setUserPassword("jasper");
-			configuration.setOwnerPassword("reports");
+			configuration.setUserPassword(password);
+			configuration.setOwnerPassword(password);
 			configuration.setPermissions(PdfWriter.ALLOW_COPY);
 			exporter.setConfiguration(configuration);
 			exporter.exportReport();

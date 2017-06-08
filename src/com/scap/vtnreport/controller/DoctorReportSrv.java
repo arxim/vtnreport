@@ -64,7 +64,7 @@ public class DoctorReportSrv extends HttpServlet {
 			InputStream jasperStream = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/ExpenseDetail.jasper");
 			JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
 //			voJasperBuilder.jasperBuilder(jasperStream, jasperReport, response, params, "application/pdf","InterfaceDfTransaction");
-			bos = voJasperBuilder.jasperBuilderPdfEncrypt(jasperStream, jasperReport, response, params, "application/pdf","InterfaceDfTransaction");
+			bos = voJasperBuilder.jasperBuilderPdfEncrypt(jasperStream, jasperReport, response, params, "application/pdf","InterfaceDfTransaction","");
 			message  = sentEmail.Sentmail(bos, "sompong21153001@hotmail.co.th");
 			System.out.println(message);
 		} catch (JRException e) {
