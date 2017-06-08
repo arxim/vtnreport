@@ -19,7 +19,7 @@
 		</div> 	
 		<div class="collapse navbar-collapse navbar-right" id="divNavBar">
 			<div class="container text-center">				
-		        <a href="#" class="btn btn-default" onclick="getPaymnet()">
+		      <!--   <a href="#" class="btn btn-default" onclick="getPaymnet()">
 		        	<span class="btn-lg glyphicon glyphicon-list-alt"></span>   	
 		        </a>&nbsp;
 		        <a href="#" class="btn btn-default" onclick="getTax()">
@@ -27,12 +27,12 @@
 		        </a>&nbsp;
 		        <a href="#" class="btn btn-default" onclick="getEmail()">
 		            <span class="btn-lg glyphicon glyphicon-send"></span>
-		        </a>&nbsp; -->
+		        </a>&nbsp;  --> 
 		        <%= session.getAttribute( "menuitem" ) %>
 	 			<ul class="nav navbar-nav navbar-right">
 					<li style="color: #FFFFFF">
 						<br/>
-						<a href="javascript:void(0);" style="color: #ede3e3">FirstName : &nbsp; LastName</a>
+						<a href="javascript:void(0);" style="color: #ede3e3"><%= session.getAttribute( "name" ) %></a>
 					</li>
 					<li>
 						<div class="btn btn-lg">
