@@ -36,17 +36,17 @@ public class MenuDao {
  
 				switch (lstMenuRole.get(i).get("MENU_CODE")) {
 				case "RE001":
-					value +="<a href=\"#\" class=\"btn btn-default\">"
+					value +="<a href=\"#\" class=\"btn btn-default\" onclick=\"getPaymnet()\">"
 							+ " <span class=\"btn-lg glyphicon glyphicon-list-alt\"></span>"
 							+ "</a>&nbsp;";
 					break;
 				case "RE002":
-					value +="<a href=\"#\" class=\"btn btn-default\">"
+					value +="<a href=\"#\" class=\"btn btn-default\"onclick=\"getTax()\">"
 							+ " <span class=\"btn-lg glyphicon glyphicon-usd\"></span>"
 							+ " </a>&nbsp;";
 					break;
 				case "RE003":
-					value +="<a href=\"#\" class=\"btn btn-default\">"
+					value +="<a href=\"#\" class=\"btn btn-default\" onclick=\"getEmail()\">"
 							+ " <span class=\"btn-lg glyphicon glyphicon-send\"></span>"
 						    + " </a>&nbsp;";
 					break;
