@@ -62,10 +62,15 @@ function sendEmail(){
 	var yyyy =  $('#dwlYear').val();
 	var mm = $('#dwlMonth').val()
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	var hospitalCode = "VTN01";
 	var doctorCode = "70001"
 >>>>>>> stash
+=======
+	var hospitalCode = "VTN01";
+	var doctorCode = "70001"
+>>>>>>> branch 'master' of https://github.com/arxim/vtnreport.git
 	var hospitalCode = $('#hidHospitalCode').val();
 	var doctorCode = $('#txtDoctorCode').val();
 	

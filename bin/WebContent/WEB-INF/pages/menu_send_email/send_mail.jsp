@@ -10,6 +10,7 @@
     <jsp:include page="../../../resources/template/script-header.jsp"></jsp:include>
 	<jsp:include page="../../../resources/template/navbar-header.jsp"></jsp:include>
 	<script src="${pageContext.request.contextPath}/resources/js/pages/main_menu/main_menu.js" type="text/javascript"></script>
+<<<<<<< HEAD
 	<script src="${pageContext.request.contextPath}/resources/js/pages/menu_send_email/send_mail.js" type="text/javascript"></script>
 </head>
 <body>
@@ -32,6 +33,27 @@
 						</div>
 						<div class="col-xs-6 col-sm-6">
 							<input id="txtDoctorName" name="txtDoctorName" type="text" class="form-control input-sm" disabled="disabled" />
+=======
+	<script src="${pageContext.request.contextPath}/resources/js/pages/menu_payment/payment.js" type="text/javascript"></script>
+</head>
+<body>
+		<div class="panel panel-vtn">
+			<div class="panel-heading text-center">
+				<b>Send Email</b>
+			</div>			
+		</div>
+		<div class="container">
+			<div class="panel-body">
+				<div class="form-horizontal">
+					<div class="row">
+						<div class="col-xs-6 col-sm-3 control-label">
+							<p class="text-right">
+								<b id="lblDoctorCode">Doctor Code</b>
+							</p>
+						</div>
+						<div class="col-xs-6 col-sm-3">
+							<input id="txtDoctorCode" name="txtDoctorCode" type="text" class="form-control input-sm" />
+>>>>>>> branch 'master' of https://github.com/arxim/vtnreport.git
 						</div>
 					</div>
 					<div class="row">
