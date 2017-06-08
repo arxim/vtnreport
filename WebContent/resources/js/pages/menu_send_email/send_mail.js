@@ -20,12 +20,13 @@ $(document).ready(function() {
 	            },
 	            success: function(data) {
 	                response(data);
+	                $("#txtDoctorName").val("");
 	            }
 	        });
 	    },
 	 select: function(event, ui) {
 	   event.preventDefault();
-	//   $("#txtDoctorCode").val(ui.item.value); // Code : Description
+	   $("#txtDoctorName").val(ui.item.value); // Code : Description
 	   $("#txtDoctorCode").val(ui.item.id); // Code
 	 }
 	});
@@ -57,24 +58,17 @@ function getEmail(){
 	$('#frmEmail').submit();
 }
 
-//function checkRole(){
-//	role = $('#hidRole').val();
-//	user = $('#hidUserCode').val();
-//	if(role == 4){
-//		$('#txtDoctorCode').val(user);
-//		$('#txtDoctorCode').prop( "disabled", true );
-//	}
-//}
-
-
-
-
 function sendEmail(){
 	var yyyy =  $('#dwlYear').val();
 	var mm = $('#dwlMonth').val()
+<<<<<<< HEAD
+=======
 	var hospitalCode = "VTN01";
 	var doctorCode = "70001"
-		
+>>>>>>> stash
+	var hospitalCode = $('#hidHospitalCode').val();
+	var doctorCode = $('#txtDoctorCode').val();
+	
 		$.ajax({
 			type : "POST",
 			url : "/vtnreport/SentEmailSrv",
