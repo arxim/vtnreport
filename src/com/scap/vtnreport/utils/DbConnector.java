@@ -160,6 +160,24 @@ public class DbConnector {
 		}
         return arrayObj;
     }
+    
+	public static JSONArray getJsonAutoComplete(ResultSet rs) {
+		JSONArray arrayObj = new JSONArray();
+		JSONObject jsonObj = new JSONObject();
+		try {
+			while (rs.next()) {
+				jsonObj = new JSONObject();
+				jsonObj.put("id", rs.getString(1)); // Code
+				jsonObj.put("view", rs.getString(2)); // Description
+				jsonObj.put("value", rs.getString(3)); // Code : Description ...
+				arrayObj.put(jsonObj);
+			}
+			rs.close();
+		} catch (Exception e) {
+			System.out.println("Error " + e.getMessage());
+		}
+		return arrayObj;
+	}
     public JSONObject getJsonArrayData(String sql){
     	//return object data for datatable
         JSONArray arrayObj=new JSONArray();

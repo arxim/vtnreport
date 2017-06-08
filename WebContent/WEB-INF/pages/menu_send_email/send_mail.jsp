@@ -10,7 +10,7 @@
     <jsp:include page="../../../resources/template/script-header.jsp"></jsp:include>
 	<jsp:include page="../../../resources/template/navbar-header.jsp"></jsp:include>
 	<script src="${pageContext.request.contextPath}/resources/js/pages/main_menu/main_menu.js" type="text/javascript"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/pages/menu_payment/payment.js" type="text/javascript"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/pages/menu_send_email/send_mail.js" type="text/javascript"></script>
 </head>
 <body>
 		<div class="panel panel-vtn">
@@ -29,6 +29,9 @@
 						</div>
 						<div class="col-xs-6 col-sm-3">
 							<input id="txtDoctorCode" name="txtDoctorCode" type="text" class="form-control input-sm" />
+						</div>
+						<div class="col-xs-6 col-sm-6">
+							<input id="txtDoctorName" name="txtDoctorName" type="text" class="form-control input-sm" disabled="disabled" />
 						</div>
 					</div>
 					<div class="row">
@@ -65,19 +68,20 @@
 							</select>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-xs-12 col-sm-12 text-right">
-						<button type="button" class="btn btn-default" onclick="sendEmail()">view</button>
+					<div class="form-group"></div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 text-right">
+						<button type="button" class="btn btn-default" onclick="sendEmail()">Send Email</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<form id="frmPayment" action="/vtnreport/getPaymentContentSrvl" method="post">
-		</form>
-		<form id="frmTax" action="/vtnreport/getTaxContentSrvl" method="post">
-		</form>
-		<form id="frmEmail" action="/vtnreport/getEmailContentSrvl" method="post">
-		</form>
+		<input type="hidden" id="hidUserCode" name="hidUserCode" value="<%= session.getAttribute("userid") %>">
+		<input type="hidden" id="hidRole" name="hidRole" value="<%= session.getAttribute("role") %>">
+		<input type="hidden" id="hidHospitalCode" name="hidHospitalCode" value="<%= session.getAttribute("hospitalcode")%>">
+		<form id="frmPayment" action="/vtnreport/getPaymentContentSrvl" method="post"> </form>
+		<form id="frmTax" action="/vtnreport/getTaxContentSrvl" method="post"> </form>
+		<form id="frmEmail" action="/vtnreport/getEmailContentSrvl" method="post"> </form>
 	</div>
 </body>
 </html>
