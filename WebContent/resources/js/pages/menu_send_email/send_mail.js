@@ -61,11 +61,6 @@ function getEmail(){
 function sendEmail(){
 	var yyyy =  $('#dwlYear').val();
 	var mm = $('#dwlMonth').val()
-<<<<<<< HEAD
-=======
-	var hospitalCode = "VTN01";
-	var doctorCode = "70001"
->>>>>>> stash
 	var hospitalCode = $('#hidHospitalCode').val();
 	var doctorCode = $('#txtDoctorCode').val();
 	
