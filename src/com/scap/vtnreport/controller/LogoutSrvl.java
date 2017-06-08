@@ -34,10 +34,19 @@ public class LogoutSrvl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
+		//old session
 		HttpSession session = request.getSession(false);
-		System.out.println("hospital="+session.getAttribute("hospital"));
-		if(session!=null){
+		 
+		System.out.println("==============================logout=============================================");
+		System.out.println("_user : " + session.getAttribute("_user")  ); 
+		
+		if(session.getAttribute("_user") != null){
+			    //destroy old sesion
 				session.invalidate(); 
+				//create new sesion
+				HttpSession newSession = request.getSession(true);
+				System.out.println("==============================just logout=============================================");
+				System.out.println("_user : " + newSession.getAttribute("_user")  ); 
 		}
 	
 		request.setAttribute("vaMessage","LOGOUT");
@@ -50,6 +59,9 @@ public class LogoutSrvl extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(false);
+		System.out.println("==============================logout=============================================");
+		System.out.println("_user : " + session.getAttribute("_user")  ); 
 	}
 
 }

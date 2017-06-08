@@ -39,7 +39,9 @@ public class LoginSrvl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		 
+		HttpSession sessionPass = request.getSession(false);
+		System.out.println("==============================logout=============================================");
+		System.out.println("_user " + sessionPass.getAttribute("_user") ); 
 	}
 
 	/**
@@ -54,8 +56,7 @@ public class LoginSrvl extends HttpServlet {
 		PrintWriter pw = response.getWriter();
 
 		String hospitalcode = request.getParameter("hospitalcode");
-		String passphrase = request.getParameter("hidPassphrase");
-
+		String passphrase = request.getParameter("hidPassphrase"); 
 		try {
 
 			HttpSession sessionPass = request.getSession(false);

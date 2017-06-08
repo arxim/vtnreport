@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class MainMenuSrv
@@ -31,7 +32,17 @@ public class MainMenuSrv extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		response.setContentType("text/html; charset=UTF-8");
-		RequestDispatcher dispatcher =this.getServletContext().getRequestDispatcher("/WEB-INF/pages/menu_payment/payment.jsp");
+		
+		HttpSession session = request.getSession(false);
+		System.out.println("==============================login hello=============================================");
+		System.out.println("_user : " + session.getAttribute("_user") ); 
+		String page = "";
+		if(session.getAttribute("_user") != null){
+			page = "/WEB-INF/pages/menu_payment/payment.jsp";
+		}else{
+		    page = "/SessionTimeoutSrvl";
+		}
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(page);
 		dispatcher.forward(request, response);
 	}
 

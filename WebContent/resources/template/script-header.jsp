@@ -18,6 +18,10 @@
 <link
 	href="${pageContext.request.contextPath}/resources/libraries/datatables-1.10.13/extensions/Responsive/css/responsive.dataTables.min.css"
 	rel="stylesheet" />
+	
+<link
+	href="${pageContext.request.contextPath}/resources/css/vtnReportTemplateStyle.css"
+	rel="stylesheet" />
 
 <!-- Java Script Import -->
 <script
