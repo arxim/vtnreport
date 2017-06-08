@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class getEmailContent
  */
-@WebServlet("/getEmailContent")
-public class getEmailContent extends HttpServlet {
+@WebServlet("/getEmailContentSrvl")
+public class getEmailContentSrvl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public getEmailContent() {
+    public getEmailContentSrvl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,7 +38,7 @@ public class getEmailContent extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/pages/email/sent_mail_payment.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/pages/menu_send_email/send_mail.jsp");
 //		rd.include(request, response);
 		rd.forward(request, response);
 	}
