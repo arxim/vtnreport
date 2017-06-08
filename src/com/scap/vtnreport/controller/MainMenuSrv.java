@@ -28,8 +28,7 @@ public class MainMenuSrv extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.setContentType("text/html; charset=UTF-8");
 		RequestDispatcher dispatcher =this.getServletContext().getRequestDispatcher("/WEB-INF/pages/menu_payment/payment.jsp");
 		dispatcher.forward(request, response);
 	}
