@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -15,12 +15,29 @@
 <body>		
 	<div class="panel panel-vtn">
 			<div class="panel-heading text-center">
-				<b>Tax</b>
+				<b>Report Tax</b>
 			</div>			
 		</div>
 		<div class="container">
 			<div class="panel-body">
 				<div class="form-horizontal">
+					<div class="row">
+							<div class="col-xs-6 col-sm-3 control-label">
+								<p class="text-right">
+									<b id="lblReport">Report</b>
+								</p>
+							</div>
+							<div class="col-xs-6 col-sm-3">
+								<div class="form-group-xs-6 form-group-sm-3 ">
+									<select id="dwlReport" class="form-control">
+										<option value="01">รายงานสรุปรายได้แพทย์</option>
+										<option value="02">รายงานรายละเอียดรายได้แพทย์</option>
+										<option value="03">รายงานรายละเอียดรายได้แพทย์ค้างจ่าย</option>
+										<option value="04">รายงานรายการปรับปรุงค่าแพทย์(หัก/เพิ่ม)</option>
+									</select>
+								</div>
+							</div>
+					</div>
 					<div class="row">
 						<div class="col-xs-6 col-sm-3 control-label">
 							<p class="text-right">
@@ -29,6 +46,9 @@
 						</div>
 						<div class="col-xs-6 col-sm-3">
 							<input id="txtDoctorCode" name="txtDoctorCode" type="text" class="form-control input-sm" />
+						</div>
+						<div class="col-xs-6 col-sm-6">
+							<input id="txtDoctorName" name="txtDoctorName" type="text" class="form-control input-sm " disabled="disabled"/>
 						</div>
 					</div>
 					<div class="row">
@@ -39,7 +59,7 @@
 						</div>
 						<div class="col-xs-6 col-sm-3">
 							<div class="form-group-xs-6 form-group-sm-3 ">
-							     <select class="form-control" id="lblMonth">
+							     <select id="dwlMonth" class="form-control">
 							    	  <option value="01">January</option>
 									  <option value="02">February</option>
 									  <option value="03">March</option>
@@ -66,6 +86,7 @@
 							</select>
 						</div>
 					</div>
+					<div class="form-group"></div>
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 text-right">
 							<button type="button" class="btn btn-default" id="btnView">view</button>
@@ -73,6 +94,9 @@
 					</div>
 				</div>
 			</div>
+			<input type="hidden" id="hidUserCode" name="hidUserCode" value="<%= session.getAttribute("userid") %>">
+		    <input type="hidden" id="hidRole" name="hidRole" value="<%= session.getAttribute("role") %>">
+		    <input type="hidden" id="hidHospitalCode" name="hidHospitalCode" value="<%= session.getAttribute("hospitalcode")%>">
 			<form id="frmPayment" action="/vtnreport/getPaymentContentSrvl" method="post"> </form>
 			<form id="frmTax" action="/vtnreport/getTaxContentSrvl" method="post"> </form>
 			<form id="frmEmail" action="/vtnreport/getEmailContentSrvl" method="post"> </form>

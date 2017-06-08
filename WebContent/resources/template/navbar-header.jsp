@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<nav class="navbar navbar-default no-margin">
+<nav class="navbar navbar-default no-margin ">
 	<div class="container-fluid" style="background-color: #294783">
 		<!-- navbar-header-->
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -27,19 +27,35 @@
 		        </a>&nbsp;
 		        <a href="#" class="btn btn-default" onclick="getEmail()">
 		            <span class="btn-lg glyphicon glyphicon-send"></span>
-		        </a>&nbsp;  --> 
-		        <%= session.getAttribute( "menuitem" ) %>
+		        </a>&nbsp;  -->
+		        <c:choose>
+			     <c:when test="${sessionScope.menuitem!= null}"> 
+			         ${sessionScope.menuitem}
+			     </c:when>
+			     	<c:otherwise>
+			
+			     	</c:otherwise>
+			    </c:choose>
 	 			<ul class="nav navbar-nav navbar-right">
 					<li style="color: #FFFFFF">
 						<br/>
-						<a href="javascript:void(0);" style="color: #ede3e3"><%= session.getAttribute( "name" ) %></a>
+						<a href="javascript:void(0);" style="color: #ede3e3">
+						<c:choose>
+				       <c:when test="${sessionScope.name!= null}"> 
+				          ${sessionScope.name}
+				      		</c:when>
+				       		<c:otherwise> 
+				        
+				       		</c:otherwise>
+				      		</c:choose>
+				       </a>
 					</li>
 					<li>
 						<div class="btn btn-lg">
 							<a href="${pageContext.request.contextPath}/LogoutSrvl" style="color: #ffffff">
 						 	<span class="glyphicon glyphicon-log-out"></span><br/>
 						 	 Logout 
-						 </a>
+						 	</a>
 						</div>
 					</li>
 				</ul>
