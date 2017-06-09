@@ -9,6 +9,7 @@ import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
+import javax.mail.NoSuchProviderException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -35,6 +36,7 @@ public class SentEmailService {
 		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.port", auth_port);
+		props.put("mail.transport.protocol", "smtp");
 
 		try {
 
@@ -62,6 +64,22 @@ public class SentEmailService {
 			multipart.addBodyPart(messageBodyPart);
 			message.setContent(multipart);
 
+			
+		      Transport transport = mailSession.getTransport();
+		      try {
+		         System.out.println("Sending ....");
+		         transport.connect(auth_host, 465, auth_email, auth_password);
+		         transport.sendMessage(message,
+		            message.getRecipients(Message.RecipientType.TO));
+		         System.out.println("Sending done ...");
+		      } catch (Exception e) {
+		         System.err.println("Error Sending: ");
+		         e.printStackTrace();
+
+		      }
+		      transport.close();
+			
+			
 			Transport.send(message);
 			
 			msg = "PASS";
@@ -69,6 +87,7 @@ public class SentEmailService {
 
 		} catch (MessagingException e) {
 			msg = "FAIL";
+			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 		return msg;
