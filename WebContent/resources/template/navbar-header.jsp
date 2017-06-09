@@ -18,27 +18,23 @@
 			</a>  
 		</div> 	
 		<div class="collapse navbar-collapse navbar-right" id="divNavBar">
-			<div class="container text-center">				
-		      <!--   <a href="#" class="btn btn-default" onclick="getPaymnet()">
-		        	<span class="btn-lg glyphicon glyphicon-list-alt"></span>   	
-		        </a>&nbsp;
-		        <a href="#" class="btn btn-default" onclick="getTax()">
-		            <span class="btn-lg glyphicon glyphicon-usd"></span>
-		        </a>&nbsp;
-		        <a href="#" class="btn btn-default" onclick="getEmail()">
-		            <span class="btn-lg glyphicon glyphicon-send"></span>
-		        </a>&nbsp;  -->
-		        <c:choose>
-			     <c:when test="${sessionScope.menuitem!= null}"> 
-			         ${sessionScope.menuitem}
-			     </c:when>
-			     	<c:otherwise>
-			
-			     	</c:otherwise>
-			    </c:choose>
+			<div class="container text-center">	
+				<div class="col-xs-12 col-sm-2">
+				</div>
+				<div class="col-xs-12 col-sm-4 text-center">
+					<c:choose>
+				     <c:when test="${sessionScope.menuitem!= null}"> 
+				         ${sessionScope.menuitem}
+				     </c:when>
+				     	<c:otherwise>
+				
+				     	</c:otherwise>
+				    </c:choose>
+				</div>		
+		        
 	 			<ul class="nav navbar-nav navbar-right">
 					<li style="color: #FFFFFF">
-						<br/>
+						<br>
 						<a href="javascript:void(0);" style="color: #ede3e3">
 						<c:choose>
 				       <c:when test="${sessionScope.name!= null}"> 
