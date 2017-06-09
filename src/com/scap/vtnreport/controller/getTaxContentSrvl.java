@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class getTaxContentSrvl
@@ -39,8 +40,16 @@ public class getTaxContentSrvl extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/pages/menu_tax/tax.jsp");
-//		rd.include(request, response);
+		 HttpSession session = request.getSession(false);
+		 
+			String page = "";
+			if(session.getAttribute("_user") != null){
+				page = "/WEB-INF/pages/menu_tax/tax.jsp";  
+			}else{
+			    page = "/SessionTimeoutSrvl";
+			}
+		
+		RequestDispatcher rd = request.getRequestDispatcher(page); 
 		rd.forward(request, response);
 	}
 
