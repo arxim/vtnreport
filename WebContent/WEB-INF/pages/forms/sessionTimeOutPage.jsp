@@ -15,21 +15,8 @@
 		<div class="container-fluid">
 			<div class="panel panel-vtn"></div>
 			<div class="container">
-			<h2 class="msgSessionTimeOut" > <span class="glyphicon   glyphicon-tags" aria-hidden="true"></span> <b> Your session has expired. Please login again   <a class="linkBackHome" href="${pageContext.request.contextPath}/LogoutSrvl">Lon</a></b> </h2>
-				<%-- <div class="panel-body">
-					<div class="form-horizontal">
-					    <div class="row">
-							<div class="col-xs-12 col-sm-12 control-label">
-								<p class="text-right"  id="msgSessionTimeOut">
-								 <h2 class="bs-docs-featurette-title">Built with Bootstrap.</h2>
-									<b> Your session has expired. Please login again ... <a href="${pageContext.request.contextPath}/LogoutSrvl">Back To Login</a></b>
-								</p>
-							</div>
-							 
-						</div>
-					</div>
-
-				</div> --%>
+			<h2 class="msgSessionTimeOut text-center" > <span class="glyphicon   glyphicon-tags" aria-hidden="true"></span> <b> Your session has expired. Please login again! &nbsp; &nbsp;    <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>  <a class="linkBackHome" href="${pageContext.request.contextPath}/LogoutSrvl">     Login</a> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span></b> </h2>
+				
 
 			</div>
 
