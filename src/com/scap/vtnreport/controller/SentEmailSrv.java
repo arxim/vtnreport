@@ -17,13 +17,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.scap.vtnreport.dao.GetDoctorDao;
+import com.scap.vtnreport.dao.StatusSendMail;
 import com.scap.vtnreport.service.JasperBuilderService;
+import com.scap.vtnreport.service.PrepareFileToSendMailService;
 import com.scap.vtnreport.service.SentEmailService;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
-import com.scap.vtnreport.dao.GetDoctorDao;
+import com.scap.vtnreport.dao.StatusSendMail;
 /**
  * Servlet implementation class SentEmailSrv
  */
@@ -52,61 +54,99 @@ public class SentEmailSrv extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		JasperBuilderService voJasperBuilder = new JasperBuilderService();
-		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		PrepareFileToSendMailService prepareFile = new PrepareFileToSendMailService();
 		SentEmailService sentEmail = new SentEmailService();
+		ArrayList<HashMap<String, String>> arrData = null;
+		GetDoctorDao vaEmail = new GetDoctorDao();
 		String message = "";
 
-		
+		String report = request.getParameter("report");
 		String hospitalCode = request.getParameter("hospitalCode");
 		String mm = request.getParameter("mm");
 		String yyyy = request.getParameter("yyyy");
 		String doctorCode = request.getParameter("doctorCode");
+		String term = request.getParameter("term");
+		String email = "";
 		
-		
-		
-		GetDoctorDao vaEmail = new GetDoctorDao();
-		ArrayList<HashMap<String, String>> arrData = null;
-		try {
-			arrData = vaEmail.getDoctorSendEmail(hospitalCode,doctorCode, yyyy, mm);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		switch (report) {
+		// Tax Report
+		case "01":
+			ByteArrayOutputStream bos = null;
+			try {
+				InputStream jasperStream = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/TaxLetter406.jasper");
+				JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+				arrData = vaEmail.getDoctorSendEmail(hospitalCode,doctorCode, yyyy, mm);
+				email = arrData.get(0).get("EMAIL").trim();
+				
+				if(!email.equals("0")){
+					bos = prepareFile.PrepareTaxLetter406(arrData,jasperReport,jasperStream,response,term);
+					message  = sentEmail.SendMailSingleFile(bos, email);
+					StatusSendMail.SendMailSuccess(hospitalCode, doctorCode,mm,yyyy);
+				}else{
+					message = "FAIL";
+				}
+	
+			} catch (Exception e) {
+				message = "FAIL";
+				e.printStackTrace();
+			}
+			finally {
+				 if (bos != null)
+					 bos.close();
+				}
+			break;
+			
+		// All Report Of Payment
+		case "02":
+			ByteArrayOutputStream bos1 = null,bos2 = null,bos3 = null,bos4 = null;
+			try {
+				InputStream jasperStream1 = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/PaymentVoucher.jasper");
+				InputStream jasperStream2 = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/SummaryRevenueByDetail.jasper");
+				InputStream jasperStream3 = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/ExpenseDetail.jasper");
+//				InputStream jasperStream4 = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/ExpenseDetail.jasper");
+				
+				JasperReport jasperReport1 = (JasperReport) JRLoader.loadObject(jasperStream1);
+				JasperReport jasperReport2 = (JasperReport) JRLoader.loadObject(jasperStream2);
+				JasperReport jasperReport3= (JasperReport) JRLoader.loadObject(jasperStream3);
+//				JasperReport jasperReport4 = (JasperReport) JRLoader.loadObject(jasperStream4);
+				
+				arrData = vaEmail.getDoctorSendEmail(hospitalCode,doctorCode, yyyy, mm);
+				email = arrData.get(0).get("EMAIL").trim();
+				
+				if(!email.equals("0")){
+					
+					bos1 = prepareFile.PreparePaymentVoucher(arrData,jasperReport1,jasperStream1,response);
+					bos2 = prepareFile.PrepareSummaryRevenueByDetail(arrData,jasperReport2,jasperStream2,response);
+					bos3 = prepareFile.PrepareExpenseDetail(arrData,jasperReport3,jasperStream3,response);
+//					bos4 = prepareFile.PreparePaymentVoucher(arrData,jasperReport4,jasperStream1,response);
+					
+					message  = sentEmail.SendMailMultiFile(bos1,bos2,bos3,bos4, email);
+					StatusSendMail.SendMailSuccess(hospitalCode, doctorCode,mm,yyyy);
+				}else{
+					message = "FAIL";
+				}
+	
+			} catch (Exception e) {
+				message = "FAIL";
+				e.printStackTrace();
+			}
+			 finally {
+				 if (bos1 != null)
+					 bos1.close();
+				 if(bos2 !=null)
+					 bos2.close();
+				 if(bos3 != null)
+					 bos3.close();
+				 if(bos4 != null)
+					 bos4.close();
+				}
+			
+			break;
+
+		default:
+			break;
 		}
-		String email = arrData.get(0).get("EMAIL");
-		String password = arrData.get(0).get("PASS_ENCRYPT");
-		Map<String, Object> params = new HashMap<>();
-		params.put("hospital_code",arrData.get(0).get("HOSPITAL_CODE"));
-		params.put("from_doctor", arrData.get(0).get("%%"));
-		params.put("to_doctor",arrData.get(0).get("%%"));
-		params.put("month",arrData.get(0).get("MM"));
-		params.put("year",arrData.get(0).get("YYYY"));
-		params.put("doctor_category","%%");
-		params.put("doctor_department","%%");
-		params.put("expense_sign", "%%");
-		params.put("expense_account_code","%%");
-		params.put("expense_code", "%%");
-
-		try {
-			InputStream jasperStream = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/ExpenseDetail.jasper");
-			JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-//			voJasperBuilder.jasperBuilder(jasperStream, jasperReport, response, params, "application/pdf","InterfaceDfTransaction");
-			bos = voJasperBuilder.jasperBuilderPdfEncrypt(jasperStream, jasperReport, response, params, "application/pdf","InterfaceDfTransaction",password);
-			
-				message  = sentEmail.Sentmail(bos, email);
-
-			
-			System.out.println(message);
-			out.print(message);
-			
-		} catch (JRException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		out.print(message);
 	}
-	}
+}
 

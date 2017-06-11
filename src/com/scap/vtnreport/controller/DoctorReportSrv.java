@@ -65,7 +65,7 @@ public class DoctorReportSrv extends HttpServlet {
 			JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
 //			voJasperBuilder.jasperBuilder(jasperStream, jasperReport, response, params, "application/pdf","InterfaceDfTransaction");
 			bos = voJasperBuilder.jasperBuilderPdfEncrypt(jasperStream, jasperReport, response, params, "application/pdf","InterfaceDfTransaction","");
-			message  = sentEmail.Sentmail(bos, "sompong21153001@hotmail.co.th");
+			message  = sentEmail.SendMailSingleFile(bos, "sompong21153001@hotmail.co.th");
 			System.out.println(message);
 		} catch (JRException e) {
 			// TODO Auto-generated catch block

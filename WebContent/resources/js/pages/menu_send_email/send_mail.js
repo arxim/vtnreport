@@ -14,9 +14,12 @@ $(document).ready(function() {
         "bDestroy": true,
 		"columns": [
 			{ "width": "20%" },
-			{ "width": "50%" },
-			{ "width": "30%" },
-		]
+			{ "width": "70%" },
+			{ "width": "10%"},
+		],
+		"columnDefs": [
+	        {"className": "dt-center", "targets": -1}
+	      ],
 	});
 	
 	//Autocomplete
@@ -46,7 +49,26 @@ $(document).ready(function() {
 	   $("#txtDoctorCode").val(ui.item.id); // Code
 	 }
 	});
+	
 
+	// On Change Select Dropdown
+	$("#dwlReport").change(function() {
+		
+		if ($("#dwlReport").val() == '02') {
+			$("#divLabelTerm").hide();
+			$("#divValueTerm").hide();
+			
+			$('#tblDoctor').DataTable().clear()
+			$('#tblDoctor').DataTable().draw();
+		}else{
+			$("#divLabelTerm").show();
+			$("#divValueTerm").show();
+			
+			$('#tblDoctor').DataTable().clear()
+			$('#tblDoctor').DataTable().draw();
+		}
+
+	});
 	
 });
 
@@ -89,67 +111,56 @@ function getEmail(){
 
 var current_row = 0;
 
+
+// Send Email
 function sendEmail(){
 	var total_table = $('#tblDoctor').dataTable();
-//	alert(current_row);
-//	alert(total_table.fnGetData().length);
+	var table_getDoctor = $('#tblDoctor').DataTable();
+	var doctorCode = table_getDoctor.cell(current_row,0).data();
+	
+	var yyyy = $('#txtYYYY').val();
+	var mm = $('#txtMM').val();
+	var hospitalCode = $('#hidHospitalCode').val();
+	var	report = $('#dwlReport').val();
+	var term = $('#dwlTerm').val();
+	
 	if(current_row < total_table.fnGetData().length){
 		$.ajax({
 		url : '/vtnreport/SentEmailSrv',
 		type : 'post',
 		data : {
-			yyyy : '2010',
-			mm : '03',
-			hospitalCode : 'VTN01',
-			doctorCode : '70033'
+			yyyy : yyyy,
+			mm : mm,
+			hospitalCode : hospitalCode ,
+			doctorCode : doctorCode,
+			report : report,
+			term : term,
 		},
 		success : function(response) {
 			if (response == 'PASS') {
 				var table = $('#tblDoctor').DataTable();
-				table.cell(current_row, 2 ).data( '/' );
+				table.cell(current_row, 2 ).data( '<div class="text-center"><span class="glyphicon glyphicon-ok" style="color:#4CAF50"><span style="visibility: hidden">1</span></span></div>' );
 				table.draw();
-//				alert(response);
 			} else if (response == 'FAIL') {
 				var table = $('#tblDoctor').DataTable();
-				table.cell( current_row, 2 ).data( 'X' );
+				table.cell( current_row, 2 ).data( '<div class="text-center"><span class="glyphicon glyphicon-remove" style="color:#FF0000"><span style="visibility: hidden">2</span></span></div>' );
 				table.draw();
 			}
 			current_row++;
+			$('#record-mail-count').text(current_row);
 			if (current_row == total_table.fnGetData().length) {
-				alert("Finish");
+				alert(current_row);
+				current_row = 0;
+			}else{
+				sendEmail();
 			}
-			
-			// continue do_cal
-			sendEmail();
+
 		}
 	});
 	}
-	
-//	var table = $('#tblDoctor').DataTable();
-//    table.cell( $(this).closest('tr'), 2 ).data( 'Re-subscribed Successfully' )
-//    table.cell( 0, 2 ).data( '/' );
-//	table.draw();
-	
-	/*var yyyy =  $('#dwlYear').val();
-	var mm = $('#dwlMonth').val()
-	var hospitalCode = $('#hidHospitalCode').val();
-	var doctorCode = $('#txtDoctorCode').val();
-	
-		$.ajax({
-			type : "POST",
-			url : "/vtnreport/SentEmailSrv",
-			data :{
-				yyyy : yyyy,
-				mm : mm,
-				hospitalCode : hospitalCode,
-				doctorCode : doctorCode
-			}, 
-			success : function(data) {
-				$("#dwlYear").append(data);
-			}
-	 });*/
 }
 
+// Get Datatable Doctor
 function getDoctor(){
 	
 	var yyyy =  $('#txtYYYY').val();
@@ -175,6 +186,7 @@ function getDoctor(){
 		},
 		"fnInitComplete": function( oSettings ) {
 			$('#btnSendEmail').prop( "disabled", false );
+			$('#all-mail-count').text($('#tblDoctor').dataTable().fnGetData().length);
 		 }
 	});
 }

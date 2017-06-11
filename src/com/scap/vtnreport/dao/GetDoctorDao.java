@@ -53,7 +53,7 @@ public class GetDoctorDao {
 		
 		final String SQL ="SELECT T1.HOSPITAL_CODE, "
 		           + "       T2.CODE AS DOCTOR_CODE, "
-		           + "       T2.EMAIL, "
+		           + "       COALESCE(NULLIF(T2.EMAIL,''),'0') EMAIL, "
 		           + "       CASE "
 		           + "           WHEN T2.LICENSE_ID = '' "
 		           + "           THEN T2.CODE "

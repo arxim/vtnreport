@@ -21,19 +21,31 @@
 		<div class="container">
 			<div class="panel-body">
 				<div class="form-horizontal">
-<!-- 					<div class="row"> -->
-<!-- 						<div class="col-xs-6 col-sm-3 control-label"> -->
-<!-- 							<p class="text-right"> -->
-<!-- 								<b id="lblDoctorCode">Doctor Code</b> -->
-<!-- 							</p> -->
-<!-- 						</div> -->
-<!-- 						<div class="col-xs-6 col-sm-3"> -->
-<!-- 							<input id="txtDoctorCode" name="txtDoctorCode" type="text" class="form-control input-sm" /> -->
-<!-- 						</div> -->
-<!-- 						<div class="col-xs-6 col-sm-6"> -->
-<!-- 							<input id="txtDoctorName" name="txtDoctorName" type="text" class="form-control input-sm" disabled="disabled" /> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
+					<div class="row">
+						<div class="col-xs-6 col-sm-3 control-label">
+							<p class="text-right">
+								<b id="lblReport">Report</b>
+							</p>
+						</div>
+						<div class="col-xs-6 col-sm-3 coltrol-label">
+							<select class="form-control" id="dwlReport">
+								<option value="01">Tax 406</option>
+								<option value="02">Payment</option>
+							</select>
+						</div>
+						<div class="col-xs-6 col-sm-3 control-label" id="divLabelTerm">
+							<p class="text-right">
+								<b id="lblTerm">Term</b>
+							</p>
+						</div>
+						<div class="col-xs-6 col-sm-3 coltrol-label" id="divValueTerm">
+							<select class="form-control" id="dwlTerm">
+								<option value="01">First Term</option>
+								<option value="06">Second Term</option>
+								<option value="12">Yearly</option>
+							</select>
+						</div>
+					</div>
 					<div class="row">
 						<div class="col-xs-6 col-sm-3 control-label">
 							<p class="text-right">
@@ -60,7 +72,11 @@
 						<button type="button" id="btnSendEmail" class="btn btn-default" onclick="sendEmail()"disabled="disabled">Send Email</button>
 					</div>
 				</div>
-			<div class="form-group"></div>
+			
+			</div>
+			<div class="form-group text-right">
+				<label>The table has <span id="record-mail-count">0</span> / <span id="all-mail-count">0</span> records</label>
+			</div>
 			<div class="row">
 					<div class="col-sm-12 col-xs-12">
 						<div class="table-responsive dt-responsive ">
@@ -80,7 +96,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
 		<input type="hidden" id="hidUserCode" name="hidUserCode" value="<%= session.getAttribute("userid") %>">
 		<input type="hidden" id="hidRole" name="hidRole" value="<%= session.getAttribute("role") %>">
 		<input type="hidden" id="hidHospitalCode" name="hidHospitalCode" value="<%= session.getAttribute("hospitalcode")%>">
