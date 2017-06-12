@@ -103,6 +103,13 @@
 			<form id="frmPayment" action="/vtnreport/getPaymentContentSrvl" method="post"> </form>
 			<form id="frmTax" action="/vtnreport/getTaxContentSrvl" method="post"> </form>
 			<form id="frmEmail" action="/vtnreport/getEmailContentSrvl" method="post"> </form>
+			<form id="frmReport" name="frmReport" action="/vtnreport/DoctorReportSrv" method="post" target="_blank">
+				<input type="hidden" id="hidMM" name="hidMM" />
+				<input type="hidden" id="hidYYYY" name="hidYYYY" />
+				<input type="hidden" id="hidHospitalCode" name="hidHospitalCode" value="<%= session.getAttribute("hospitalcode")%>" />
+				<input type="hidden" id="hidDoctorCode" name="hidDoctorCode" />
+				<input type="hidden" id="hidReport" name="hidReport" />
+			</form>
 		</div>
 	</div>
 	</body>
