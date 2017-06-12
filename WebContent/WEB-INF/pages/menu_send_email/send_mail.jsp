@@ -24,14 +24,26 @@
 					<div class="row">
 						<div class="col-xs-6 col-sm-3 control-label">
 							<p class="text-right">
-								<b id="lblDoctorCode">Doctor Code</b>
+								<b id="lblReport">Report</b>
 							</p>
 						</div>
-						<div class="col-xs-6 col-sm-3">
-							<input id="txtDoctorCode" name="txtDoctorCode" type="text" class="form-control input-sm" />
+						<div class="col-xs-6 col-sm-3 coltrol-label">
+							<select class="form-control" id="dwlReport">
+								<option value="01">Tax 406</option>
+								<option value="02">Payment</option>
+							</select>
 						</div>
-						<div class="col-xs-6 col-sm-6">
-							<input id="txtDoctorName" name="txtDoctorName" type="text" class="form-control input-sm" disabled="disabled" />
+						<div class="col-xs-6 col-sm-3 control-label" id="divLabelTerm">
+							<p class="text-right">
+								<b id="lblTerm">Term</b>
+							</p>
+						</div>
+						<div class="col-xs-6 col-sm-3 coltrol-label" id="divValueTerm">
+							<select class="form-control" id="dwlTerm">
+								<option value="01">First Term</option>
+								<option value="06">Second Term</option>
+								<option value="12">Yearly</option>
+							</select>
 						</div>
 					</div>
 					<div class="row">
@@ -41,47 +53,54 @@
 							</p>
 						</div>
 						<div class="col-xs-6 col-sm-3">
-							<div class="form-group-xs-6 form-group-sm-3 ">
-							     <select class="form-control" id="dwlMonth">
-							    	  <option value="01">January</option>
-									  <option value="02">February</option>
-									  <option value="03">March</option>
-									  <option value="04">April</option>
-									  <option value="05">May</option>
-									  <option value="06">June</option>
-									  <option value="07">July</option>
-									  <option value="08">August</option>
-									  <option value="09">September</option>
-									  <option value="10">October</option>
-									  <option value="11">November</option>
-									  <option value="12">December</option>
-							     </select>
+								<input  class="form-control" id="txtMM" name="txtMM" disabled="disabled"/>
 							</div>			
-						</div>
 						<div class="col-xs-6 col-sm-3 control-label">
 								<p class="text-right">
 									<b id="lblYear">Year</b>
 								</p>
 						</div>
 						<div class="col-xs-6 col-sm-3">
-							<select class="form-control" id="dwlYear">
-							</select>
+							<input class="form-control" id="txtYYYY" name="txtYYYY" disabled="disabled" />
+						</div>
 						</div>
 					</div>
 					<div class="form-group"></div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 text-right">
-						<button type="button" class="btn btn-default" onclick="sendEmail()">Send Email</button>
+						<button type="button" id="btnView" class="btn btn-default" onclick="getDoctor()">View</button>
+						<button type="button" id="btnSendEmail" class="btn btn-default" onclick="sendEmail()"disabled="disabled">Send Email</button>
+					</div>
+				</div>
+			
+			</div>
+			<div class="form-group text-right">
+				<label>The table has <span id="record-mail-count">0</span> / <span id="all-mail-count">0</span> records</label>
+			</div>
+			<div class="row">
+					<div class="col-sm-12 col-xs-12">
+						<div class="table-responsive dt-responsive ">
+							<table id="tblDoctor"
+								class="table table-striped table-responsive table-bordered dt-responsive nowrap table-hover"
+								style="width: 100%">
+								<thead>
+									<tr>
+										<th>Doctor Code</th>
+										<th>Doctor Name</th>
+										<th>Status</th>
+									</tr>
+								</thead>
+								<tbody id="tblDoctor"></tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 		<input type="hidden" id="hidUserCode" name="hidUserCode" value="<%= session.getAttribute("userid") %>">
 		<input type="hidden" id="hidRole" name="hidRole" value="<%= session.getAttribute("role") %>">
 		<input type="hidden" id="hidHospitalCode" name="hidHospitalCode" value="<%= session.getAttribute("hospitalcode")%>">
 		<form id="frmPayment" action="/vtnreport/getPaymentContentSrvl" method="post"> </form>
 		<form id="frmTax" action="/vtnreport/getTaxContentSrvl" method="post"> </form>
 		<form id="frmEmail" action="/vtnreport/getEmailContentSrvl" method="post"> </form>
-	</div>
 </body>
 </html>

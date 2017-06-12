@@ -1,13 +1,17 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]> <html class="lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]> <html class="lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>Login Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <jsp:include page="../../../resources/template/script-header.jsp"></jsp:include>
   <link rel="stylesheet" href="resources/css/style.css">
+ 
  
  <!-- Java Script Import -->
  <script src="${pageContext.request.contextPath}/resources/libraries/jquery-1.12.4.min.js" type="text/javascript"></script>
@@ -40,6 +44,21 @@
 		        <option value="test5">Option 5</option>
 		    </select>
 		</span></p>
+		 
+		 <!-- <div></span><label class=""> wrong password or user. try again!</label></div> -->
+		 <c:choose> 
+			 <c:when test="${sessionScope.message=='FAIL'}">
+						<p>&nbsp;
+							<span class="glyphicon glyphicon-exclamation-sign iconDanger"
+								aria-hidden="true"></span> <label class="loginFail"> <!-- <input type="checkbox" name="remember_me" id="remember_me"> -->
+								 wrong password or user. try again!
+							</label>
+						</p>
+					</c:when>
+	          <c:otherwise>
+	          </c:otherwise>
+	     </c:choose>
+		
         <p class="remember_me">
           <label>
             <input type="checkbox" name="remember_me" id="remember_me">
@@ -59,7 +78,7 @@
     </div>
 
     <div class="login-help">
-      <p>Forgot your password? <a href="index.html">Click here to reset it</a>.</p>
+    <!--   <p>Forgot your password? <a href="index.html">Click here to reset it</a>.</p> -->
     </div>
     
     

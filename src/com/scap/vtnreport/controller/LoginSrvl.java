@@ -39,9 +39,12 @@ public class LoginSrvl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession sessionPass = request.getSession(false);
-		System.out.println("==============================logout=============================================");
-		System.out.println("_user " + sessionPass.getAttribute("_user") ); 
+//		HttpSession sessionPass = request.getSession(false);
+//		System.out.println("==============================logout=============================================");
+//		System.out.println("_user " + sessionPass.getAttribute("_user") ); 
+		response.setContentType("text/html; charset=UTF-8");
+		RequestDispatcher rd = request.getRequestDispatcher("/LoadLoginSrvl"); 
+		rd.forward(request, response);
 	}
 
 	/**
@@ -57,21 +60,27 @@ public class LoginSrvl extends HttpServlet {
 
 		String hospitalcode = request.getParameter("hospitalcode");
 		String passphrase = request.getParameter("hidPassphrase"); 
+		
+		//new sesion
+		HttpSession session = request.getSession();
+		
 		try {
-
+            //old session
 			HttpSession sessionPass = request.getSession(false);
 			String sessionInSrvl = sessionPass.getAttribute("passphrase").toString();
+			
+			
 
 			if (sessionInSrvl != null && sessionInSrvl.equals(passphrase)) {
 				LoginService loginService = new LoginService();
 				UserView isLoginUser = loginService.doLoginProcess(request);
-				if (isLoginUser != null) {
-
-					HttpSession session = request.getSession();
+				if (isLoginUser != null) { 
+					 
 					session.setAttribute("hospitalcode", hospitalcode);
 					session.setAttribute("name", isLoginUser.getName());
 					session.setAttribute("role", isLoginUser.getUserGroupCode());
-					session.setAttribute("userid", isLoginUser.getLoginName());
+					session.setAttribute("userid", isLoginUser.getLoginName()); 
+					session.setAttribute("message", "PASS");
 				 
 					session.setAttribute("_user",isLoginUser);
 					// request.getRequestDispatcher(request.getContextPath()+"/HomeSrvl").include(request,
@@ -90,21 +99,22 @@ public class LoginSrvl extends HttpServlet {
 					rd.forward(request, response);
 
 				} else { 
+					 session.setAttribute("message", "FAIL");
 					 response.sendRedirect(request.getContextPath());
 				}
 
 			}
 
 			else { 
- 
+				 session.setAttribute("message", "FAIL");
 				 response.sendRedirect(request.getContextPath()); 
 
 			}
  
 		} catch (Exception e) {
 			e.printStackTrace();
- 
-			 response.sendRedirect(request.getContextPath());
+			session.setAttribute("message", "FAIL");
+			response.sendRedirect(request.getContextPath());
 		}
 		pw.close();
 

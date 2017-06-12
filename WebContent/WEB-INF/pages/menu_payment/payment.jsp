@@ -94,7 +94,7 @@
 							<div class="form-group"></div>
 							<div class="row">
 								<div class="col-xs-12 col-sm-12 text-right">
-									<button type="button" class="btn btn-default" id="btnView">view</button>
+									<button type="button" class="btn btn-default" id="btnView" onclick="getReport()">view</button>
 								</div>
 							</div>
 					</div>

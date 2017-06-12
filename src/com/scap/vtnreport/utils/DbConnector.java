@@ -374,4 +374,55 @@ public class DbConnector {
 		}
 		return lsQueryData;
 	}
+
+    public static JSONObject convertJsonObj(ResultSet rs) throws Exception {
+		JSONArray arrayObj = new JSONArray();
+		JSONObject jsonObj = new JSONObject();
+		JSONArray arrayObjMain = new JSONArray();
+		try {
+			ResultSetMetaData rsMetaData = rs.getMetaData();
+			while (rs.next()) {
+				arrayObj = new JSONArray();
+				for (int i = 1; i <= rsMetaData.getColumnCount(); i++) {
+					String value = "";
+					if (rs.getString(i) != null && !rs.getString(i).equals("")) {
+						value = rs.getString(i);
+						arrayObj.put(value);
+					} else {
+						arrayObj.put(value);
+					}
+				}
+				arrayObjMain.put(arrayObj);
+			}
+			jsonObj.put("data", arrayObjMain);
+			rs.close();
+		} catch (Exception e) {
+			throw e;
+		}
+		return jsonObj;
+	}
+
+    public static JSONArray queryJsonObj(ResultSet rs) throws Exception {
+		JSONArray arrayArray = new JSONArray();
+		try {
+			ResultSetMetaData rsMetaData = rs.getMetaData();
+			while (rs.next()) {
+				JSONObject arrayObj = new JSONObject();
+				for (int i = 1; i <= rsMetaData.getColumnCount(); i++) {
+					String value = "";
+					if (rs.getString(i) != null && !value.equals(rs.getString(i))) {
+						value = rs.getString(i);
+						arrayObj.put(rsMetaData.getColumnName(i).toLowerCase(), value);
+					} else {
+						arrayObj.put(rsMetaData.getColumnName(i).toLowerCase(), value);
+					}
+				}
+				arrayArray.put(arrayObj);
+			}
+			rs.close();
+		} catch (Exception e) {
+			throw e;
+		}
+		return arrayArray;
+	}
 }

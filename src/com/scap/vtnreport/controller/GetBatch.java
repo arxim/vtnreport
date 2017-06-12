@@ -1,26 +1,31 @@
 package com.scap.vtnreport.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import org.json.JSONArray;
+
+import com.scap.vtnreport.dao.BatchDao;
 
 /**
- * Servlet implementation class getTaxContentSrvl
+ * Servlet implementation class GetBatch
  */
-@WebServlet("/getTaxContentSrvl")
-public class getTaxContentSrvl extends HttpServlet {
+@WebServlet("/GetBatch")
+public class GetBatch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public getTaxContentSrvl() {
+    public GetBatch() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,9 +34,6 @@ public class getTaxContentSrvl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
-		response.setContentType("text/html; charset=UTF-8");
 		doPost(request, response);
 	}
 
@@ -39,18 +41,21 @@ public class getTaxContentSrvl extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html; charset=UTF-8");
-		 HttpSession session = request.getSession(false);
-		 
-			String page = "";
-			if(session.getAttribute("_user") != null){
-				page = "/WEB-INF/pages/menu_tax/tax.jsp";  
-			}else{
-			    page = "/SessionTimeoutSrvl";
-			}
+		response.setContentType("application/json; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		JSONArray jsonArr = new JSONArray();
+		BatchDao data = new BatchDao();
 		
-		RequestDispatcher rd = request.getRequestDispatcher(page); 
-		rd.forward(request, response);
+		try {
+			jsonArr = data.getBatch();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		
+		System.out.println(jsonArr.toString());
+		out.println(jsonArr.toString());
+		
 	}
 
 }
