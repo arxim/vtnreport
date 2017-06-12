@@ -38,12 +38,13 @@ public class MainMenuSrv extends HttpServlet {
 		System.out.println("_user : " + session.getAttribute("_user") ); 
 		String page = "";
 		if(session.getAttribute("_user") != null){
-			page = "/WEB-INF/pages/menu_payment/payment.jsp";
+			page = "/vtnreport/getPaymentContentSrvl";
 		}else{
 		    page = "/SessionTimeoutSrvl";
 		}
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(page);
-		dispatcher.forward(request, response);
+//		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(page);
+//		dispatcher.forward(request, response);
+		response.sendRedirect(page);
 	}
 
 	/**

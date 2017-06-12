@@ -30,7 +30,6 @@
 									</p>
 								</div>
 								<div class="col-xs-6 col-sm-3">
-								<div class="form-group-xs-6 form-group-sm-3 ">
 									<select id="dwlReport" class="form-control">
 										<option value="01">รายงานสรุปรายได้แพทย์</option>
 										<option value="02">รายงานรายละเอียดรายได้แพทย์</option>
@@ -38,7 +37,6 @@
 										<option value="04">รายงานรายการปรับปรุงค่าแพทย์(หัก/เพิ่ม)</option>
 									</select>
 								</div>
-							</div>
 						</div>
 						<div class="row">
 							<div class="col-xs-6 col-sm-3 control-label">
@@ -47,10 +45,11 @@
 								</p>
 							</div>
 							<div class="col-xs-6 col-sm-3">
-								<input id="txtDoctorCode" name="txtDoctorCode" type="text" class="form-control input-sm" />
+								<input id="hidDoctor" name="hidDoctor" type="hidden" />
+								<input id="txtDoctorCode" name="txtDoctorCode" type="text" class="form-control" />
 							</div>
 							<div class="col-xs-6 col-sm-6">
-								<input id="txtDoctorName" name="txtDoctorName" type="text" class="form-control input-sm" disabled="disabled" />
+								<input id="txtDoctorName" name="txtDoctorName" type="text" class="form-control" disabled="disabled" />
 							</div>
 						</div>
 						<div class="row">
@@ -60,22 +59,20 @@
 								</p>
 							</div>
 							<div class="col-xs-6 col-sm-3">
-								<div class="form-group-xs-6 form-group-sm-3 ">
-									<select id="dwlMonth" class="form-control">
-										  <option value="01">January</option>
-										  <option value="02">February</option>
-										  <option value="03">March</option>
-										  <option value="04">April</option>
-										  <option value="05">May</option>
-										  <option value="06">June</option>
-										  <option value="07">July</option>
-										  <option value="08">August</option>
-										  <option value="09">September</option>
-										  <option value="10">October</option>
-										  <option value="11">November</option>
-										  <option value="12">December</option>
-									</select>
-								</div>
+								<select id="dwlMonth" class="form-control">
+									  <option value="01">January</option>
+									  <option value="02">February</option>
+									  <option value="03">March</option>
+									  <option value="04">April</option>
+									  <option value="05">May</option>
+									  <option value="06">June</option>
+									  <option value="07">July</option>
+									  <option value="08">August</option>
+									  <option value="09">September</option>
+									  <option value="10">October</option>
+									  <option value="11">November</option>
+									  <option value="12">December</option>
+								</select>
 							</div>
 							<div class="col-xs-6 col-sm-3 control-label">
 								<p class="text-right">
@@ -98,11 +95,14 @@
 				</div>
 			</div>
 			<input type="hidden" id="hidUserCode" name="hidUserCode" value="<%= session.getAttribute("userid") %>">
+			<input type="hidden" id="hidUserName" name="hidUserName" value="<%= session.getAttribute("name")%>">	
 			<input type="hidden" id="hidRole" name="hidRole" value="<%= session.getAttribute("role") %>">
-			<input type="hidden" id="hidHospitalCode" name="hidHospitalCode" value="<%= session.getAttribute("hospitalcode")%>">	
+			<input type="hidden" id="hidHospitalCode" name="hidHospitalCode" value="<%= session.getAttribute("hospitalcode")%>">
+			
 			<form id="frmPayment" action="/vtnreport/getPaymentContentSrvl" method="post"> </form>
 			<form id="frmTax" action="/vtnreport/getTaxContentSrvl" method="post"> </form>
 			<form id="frmEmail" action="/vtnreport/getEmailContentSrvl" method="post"> </form>
+			
 			<form id="frmReport" name="frmReport" action="/vtnreport/DoctorReportSrv" method="post" target="_blank">
 				<input type="hidden" id="hidMM" name="hidMM" />
 				<input type="hidden" id="hidYYYY" name="hidYYYY" />

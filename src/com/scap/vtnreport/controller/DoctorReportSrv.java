@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.scap.vtnreport.service.JasperBuilderService;
 import com.scap.vtnreport.service.SentEmailService;
@@ -90,21 +92,36 @@ public class DoctorReportSrv extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		HttpSession session=request.getSession();
+		
+		int role = ((BigDecimal) session.getAttribute("role")).intValue();
+		
+		String from_doctor = request.getParameter("hidDoctorCode");
+		String to_doctor = request.getParameter("hidDoctorCode");
 		String report = request.getParameter("hidReport");
 		String hospitalCode = request.getParameter("hidHospitalCode");
 		String mm = request.getParameter("hidMM");
 		String yyyy = request.getParameter("hidYYYY");
-		String doctorCode = request.getParameter("hidDoctorCode");
 		String term = request.getParameter("hidterm");
+
+		if(role == 4 && from_doctor.isEmpty()){
+			from_doctor = "00000";
+			to_doctor = "99999";
+		}else{
+			from_doctor = to_doctor;
+		}
+		
+		System.out.println(role);
 		
 		switch (report) {
+		
+		// ExpenseDetail.jasper
 		case "01":
 			JasperBuilderService voJasperBuilder = new JasperBuilderService();
 			Map<String, Object> params = new HashMap<>();
 			params.put("hospital_code",hospitalCode);
-			params.put("from_doctor", doctorCode);
-			params.put("to_doctor",doctorCode);
+			params.put("from_doctor", from_doctor);
+			params.put("to_doctor",to_doctor);
 			params.put("month",mm);
 			params.put("year",yyyy);
 			params.put("doctor_category","%%");
@@ -113,14 +130,10 @@ public class DoctorReportSrv extends HttpServlet {
 			params.put("order_item_category","%%");
 
 	        try {
-	        	//jasperStream = this.getClass().getResourceAsStream(jasperFile);
 				InputStream jasperStream = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/ExpenseDetail.jasper");
 		        JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-				// Generate Jasper Report
-				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","name");
-//				out.print(voJasperBuilder);
+				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","ExpenseDetail");
 			} catch (JRException | SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
