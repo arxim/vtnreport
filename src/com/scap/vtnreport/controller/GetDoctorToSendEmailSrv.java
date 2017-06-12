@@ -45,13 +45,20 @@ public class GetDoctorToSendEmailSrv extends HttpServlet {
 		String hospitalCode = request.getParameter("hospitalCode");
 		String mm = request.getParameter("mm");
 		String yyyy = request.getParameter("yyyy");
+		String report = request.getParameter("report");
+		String term = request.getParameter("term");
 		PrintWriter out = response.getWriter();
 		JSONObject jsonData = null;
 		
 
 		GetDoctorDao vaEmail = new GetDoctorDao();
 		try {
-			jsonData = vaEmail.getDoctorDatatable(hospitalCode, yyyy, mm);
+			if(report.equals("01")){
+				jsonData = vaEmail.getDoctorTax406Datatable(hospitalCode, yyyy, term);
+			}else{
+				jsonData = vaEmail.getDoctorPaymentDatatable(hospitalCode, yyyy, mm);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

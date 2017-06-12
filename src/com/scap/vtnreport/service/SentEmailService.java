@@ -149,12 +149,12 @@ public class SentEmailService {
 				multipart.addBodyPart(messageBodyPart3);
 				
 				// File 4
-//				DataSource aAttachment4 = new ByteArrayDataSource(pdfStream4.toByteArray(), "application/pdf");
-//				BodyPart messageBodyPart4 = new MimeBodyPart();
-//				messageBodyPart4 = new MimeBodyPart();
-//				messageBodyPart4.setDataHandler(new DataHandler(aAttachment4));
-//				messageBodyPart4.setFileName("test4.pdf");
-//				multipart.addBodyPart(messageBodyPart4);
+				DataSource aAttachment4 = new ByteArrayDataSource(pdfStream4.toByteArray(), "application/pdf");
+				BodyPart messageBodyPart4 = new MimeBodyPart();
+				messageBodyPart4 = new MimeBodyPart();
+				messageBodyPart4.setDataHandler(new DataHandler(aAttachment4));
+				messageBodyPart4.setFileName("DFHold.pdf");
+				multipart.addBodyPart(messageBodyPart4);
 
 				message.setContent(multipart);
 
