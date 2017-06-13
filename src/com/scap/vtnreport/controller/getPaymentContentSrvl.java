@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class getPaymentContentSrvl
@@ -28,8 +29,7 @@ public class getPaymentContentSrvl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		// TODO Auto-generated method stub 
 		response.setContentType("text/html; charset=UTF-8");
 		doPost(request, response);
 	}
@@ -40,9 +40,15 @@ public class getPaymentContentSrvl extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html; charset=UTF-8");
+		HttpSession session = request.getSession(false);
+		String page = "";
+		if(session.getAttribute("_user") != null){
+			page = "/WEB-INF/pages/menu_payment/payment.jsp";  
+		}else{
+		    page = "/SessionTimeoutSrvl";
+		}
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/pages/menu_payment/payment.jsp");
-//		rd.include(request, response);
+		RequestDispatcher rd = request.getRequestDispatcher(page); 
 		rd.forward(request, response);
 	}
 

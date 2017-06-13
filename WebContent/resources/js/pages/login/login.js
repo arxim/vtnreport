@@ -32,21 +32,21 @@ $(document).on('submit','#frmLogin',function(e) {
 	var hospital = $('#dwlHospital').val();
     var passphrase = $('#hidPassphrase').val(); 
     if (!username || !password || !hospital){
-    	var msg = '<div id="msg" class="error">' + messages['login.invalid'] + '</div>';
+    	$('#hidIsLoginNull').val('isEmpty');
+    	var title = '<div id="msg"  > please insert your username and password</div>'
+    	var footer = '<button type="button" class="btn btn-default" data-dismiss="modal"  onclick=\"remomeModalBackDrop('+modalID+')\">Close</button>'
+    	modalInfo(title, footer);
+       }else if (!passphrase) {
+    	/*var msg = '<div id="msg" class="error">' + messages['login.unsecure'] + '</div>';
     	$('#msg-container').html(msg);
     	$('#frmLogin').addClass('msg-active');
     	e.preventDefault(); // Stop the submit
-    }else if (!passphrase) {
-    	var msg = '<div id="msg" class="error">' + messages['login.unsecure'] + '</div>';
-    	$('#msg-container').html(msg);
-    	$('#frmLogin').addClass('msg-active');
-    	e.preventDefault(); // Stop the submit
-    }else {
+*/    }else {
     	var iv = CryptoJS.lib.WordArray.random(128/8).toString(CryptoJS.enc.Hex);
 	    var salt = CryptoJS.lib.WordArray.random(128/8).toString(CryptoJS.enc.Hex);
 	    var aesUtil = new  AesUtil(keySize, iterationCount);
 	    var passwordCipher = aesUtil.encrypt(salt, iv, passphrase, password);
-	    
+	    $('#hidIsLoginNull').val('notEmpty');
 	    $('#hidIv').val(iv);
 	    $('#hidSalt').val(salt);
 	    $('#hidIterationCount').val(iterationCount);

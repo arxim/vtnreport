@@ -39,13 +39,11 @@ public class LoadLoginSrvl extends HttpServlet {
 		String passphrase = AesUtil.random(16);  
 		try { 
 			HttpSession session = request.getSession();
+			session.setAttribute("message", "ONLOAD_INDEX");
 			session.setAttribute("passphrase", Encrytion.encrypt(passphrase));
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/pages/forms/login.jsp");
 			rd.forward(request, response);
-			
-			 
-			System.out.println("==============================load login page=============================================");
-			System.out.println("_user :  " + session.getAttribute("_user")); 
+	 
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,9 +57,11 @@ public class LoadLoginSrvl extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		System.out.println("==============================load login page=============================================");
-		System.out.println("_user  : " + session.getAttribute("_user")); 
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter pw = response.getWriter(); 
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/pages/forms/login.jsp");
+		rd.forward(request, response);
+		 
 	}
 
 }

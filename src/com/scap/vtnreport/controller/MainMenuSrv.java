@@ -30,20 +30,15 @@ public class MainMenuSrv extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		response.setContentType("text/html; charset=UTF-8");
-		
-		HttpSession session = request.getSession(false);
-		System.out.println("==============================login hello=============================================");
-		System.out.println("_user : " + session.getAttribute("_user") ); 
+	 
+		response.setContentType("text/html; charset=UTF-8"); 
+		HttpSession session = request.getSession(false); 
 		String page = "";
 		if(session.getAttribute("_user") != null){
 			page = "/vtnreport/getPaymentContentSrvl";
 		}else{
 		    page = "/SessionTimeoutSrvl";
-		}
-//		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(page);
-//		dispatcher.forward(request, response);
+		} 
 		response.sendRedirect(page);
 	}
 

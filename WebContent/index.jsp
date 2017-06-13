@@ -9,7 +9,8 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>:: Vejthani Report ::</title>
-     
+    <link rel="stylesheet" type="text/css" href="resources/css/share.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="resources/css/login.css" media="all" /> 
     
     <!-- Java Script Import -->
 	<script src="resources/libraries/jquery-1.12.4.min.js" type="text/javascript"></script>
@@ -19,8 +20,7 @@
 	<script src="resources/libraries/datatables-1.10.13/extensions/Responsive/js/dataTables.responsive.min.js" type="text/javascript"></script>
     
     
-	<link rel="stylesheet" type="text/css" href="resources/css/share.css" media="all" />
-	<link rel="stylesheet" type="text/css" href="resources/css/login.css" media="all" /> 
+	
 	<!-- encrypt -->
 	<script type="text/javascript" src="resources/js/utils/aes.js"></script>
 	<script type="text/javascript" src="resources/js/utils/pbkdf2.js"></script>
@@ -78,9 +78,6 @@
 		  <input id="hidSalt" name="hidSalt" type="hidden" />
 		  <input id="hidIterationCount" name="hidIterationCount" type="hidden" />
 		  <input id="hidKeySize" name="hidKeySize" type="hidden" />
-		  <input id="hidIsLoginNull" name="hidIsLoginNull" type="hidden"  />
         </form>
-         
     </body>
-    <%-- <jsp:include page="../../../resources/template/modalMessage.jsp"></jsp:include> --%>
 </html>

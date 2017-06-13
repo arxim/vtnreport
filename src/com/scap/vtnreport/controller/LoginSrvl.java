@@ -39,9 +39,7 @@ public class LoginSrvl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-//		HttpSession sessionPass = request.getSession(false);
-//		System.out.println("==============================logout=============================================");
-//		System.out.println("_user " + sessionPass.getAttribute("_user") ); 
+ 
 		response.setContentType("text/html; charset=UTF-8");
 		RequestDispatcher rd = request.getRequestDispatcher("/LoadLoginSrvl"); 
 		rd.forward(request, response);
@@ -60,6 +58,8 @@ public class LoginSrvl extends HttpServlet {
 
 		String hospitalcode = request.getParameter("hospitalcode");
 		String passphrase = request.getParameter("hidPassphrase"); 
+		//àªç¤ value login
+		String isKeyLoginNull = request.getParameter("hidIsLoginNull"); 
 		
 		//new sesion
 		HttpSession session = request.getSession();
@@ -71,7 +71,7 @@ public class LoginSrvl extends HttpServlet {
 			
 			
 
-			if (sessionInSrvl != null && sessionInSrvl.equals(passphrase)) {
+			if (sessionInSrvl != null && sessionInSrvl.equals(passphrase) && !isKeyLoginNull.equals("isEmpty")) {
 				LoginService loginService = new LoginService();
 				UserView isLoginUser = loginService.doLoginProcess(request);
 				if (isLoginUser != null) { 
@@ -99,22 +99,31 @@ public class LoginSrvl extends HttpServlet {
 					rd.forward(request, response);
 
 				} else { 
-					 session.setAttribute("message", "FAIL");
-					 response.sendRedirect(request.getContextPath());
+					session.setAttribute("message", "FAIL");
+					RequestDispatcher rd = request.getRequestDispatcher("/LoadLoginSrvl");
+					rd.forward(request, response);
+					/* session.setAttribute("message", "FAIL");
+					 response.sendRedirect(request.getContextPath());*/
 				}
 
 			}
 
 			else { 
-				 session.setAttribute("message", "FAIL");
-				 response.sendRedirect(request.getContextPath()); 
+				 /*session.setAttribute("message", "FAIL");
+				 response.sendRedirect(request.getContextPath()); */
+				session.setAttribute("message", "FAIL");
+				RequestDispatcher rd = request.getRequestDispatcher("/LoadLoginSrvl");
+				rd.forward(request, response);
 
 			}
  
 		} catch (Exception e) {
-			e.printStackTrace();
+			/*e.printStackTrace();*/
+			/*session.setAttribute("message", "FAIL");
+			response.sendRedirect(request.getContextPath());*/
 			session.setAttribute("message", "FAIL");
-			response.sendRedirect(request.getContextPath());
+			RequestDispatcher rd = request.getRequestDispatcher("/LoadLoginSrvl");
+			rd.forward(request, response);
 		}
 		pw.close();
 
