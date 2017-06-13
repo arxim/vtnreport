@@ -11,7 +11,7 @@
 		<!-- 				<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span> -->
 		<!-- 			</button> -->
 				<a class="navbar-brand visible-xs" href="javascript:void(0);" style="color: #ffffff">	
-					<img src="resources/images/logo-vejthani.png" class="img-responsive" alt="logo vejthani" width="200" height="148">
+					<img src="resources/images/logo-vejthani.png" class="img-responsive" alt="logo vejthani" width="185" height="138">
 				</a>
 				<br>
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#divNavBar" style="background-color: #ffffff">
