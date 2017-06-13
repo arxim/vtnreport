@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -75,13 +76,19 @@ public class SentEmailSrv extends HttpServlet {
 			try {
 				InputStream jasperStream = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/TaxLetter406.jasper");
 				JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-				arrData = vaEmail.getDoctorSendEmail(hospitalCode,doctorCode, yyyy, mm);
+				
+				// Get SubReport RealPath
+				ServletContext servletContext = request.getSession().getServletContext();
+				String relativeWebPath = "/WEB-INF/JasperReport/";
+				String absoluteDiskPath = servletContext.getRealPath(relativeWebPath);
+				
+				arrData = vaEmail.getDoctorSendEmailTax406(hospitalCode,doctorCode, yyyy, term);
 				email = arrData.get(0).get("EMAIL").trim();
 				
 				if(!email.equals("0")){
-					bos = prepareFile.PrepareTaxLetter406(arrData,jasperReport,jasperStream,response,term);
+					bos = prepareFile.PrepareTaxLetter406(arrData,jasperReport,jasperStream,response,term,absoluteDiskPath);
 					message  = sentEmail.SendMailSingleFile(bos, email);
-					StatusSendMail.SendMailSuccess(hospitalCode, doctorCode,mm,yyyy);
+					StatusSendMail.SendMailTax406Success(hospitalCode, doctorCode,mm,yyyy);
 				}else{
 					message = "FAIL";
 				}
@@ -103,25 +110,30 @@ public class SentEmailSrv extends HttpServlet {
 				InputStream jasperStream1 = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/PaymentVoucher.jasper");
 				InputStream jasperStream2 = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/SummaryRevenueByDetail.jasper");
 				InputStream jasperStream3 = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/ExpenseDetail.jasper");
-//				InputStream jasperStream4 = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/ExpenseDetail.jasper");
+				InputStream jasperStream4 = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/DFHold.jasper");
+				
+				// Get SubReport RealPath
+				ServletContext servletContext = request.getSession().getServletContext();
+				String relativeWebPath = "/WEB-INF/JasperReport/";
+				String absoluteDiskPath = servletContext.getRealPath(relativeWebPath);
 				
 				JasperReport jasperReport1 = (JasperReport) JRLoader.loadObject(jasperStream1);
 				JasperReport jasperReport2 = (JasperReport) JRLoader.loadObject(jasperStream2);
 				JasperReport jasperReport3= (JasperReport) JRLoader.loadObject(jasperStream3);
-//				JasperReport jasperReport4 = (JasperReport) JRLoader.loadObject(jasperStream4);
+				JasperReport jasperReport4 = (JasperReport) JRLoader.loadObject(jasperStream4);
 				
-				arrData = vaEmail.getDoctorSendEmail(hospitalCode,doctorCode, yyyy, mm);
+				arrData = vaEmail.getDoctorSendEmailPayment(hospitalCode,doctorCode, yyyy, mm);
 				email = arrData.get(0).get("EMAIL").trim();
 				
 				if(!email.equals("0")){
 					
-					bos1 = prepareFile.PreparePaymentVoucher(arrData,jasperReport1,jasperStream1,response);
+					bos1 = prepareFile.PreparePaymentVoucher(arrData,jasperReport1,jasperStream1,response,absoluteDiskPath);
 					bos2 = prepareFile.PrepareSummaryRevenueByDetail(arrData,jasperReport2,jasperStream2,response);
 					bos3 = prepareFile.PrepareExpenseDetail(arrData,jasperReport3,jasperStream3,response);
-//					bos4 = prepareFile.PreparePaymentVoucher(arrData,jasperReport4,jasperStream1,response);
+					bos4 = prepareFile.PrepareDFHold(arrData,jasperReport4,jasperStream4,response);
 					
 					message  = sentEmail.SendMailMultiFile(bos1,bos2,bos3,bos4, email);
-					StatusSendMail.SendMailSuccess(hospitalCode, doctorCode,mm,yyyy);
+					StatusSendMail.SendMailPaymentSuccess(hospitalCode, doctorCode,mm,yyyy);
 				}else{
 					message = "FAIL";
 				}

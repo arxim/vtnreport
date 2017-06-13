@@ -129,7 +129,7 @@ function sendEmail(){
 		url : '/vtnreport/SentEmailSrv',
 		type : 'post',
 		data : {
-			yyyy : yyyy,
+			yyyy : yyyy ,
 			mm : mm,
 			hospitalCode : hospitalCode ,
 			doctorCode : doctorCode,
@@ -166,6 +166,8 @@ function getDoctor(){
 	var yyyy =  $('#txtYYYY').val();
 	var mm = $('#txtMM').val()
 	var hospitalCode = $('#hidHospitalCode').val();
+	var	report = $('#dwlReport').val();
+	var term = $('#dwlTerm').val();
 	
 	$('#tblDoctor').dataTable({
 		"iDisplayLength": 10,
@@ -181,7 +183,9 @@ function getDoctor(){
 			data :{
 				yyyy : yyyy,
 				mm : mm,
+				term : term,
 				hospitalCode : hospitalCode,
+				report : report
 			}
 		},
 		"fnInitComplete": function( oSettings ) {
