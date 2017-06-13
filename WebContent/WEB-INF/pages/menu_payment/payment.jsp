@@ -46,7 +46,7 @@
 							</div>
 							<div class="col-xs-6 col-sm-3">
 								<input id="hidDoctor" name="hidDoctor" type="hidden" />
-								<input id="txtDoctorCode" name="txtDoctorCode" type="text" class="form-control" />
+								<input id="txtDoctorCode" name="txtDoctorCode" type="text" class="form-control"/>
 							</div>
 							<div class="col-xs-6">
 		

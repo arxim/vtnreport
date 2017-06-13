@@ -45,13 +45,14 @@
 							</p>
 						</div>
 						<div class="col-xs-6 col-sm-3">
-							<input id="txtDoctorCode" name="txtDoctorCode" type="text" class="form-control input-sm" />
+							<input id="hidDoctor" name="hidDoctor" type="hidden" />
+							<input id="txtDoctorCode" name="txtDoctorCode" type="text" class="form-control" />
 						</div>
 						<div class="col-xs-6">
 							
 						</div>
 						<div class="col-xs-6 col-sm-6">
-							<input id="txtDoctorName" name="txtDoctorName" type="text" class="form-control input-sm " disabled="disabled"/>
+							<input id="txtDoctorName" name="txtDoctorName" type="text" class="form-control" disabled="disabled"/>
 						</div>
 					</div>
 					<div class="row">
