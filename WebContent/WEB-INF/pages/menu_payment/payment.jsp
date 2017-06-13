@@ -48,6 +48,9 @@
 								<input id="hidDoctor" name="hidDoctor" type="hidden" />
 								<input id="txtDoctorCode" name="txtDoctorCode" type="text" class="form-control" />
 							</div>
+							<div class="col-xs-6">
+		
+							</div>
 							<div class="col-xs-6 col-sm-6">
 								<input id="txtDoctorName" name="txtDoctorName" type="text" class="form-control" disabled="disabled" />
 							</div>
