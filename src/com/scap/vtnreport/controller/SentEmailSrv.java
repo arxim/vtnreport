@@ -110,7 +110,7 @@ public class SentEmailSrv extends HttpServlet {
 				InputStream jasperStream1 = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/PaymentVoucher.jasper");
 				InputStream jasperStream2 = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/SummaryRevenueByDetail.jasper");
 				InputStream jasperStream3 = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/ExpenseDetail.jasper");
-				InputStream jasperStream4 = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/DFHold.jasper");
+				InputStream jasperStream4 = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/SummaryDFUnpaidByDetailAsOfDate.jasper");
 				
 				// Get SubReport RealPath
 				ServletContext servletContext = request.getSession().getServletContext();
@@ -127,10 +127,13 @@ public class SentEmailSrv extends HttpServlet {
 				
 				if(!email.equals("0")){
 					
-					bos1 = prepareFile.PreparePaymentVoucher(arrData,jasperReport1,jasperStream1,response,absoluteDiskPath);
+					int month = Integer.parseInt(mm);
+					int year = Integer.parseInt(yyyy);
+					
+					bos1 = prepareFile.PreparePaymentVoucher(arrData,jasperReport1,jasperStream1,response,absoluteDiskPath,month,year);
 					bos2 = prepareFile.PrepareSummaryRevenueByDetail(arrData,jasperReport2,jasperStream2,response);
 					bos3 = prepareFile.PrepareExpenseDetail(arrData,jasperReport3,jasperStream3,response);
-					bos4 = prepareFile.PrepareDFHold(arrData,jasperReport4,jasperStream4,response);
+					bos4 = prepareFile.PrepareSummaryDFUnpaidByDetailAsOfDate(arrData,jasperReport4,jasperStream4,response,month,year);
 					
 					message  = sentEmail.SendMailMultiFile(bos1,bos2,bos3,bos4, email);
 					StatusSendMail.SendMailPaymentSuccess(hospitalCode, doctorCode,mm,yyyy);

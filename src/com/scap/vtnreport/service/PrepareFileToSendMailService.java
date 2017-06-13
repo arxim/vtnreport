@@ -13,6 +13,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.scap.vtnreport.utils.JDate;
+
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperReport;
 
@@ -44,11 +46,13 @@ public class PrepareFileToSendMailService {
 	
 	// PaymentVoucher.jasper
 	public ByteArrayOutputStream PreparePaymentVoucher(ArrayList<HashMap<String, String>> doctorData,
-			JasperReport jasperReport, InputStream jasperStream, HttpServletResponse response,String absoluteDiskPath) throws JRException, IOException, SQLException {
+			JasperReport jasperReport, InputStream jasperStream, HttpServletResponse response,String absoluteDiskPath,int month, int year) throws JRException, IOException, SQLException {
 
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		JasperBuilderService voJasperBuilder = new JasperBuilderService();
 		String password = doctorData.get(0).get("PASS_ENCRYPT");
+
+		String to_date = JDate.getLastDayOfMonth(year, month);
 		
 		Map<String, Object> params = new HashMap<>();
 		params.put("from_doctor", doctorData.get(0).get("DOCTOR_CODE"));
@@ -56,7 +60,7 @@ public class PrepareFileToSendMailService {
 		params.put("month",doctorData.get(0).get("MM"));
 		params.put("year",doctorData.get(0).get("YYYY"));
 		params.put("from_date","00000000");
-		params.put("to_date","00000000");
+		params.put("to_date",to_date);
 		params.put("SUBREPORT_DIR",absoluteDiskPath);
 
 		bos = voJasperBuilder.jasperBuilderPdfEncrypt(jasperStream, jasperReport, response, params, "application/pdf","",password);
@@ -112,17 +116,23 @@ public class PrepareFileToSendMailService {
 		return bos;
 	}
 
-	public ByteArrayOutputStream PrepareDFHold(ArrayList<HashMap<String, String>> arrData, JasperReport jasperReport,
-			InputStream jasperStream, HttpServletResponse response) throws Exception{
+	public ByteArrayOutputStream PrepareSummaryDFUnpaidByDetailAsOfDate(ArrayList<HashMap<String, String>> arrData, JasperReport jasperReport,
+			InputStream jasperStream, HttpServletResponse response,int month,int year) throws Exception{
 
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		JasperBuilderService voJasperBuilder = new JasperBuilderService();
 		String password = arrData.get(0).get("PASS_ENCRYPT");
+		String to_date = JDate.getLastDayOfMonth(year, month);
+		
 		
 		Map<String, Object> params = new HashMap<>();
+		params.put("from_date","00000000");
+		params.put("to_date",to_date);
+		params.put("doctor",arrData.get(0).get("DOCTOR_CODE"));
 		params.put("hospital_code",arrData.get(0).get("HOSPITAL_CODE"));
-		params.put("month",arrData.get(0).get("MM"));
-		params.put("year",arrData.get(0).get("YYYY"));
+		params.put("as_of_date","%%");
+		params.put("department_code","%%");
+		params.put("payor_code","%%");
 
 
 		bos = voJasperBuilder.jasperBuilderPdfEncrypt(jasperStream, jasperReport, response, params, "application/pdf","",password);

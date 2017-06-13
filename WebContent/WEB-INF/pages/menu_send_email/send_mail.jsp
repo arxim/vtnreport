@@ -29,8 +29,8 @@
 						</div>
 						<div class="col-xs-6 col-sm-3 coltrol-label">
 							<select class="form-control" id="dwlReport">
-								<option value="01">Tax 406</option>
-								<option value="02">Payment</option>
+								<option value="01">Tax Letter 40 (6)</option>
+								<option value="02">Payment DF</option>
 							</select>
 						</div>
 						<div class="col-xs-6 col-sm-3 control-label" id="divLabelTerm">
@@ -63,7 +63,22 @@
 						<div class="col-xs-6 col-sm-3">
 							<input class="form-control" id="txtYYYY" name="txtYYYY" disabled="disabled" />
 						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-6 col-sm-3 control-label">
+							<p class="text-right">
+								<b id="lblPrintDate">Print Date</b>
+							</p>
 						</div>
+						<div class="col-xs-6 col-sm-3" id="divPrintDate">
+							<div class="input-group">
+								<input type="text" id="txtPrintDate" name="txtPrintDate" class="form-control datePicker" placeholder="dd/mm/yyyy" /> 
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div>
+					</div>
 					</div>
 					<div class="form-group"></div>
 				<div class="row">

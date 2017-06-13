@@ -2,6 +2,14 @@ $(document).ready(function() {
 	getYYYY();
 	getBatch();
 	
+	$('#txtPrintDate').datepicker({
+		format : "dd/mm/yyyy",
+		autoclose : true,
+		todayHighlight : true
+	});
+	
+	$('#txtPrintDate').datepicker('setDate', 'now');
+	
 	var hospitalCode = $('#hidhospitalCode').val();
 	
 	//Data Table
@@ -55,12 +63,16 @@ $(document).ready(function() {
 	$("#dwlReport").change(function() {
 		
 		if ($("#dwlReport").val() == '02') {
+			$("#lblPrintDate").hide();
+			$("#divPrintDate").hide();
 			$("#divLabelTerm").hide();
 			$("#divValueTerm").hide();
 			
 			$('#tblDoctor').DataTable().clear()
 			$('#tblDoctor').DataTable().draw();
 		}else{
+			$("#lblPrintDate").show();
+			$("#divPrintDate").show();
 			$("#divLabelTerm").show();
 			$("#divValueTerm").show();
 			
@@ -123,18 +135,22 @@ function sendEmail(){
 	var hospitalCode = $('#hidHospitalCode').val();
 	var	report = $('#dwlReport').val();
 	var term = $('#dwlTerm').val();
+	var tempPrintDate = $("#txtPrintDate").val();
+	var printDate = tempPrintDate.substring(6,10)+tempPrintDate.substring(3,5)+tempPrintDate.substring(0,2);
 	
+	alert(printDate);
 	if(current_row < total_table.fnGetData().length){
 		$.ajax({
 		url : '/vtnreport/SentEmailSrv',
 		type : 'post',
 		data : {
-			yyyy : yyyy ,
+			yyyy : "2014" ,
 			mm : mm,
 			hospitalCode : hospitalCode ,
 			doctorCode : doctorCode,
 			report : report,
 			term : term,
+			printDate : printDate
 		},
 		success : function(response) {
 			if (response == 'PASS') {
@@ -181,7 +197,7 @@ function getDoctor(){
 			url : "/vtnreport/GetDoctorToSendEmailSrv",
 			dataSrc : "data",
 			data :{
-				yyyy : yyyy,
+				yyyy : "2014",
 				mm : mm,
 				term : term,
 				hospitalCode : hospitalCode,
