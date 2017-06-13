@@ -42,8 +42,8 @@
 
 <style type="text/css">
 .panel-vtn>.panel-heading {
-	color: #333;
-	background-color: #36ADE6;
+	color: #FFFFFF; /* 	333 */
+	background-color: #3c8ac0;
 	border-color: #ddd;
 }
 .container-fluid{

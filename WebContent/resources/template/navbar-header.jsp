@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <nav class="navbar navbar-default no-margin">
-	<div class="container-fluid" style="background-color: #37cee6 ">
+	<div class="container-fluid" style="background-color: #c9dce5 ">
 <!-- 	294783 -->
 		<!-- navbar-header-->
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -14,7 +14,7 @@
 					<img src="resources/images/logo-vejthani.png" class="img-responsive" alt="logo vejthani" width="185" height="138">
 				</a>
 				<br>
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#divNavBar" style="background-color: #ffffff">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#divNavBar" style="background-color: #ffffff;">
 					<span class="icon-bar"></span> 
 					<span class="icon-bar"></span> 
 					<span class="icon-bar"></span>
@@ -39,9 +39,9 @@
 			</div>
 			<div class="col-xs-12 col-sm-4 text-center">
 	 			<ul class="nav navbar-nav navbar-right">
-					<li style="color: #FFFFFF">
+					<li style="color: #19067f">
 						<br>
-						<a href="javascript:void(0);" style="color: #ffffff">
+						<a href="javascript:void(0);" style="color: #19067f">
 						<c:choose>
 				       <c:when test="${sessionScope.name!= null}"> 
 				          ${sessionScope.name}
@@ -53,8 +53,8 @@
 					</li>
 					<li>				
 						<div class="btn btn-lg">
-							<a href="${pageContext.request.contextPath}/LogoutSrvl" style="color: #ffffff">
-						 	<span class="glyphicon glyphicon-log-out"></span><br/>
+							<a href="${pageContext.request.contextPath}/LogoutSrvl" style="color: #19067f">
+						 	<span class="glyphicon glyphicon-log-out"></span><br>
 						 	 Logout 
 						 	</a>
 						</div>
