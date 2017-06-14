@@ -63,6 +63,9 @@ public class DoctorReportSrv extends HttpServlet {
 		JasperBuilderService voJasperBuilder = new JasperBuilderService();
 		
 		int role = ((BigDecimal) session.getAttribute("role")).intValue();
+		String user = (String) session.getAttribute("userid");
+		
+		
 		
 		String from_doctor = request.getParameter("hidDoctorCode");
 		String to_doctor = request.getParameter("hidDoctorCode");
@@ -72,6 +75,12 @@ public class DoctorReportSrv extends HttpServlet {
 		String yyyy = request.getParameter("hidYYYY");
 		String term = request.getParameter("hidTerm");
 		String printDate = request.getParameter("hidPrintDate");
+		
+		
+		if(role != 4){
+			from_doctor = user;
+			to_doctor = user;
+		}
 		
 		// Get Last Day of Month
 		int month = Integer.parseInt(mm);
