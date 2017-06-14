@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	getYYYY();
+	checkRole();
 	
 	$('#txtPrintDate').datepicker({
 		format : "dd/mm/yyyy",
@@ -87,4 +88,18 @@ function getPayment(){
 }
 function getEmail(){
 	$('#frmEmail').submit();
+}
+
+//Check Role DR Or Account
+function checkRole(){
+	
+	var role = $("#hidRole").val();
+	var userCode = $("#hidUserCode").val();
+	var userName = $("#hidUserName").val();
+	
+	if(role == "5"){
+		$("#txtDoctorCode").prop('disabled', true);
+		$("#txtDoctorCode").val(userCode);
+		$("#txtDoctorName").val(userName)
+	}
 }

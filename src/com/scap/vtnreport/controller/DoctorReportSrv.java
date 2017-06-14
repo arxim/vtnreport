@@ -73,17 +73,15 @@ public class DoctorReportSrv extends HttpServlet {
 		String term = request.getParameter("hidTerm");
 		String printDate = request.getParameter("hidPrintDate");
 		
+		// Get Last Day of Month
 		int month = Integer.parseInt(mm);
 		int year = Integer.parseInt(yyyy);
-		
-
-		// Get SubReport RealPath
-		ServletContext servletContext = request.getSession().getServletContext();
-		String relativeWebPath = "/WEB-INF/JasperReport/";
-		String absoluteDiskPath = servletContext.getRealPath(relativeWebPath);
-		
 		String to_date = JDate.getLastDayOfMonth(year, month);
+		
+		// Role Permission to print report 
+		String permission = role == 4 ? "Y" : "N";
 
+		// Role User when doctorCode is Empty
 		if(role == 4 && from_doctor.isEmpty()){
 			from_doctor = "00000";
 			to_doctor = "99999";
@@ -91,6 +89,11 @@ public class DoctorReportSrv extends HttpServlet {
 			from_doctor = to_doctor;
 		}
 		
+		// Get SubReport RealPath
+		ServletContext servletContext = request.getSession().getServletContext();
+		String relativeWebPath = "/WEB-INF/JasperReport/";
+		String absoluteDiskPath = servletContext.getRealPath(relativeWebPath);
+
 		System.out.println(role);
 		
 		switch (report) {
@@ -109,7 +112,7 @@ public class DoctorReportSrv extends HttpServlet {
 			try {
 				InputStream jasperStream = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/PaymentVoucher.jasper");
 		        JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","PaymentVoucher");
+				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","PaymentVoucher","Y");
 			} catch (JRException | SQLException e) {
 				e.printStackTrace();
 			}
@@ -133,7 +136,7 @@ public class DoctorReportSrv extends HttpServlet {
 			try {
 				InputStream jasperStream = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/SummaryRevenueByDetail.jasper");
 		        JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","SummaryRevenueByDetail");
+				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","SummaryRevenueByDetail","Y");
 			} catch (JRException | SQLException e) {
 				e.printStackTrace();
 			}
@@ -154,7 +157,7 @@ public class DoctorReportSrv extends HttpServlet {
 			try {
 				InputStream jasperStream = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/SummaryDFUnpaidByDetailAsOfDate.jasper");
 		        JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","SummaryDFUnpaidByDetailAsOfDate");
+				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","SummaryDFUnpaidByDetailAsOfDate","Y");
 			} catch (JRException | SQLException e) {
 				e.printStackTrace();
 			}
@@ -177,7 +180,7 @@ public class DoctorReportSrv extends HttpServlet {
 	        try {
 				InputStream jasperStream = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/ExpenseDetail.jasper");
 		        JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","ExpenseDetail");
+				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","ExpenseDetail","Y");
 			} catch (JRException | SQLException e) {
 				e.printStackTrace();
 			}
@@ -190,14 +193,15 @@ public class DoctorReportSrv extends HttpServlet {
 			params.put("hospital_code",hospitalCode);
 			params.put("doctor_code",to_doctor);
 			params.put("term",term);
-			params.put("year",yyyy);
+			params.put("mm", mm);
+			params.put("yyyy",yyyy);
 			params.put("signature", absoluteDiskPath);
 			params.put("print_date", printDate);
 
 			try {
 				InputStream jasperStream = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/TaxLetter406.jasper");
 		        JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","TaxLetter406");
+				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","TaxLetter406",permission);
 			} catch (JRException | SQLException e) {
 				e.printStackTrace();
 			}

@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
 
+import javax.management.relation.Role;
 import javax.servlet.http.HttpServletResponse;
 
 import com.lowagie.text.pdf.PdfWriter;
@@ -61,7 +62,7 @@ public class JasperBuilderService {
 	}
 
 	public void jasperBuilder(InputStream jasperStream, JasperReport jasperReport, HttpServletResponse response,
-			Map<String, Object> params, String contentType, String vaFilesName)
+			Map<String, Object> params, String contentType, String vaFilesName,String permission)
 			throws JRException, IOException, SQLException {
 
 		Connection conn = null;
@@ -74,7 +75,25 @@ public class JasperBuilderService {
 			response.setContentType(contentType);
 			response.setHeader("Content-disposition", "inline; filename=" + vaFilesName + ".pdf");
 			OutputStream out = response.getOutputStream();
-			JasperExportManager.exportReportToPdfStream(jasperPrint, out);
+			
+			JRPdfExporter exporter = new JRPdfExporter();
+			exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(out));
+			SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+			
+			 // permission Y = allow print	 
+			if(permission.equals("Y")){
+				configuration.setPermissions(PdfWriter.ALLOW_COPY); // Allow Copy
+				configuration.setPermissions(PdfWriter.ALLOW_PRINTING); // Allow Printing
+			}else{
+				configuration.setEncrypted(true);
+				configuration.set128BitKey(true);
+				configuration.setOwnerPassword("c2NhcEAxMjM0"); // Base64 Encode
+				configuration.setPermissions(PdfWriter.ALLOW_COPY);
+			}
+			
+			exporter.setConfiguration(configuration);
+			exporter.exportReport();
 
 			// close Stream
 			jasperStream.close();

@@ -111,6 +111,7 @@
 			<input type="hidden" id="hidUserCode" name="hidUserCode" value="<%= session.getAttribute("userid") %>">
 		    <input type="hidden" id="hidRole" name="hidRole" value="<%= session.getAttribute("role") %>">
 		    <input type="hidden" id="hidHospitalCode" name="hidHospitalCode" value="<%= session.getAttribute("hospitalcode")%>">
+		    <input type="hidden" id="hidUserName" name="hidUserName" value="<%= session.getAttribute("name")%>">
 			<form id="frmPayment" action="/vtnreport/getPaymentContentSrvl" method="post"> </form>
 			<form id="frmTax" action="/vtnreport/getTaxContentSrvl" method="post"> </form>
 			<form id="frmEmail" action="/vtnreport/getEmailContentSrvl" method="post"> </form>
