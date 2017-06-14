@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <nav class="navbar navbar-default no-margin">
-	<div class="container-fluid" style="background-color: #c9dce5 ">
+	<div class="container-fluid" style="background-color: #c9dce5">
 <!-- 	294783 -->
 		<!-- navbar-header-->
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -14,10 +14,10 @@
 					<img src="resources/images/logo-vejthani.png" class="img-responsive" alt="logo vejthani" width="185" height="138">
 				</a>
 				<br>
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#divNavBar" style="background-color: #ffffff;">
-					<span class="icon-bar"></span> 
-					<span class="icon-bar"></span> 
-					<span class="icon-bar"></span>
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#divNavBar" style="background-color: #ffffff">
+					<span class="icon-bar" style="background-color: #19067f"></span> 
+					<span class="icon-bar" style="background-color: #19067f"></span> 
+					<span class="icon-bar" style="background-color: #19067f"></span>
 				</button>
 			</div>  
 		</div> 	
@@ -40,7 +40,9 @@
 			<div class="col-xs-12 col-sm-4 text-center">
 	 			<ul class="nav navbar-nav navbar-right">
 					<li style="color: #19067f">
-						<br>
+					   <div class="col hidden-xs">	
+							<br>
+						</div>
 						<a href="javascript:void(0);" style="color: #19067f">
 						<c:choose>
 				       <c:when test="${sessionScope.name!= null}"> 

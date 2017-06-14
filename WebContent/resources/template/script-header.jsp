@@ -22,9 +22,10 @@
 
 <style type="text/css">
 .panel-vtn>.panel-heading {
-	color: #FFFFFF; /* 	333 */
+	color: #f5db5f; /* 	FFFFFF */
 	background-color: #3c8ac0;
 	border-color: #ddd;
+	font-size: 16px;
 }
 .container-fluid{
 	padding-left: 0;
