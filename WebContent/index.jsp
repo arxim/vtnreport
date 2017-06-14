@@ -1,14 +1,15 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" errorPage="forms/error.jsp"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> 
+<html lang="en"> <!--<![endif]-->
  
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>:: Vejthani Report ::</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+    <title>:: Vejthani Report ::</title>
     <link rel="stylesheet" type="text/css" href="resources/css/share.css" media="all" />
 	<link rel="stylesheet" type="text/css" href="resources/css/login.css" media="all" /> 
     
@@ -27,6 +28,9 @@
 	<script type="text/javascript" src="resources/js/utils/AesUtil.js"></script>
 	<script type="text/javascript" src="resources/js/pages/login/login.js"></script>
 	<!-- <script type="text/javascript" src="javascript/md5.js"></script> -->
+	
+	<!-- CSS Import -->
+  <link href="${pageContext.request.contextPath}/resources/libraries/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
  
 </head> 
    <body>
@@ -79,5 +83,6 @@
 		  <input id="hidIterationCount" name="hidIterationCount" type="hidden" />
 		  <input id="hidKeySize" name="hidKeySize" type="hidden" />
         </form>
-    </body>
+       
+    </body> 
 </html>
