@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	getYYYY();
-	checkRole();
+	checkRole();   
+	$("#btn-tax").addClass("active").css("background-color","#87b2e0");
 	
 	$('#txtPrintDate').datepicker({
 		format : "dd/mm/yyyy",

@@ -14,7 +14,7 @@
 					<img src="resources/images/logo-vejthani.png" class="img-responsive" alt="logo vejthani" width="185" height="138">
 				</a>
 				<br>
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#divNavBar" style="background-color: #ffffff">
+				<button id="btn-bar" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#divNavBar" style="background-color: #ffffff">
 					<span class="icon-bar" style="background-color: #19067f"></span> 
 					<span class="icon-bar" style="background-color: #19067f"></span> 
 					<span class="icon-bar" style="background-color: #19067f"></span>

@@ -35,20 +35,20 @@ public class MenuDao {
 				
  
 				switch (lstMenuRole.get(i).get("MENU_CODE")) {
-
+				
 				case "RE001":
-					value +="<a href=\"#\" class=\"btn btn-default\" style=\"color:#19067f\" onclick=\"getPaymnet()\">"
-							+ " <span class=\"btn-lg glyphicon glyphicon-list-alt\"></span>"
+					value +="<a href=\"#\" id=\"btn-payment\" class=\"btn btn-default\" onclick=\"getPaymnet()\">"
+							+ " <span><img src=\"resources/images/icon-payment.png\" class=\"img-responsive\" alt=\"icon payment\" width=\"45\" height=\"45\"></span>"
 							+ "</a>&nbsp;";
 					break;
 				case "RE002":
-					value +="<a href=\"#\" class=\"btn btn-default\" style=\"color:#19067f\" onclick=\"getTax()\">"
-							+ " <span class=\"btn-lg glyphicon glyphicon-usd\"></span>"
+					value +="<a href=\"#\" id=\"btn-tax\" class=\"btn btn-default\" onclick=\"getTax()\">"
+							+ " <span><img src=\"resources/images/icon-tax.png\" class=\"img-responsive\" alt=\"icon tax\" width=\"45\" height=\"45\"></span>"
 							+ " </a>&nbsp;";
 					break;
 				case "RE003":
-					value +="<a href=\"#\" class=\"btn btn-default\" style=\"color:#19067f\" onclick=\"getEmail()\">"
-							+ " <span class=\"btn-lg glyphicon glyphicon-send\"></span>"
+					value +="<a href=\"#\" id=\"btn-email\" class=\"btn btn-default\" onclick=\"getEmail()\">"
+							+ " <span><img src=\"resources/images/icon-send-email.png\" class=\"img-responsive\" alt=\"icon send email\" width=\"45\" height=\"45\"></span>"
 						    + " </a>&nbsp;";
 					break;
 				}

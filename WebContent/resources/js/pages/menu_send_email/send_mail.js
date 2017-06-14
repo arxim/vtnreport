@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	getYYYY();
 	getBatch();
+	$("#btn-email").addClass("active").css("background-color","#87b2e0");
 	
 	$('#txtPrintDate').datepicker({
 		format : "dd/mm/yyyy",

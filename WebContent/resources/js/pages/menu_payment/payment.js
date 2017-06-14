@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	getYYYY();
 	checkRole();
+	$("#btn-payment").addClass("active").css("background-color","#87b2e0");
 	
 var hospitalCode = $('#hidhospitalCode').val();
 	
