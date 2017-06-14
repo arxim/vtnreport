@@ -67,6 +67,7 @@ public class SentEmailSrv extends HttpServlet {
 		String yyyy = request.getParameter("yyyy");
 		String doctorCode = request.getParameter("doctorCode");
 		String term = request.getParameter("term");
+		String printDate = request.getParameter("printDate");
 		String email = "";
 		
 		switch (report) {
@@ -86,7 +87,7 @@ public class SentEmailSrv extends HttpServlet {
 				email = arrData.get(0).get("EMAIL").trim();
 				
 				if(!email.equals("0")){
-					bos = prepareFile.PrepareTaxLetter406(arrData,jasperReport,jasperStream,response,term,absoluteDiskPath);
+					bos = prepareFile.PrepareTaxLetter406(arrData,jasperReport,jasperStream,response,term,absoluteDiskPath,printDate);
 					message  = sentEmail.SendMailSingleFile(bos, email);
 					StatusSendMail.SendMailTax406Success(hospitalCode, doctorCode,mm,yyyy);
 				}else{

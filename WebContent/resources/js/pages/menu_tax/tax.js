@@ -1,5 +1,43 @@
 $(document).ready(function() {
 	getYYYY();
+	
+	$('#txtPrintDate').datepicker({
+		format : "dd/mm/yyyy",
+		autoclose : true,
+		todayHighlight : true
+	});
+	
+	// Set Current Date
+	$('#txtPrintDate').datepicker('setDate', 'now');
+	
+	var hospitalCode = $('#hidhospitalCode').val();
+	//Autocomplete
+	$("#txtDoctorCode").autocomplete({
+		autoFocus: true,
+	    cacheLength: 1,
+	    scroll: true,
+	    highlight: false,
+	    source: function(request, response) {
+	        $.ajax({
+	         type: "POST",
+	            url: '/vtnreport/AutoCompleteSrvl',
+	            dataType: "json",
+	            data: {
+	            	doctorSearch : request.term.replace(" ", "%"),
+					hospitalCode : hospitalCode,
+	            },
+	            success: function(data) {
+	                response(data);
+	                $("#txtDoctorName").val("");
+	            }
+	        });
+	    },
+	 select: function(event, ui) {
+	   event.preventDefault();
+	   $("#txtDoctorName").val(ui.item.value); // Code : Description
+	   $("#txtDoctorCode").val(ui.item.id); // Code
+	 }
+	});
 });
 
 function getYYYY(){
@@ -15,6 +53,29 @@ function getYYYY(){
 				$("#dwlYear").append(data);
 			}
 	 }); 
+}
+
+// View Report
+function getReport(){
+	
+	var yyyy = $('#dwlYear').val();
+	var mm = $('#dwlMonth').val();
+	var hospitalCode = $('#hidHospitalCode').val();
+	var	report = "tax";
+	var doctorCode = $('#txtDoctorCode').val().trim();
+	var tempPrintDate = $("#txtPrintDate").val();
+	var printDate = tempPrintDate.substring(6,10)+tempPrintDate.substring(3,5)+tempPrintDate.substring(0,2);
+	var term = $("#dwlTerm").val();
+	
+	$("#hidReport").val(report);
+	$("#hidMM").val(mm);
+	$("#hidYYYY").val(yyyy);
+	$("#hidDoctorCode").val(doctorCode);
+	$("#hidPrintDate").val(printDate);
+	$("#hidTerm").val(term);
+
+	$("#frmReport").submit();
+
 }
 
 function getTax(){

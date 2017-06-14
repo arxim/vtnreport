@@ -70,9 +70,17 @@ public class DoctorReportSrv extends HttpServlet {
 		String hospitalCode = request.getParameter("hidHospitalCode");
 		String mm = request.getParameter("hidMM");
 		String yyyy = request.getParameter("hidYYYY");
+		String term = request.getParameter("hidTerm");
+		String printDate = request.getParameter("hidPrintDate");
 		
 		int month = Integer.parseInt(mm);
 		int year = Integer.parseInt(yyyy);
+		
+
+		// Get SubReport RealPath
+		ServletContext servletContext = request.getSession().getServletContext();
+		String relativeWebPath = "/WEB-INF/JasperReport/";
+		String absoluteDiskPath = servletContext.getRealPath(relativeWebPath);
 		
 		String to_date = JDate.getLastDayOfMonth(year, month);
 
@@ -90,12 +98,6 @@ public class DoctorReportSrv extends HttpServlet {
 		// PaymentVoucher
 		case "01":
 			
-			// Get SubReport RealPath
-			ServletContext servletContext = request.getSession().getServletContext();
-			String relativeWebPath = "/WEB-INF/JasperReport/";
-			String absoluteDiskPath = servletContext.getRealPath(relativeWebPath);
-			
-						
 			params.put("from_doctor", from_doctor);
 			params.put("to_doctor",to_doctor);
 			params.put("month",mm);
@@ -180,6 +182,26 @@ public class DoctorReportSrv extends HttpServlet {
 				e.printStackTrace();
 			}
 
+			break;
+			
+		// TaxLetter406.jasper
+		case "tax" :
+			
+			params.put("hospital_code",hospitalCode);
+			params.put("doctor_code",to_doctor);
+			params.put("term",term);
+			params.put("year",yyyy);
+			params.put("signature", absoluteDiskPath);
+			params.put("print_date", printDate);
+
+			try {
+				InputStream jasperStream = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/TaxLetter406.jasper");
+		        JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","TaxLetter406");
+			} catch (JRException | SQLException e) {
+				e.printStackTrace();
+			}
+			
 			break;
 			
 		default:
