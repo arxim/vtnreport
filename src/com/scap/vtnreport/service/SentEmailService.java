@@ -148,12 +148,12 @@ public class SentEmailService {
 				messageBodyPart3.setFileName("ExpenseDetail.pdf");
 				multipart.addBodyPart(messageBodyPart3);
 				
-				// File 4
+				// File 4 SummaryDFUnpaidByDetailAsOfDate
 				DataSource aAttachment4 = new ByteArrayDataSource(pdfStream4.toByteArray(), "application/pdf");
 				BodyPart messageBodyPart4 = new MimeBodyPart();
 				messageBodyPart4 = new MimeBodyPart();
 				messageBodyPart4.setDataHandler(new DataHandler(aAttachment4));
-				messageBodyPart4.setFileName("DFHold.pdf");
+				messageBodyPart4.setFileName("SummaryDFUnpaidByDetailAsOfDate.pdf");
 				multipart.addBodyPart(messageBodyPart4);
 
 				message.setContent(multipart);
