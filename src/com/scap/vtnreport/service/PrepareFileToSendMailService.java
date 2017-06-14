@@ -23,13 +23,11 @@ public class PrepareFileToSendMailService {
 
 	// TaxLetter406.jasper
 	public ByteArrayOutputStream PrepareTaxLetter406(ArrayList<HashMap<String, String>> doctorData,
-			JasperReport jasperReport, InputStream jasperStream, HttpServletResponse response,String term,String signature) throws JRException, IOException, SQLException {
+			JasperReport jasperReport, InputStream jasperStream, HttpServletResponse response,String term,String signature,String printDate) throws JRException, IOException, SQLException {
 		
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		JasperBuilderService voJasperBuilder = new JasperBuilderService();
 		String password = doctorData.get(0).get("PASS_ENCRYPT");
-		Date datestamp = new Date();
-		String printDate = new SimpleDateFormat("yyyyMMdd",Locale.US).format(datestamp);
 		
 		Map<String, Object> params = new HashMap<>();
 		params.put("hospital_code",doctorData.get(0).get("HOSPITAL_CODE"));

@@ -137,8 +137,7 @@ function sendEmail(){
 	var term = $('#dwlTerm').val();
 	var tempPrintDate = $("#txtPrintDate").val();
 	var printDate = tempPrintDate.substring(6,10)+tempPrintDate.substring(3,5)+tempPrintDate.substring(0,2);
-	
-	alert(printDate);
+
 	if(current_row < total_table.fnGetData().length){
 		$.ajax({
 		url : '/vtnreport/SentEmailSrv',

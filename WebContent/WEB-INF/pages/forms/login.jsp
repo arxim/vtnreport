@@ -1,14 +1,11 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" errorPage="forms/error.jsp"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
  
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en"> <!--<![endif]-->
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>:: Vejthani Report ::</title>
+  <title>:: Vejthani Report ::</title>
      
     
     <!-- Java Script Import -->
@@ -27,6 +24,8 @@
 	<script type="text/javascript" src="resources/js/utils/AesUtil.js"></script>
 	<script type="text/javascript" src="resources/js/pages/login/login.js"></script>
 	<!-- <script type="text/javascript" src="javascript/md5.js"></script> -->
+	
+
  
 </head> 
    <body>
@@ -80,7 +79,7 @@
 		  <input id="hidKeySize" name="hidKeySize" type="hidden" />
 		  <input id="hidIsLoginNull" name="hidIsLoginNull" type="hidden"  />
         </form>
-         
+        
     </body>
-    <%-- <jsp:include page="../../../resources/template/modalMessage.jsp"></jsp:include> --%>
+    <%-- <jsp:include page="../../../resources/template/modalMessage.jsp"></jsp:include>  --%>
 </html>

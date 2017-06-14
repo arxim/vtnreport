@@ -10,7 +10,7 @@
     <jsp:include page="../../../resources/template/script-header.jsp"></jsp:include>
 	<jsp:include page="../../../resources/template/navbar-header.jsp"></jsp:include>
 	<script src="${pageContext.request.contextPath}/resources/js/pages/main_menu/main_menu.js" type="text/javascript"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/pages/menu_payment/payment.js" type="text/javascript"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/pages/menu_tax/tax.js" type="text/javascript"></script>
 </head>
 <body>		
 	<div class="panel panel-vtn">
@@ -21,23 +21,6 @@
 		<div class="container">
 			<div class="panel-body">
 				<div class="form-horizontal">
-					<div class="row">
-						<div class="col-xs-6 col-sm-3 control-label">
-							<p class="text-right">
-								<b id="lblReport">Report</b>
-							</p>
-						</div>
-						<div class="col-xs-6 col-sm-3">
-							<div class="form-group-xs-6 form-group-sm-3 ">
-								<select id="dwlReport" class="form-control">
-									<option value="01">รายงานสรุปรายได้แพทย์</option>
-									<option value="02">รายงานรายละเอียดรายได้แพทย์</option>
-									<option value="03">รายงานรายละเอียดรายได้แพทย์ค้างจ่าย</option>
-									<option value="04">รายงานรายการปรับปรุงค่าแพทย์(หัก/เพิ่ม)</option>
-								</select>
-							</div>
-						</div>
-					</div>
 					<div class="row">
 						<div class="col-xs-6 col-sm-3 control-label">
 							<p class="text-right">
@@ -90,10 +73,37 @@
 							</select>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-xs-6 col-sm-3 control-label">
+							<p class="text-right">
+								<b id="lblTerm">Term</b>
+							</p>
+						</div>
+						<div class="col-xs-6 col-sm-3 coltrol-label" id="divValueTerm">
+							<select class="form-control" id="dwlTerm">
+								<option value="01">First Term</option>
+								<option value="06">Second Term</option>
+								<option value="12">Yearly</option>
+							</select>
+						</div>
+						<div class="col-xs-6 col-sm-3 control-label">
+							<p class="text-right">
+								<b id="lblPrintDate">Print Date</b>
+							</p>
+						</div>
+						<div class="col-xs-6 col-sm-3" id="divPrintDate">
+							<div class="input-group">
+								<input type="text" id="txtPrintDate" name="txtPrintDate" class="form-control datePicker" placeholder="dd/mm/yyyy" /> 
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div>
+					</div>
 					<div class="form-group"></div>
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 text-right">
-							<button type="button" class="btn btn-default" id="btnView">view</button>
+							<button type="button" class="btn btn-default" id="btnView" onclick="getReport()">view</button>
 						</div>
 					</div>
 				</div>
@@ -101,9 +111,21 @@
 			<input type="hidden" id="hidUserCode" name="hidUserCode" value="<%= session.getAttribute("userid") %>">
 		    <input type="hidden" id="hidRole" name="hidRole" value="<%= session.getAttribute("role") %>">
 		    <input type="hidden" id="hidHospitalCode" name="hidHospitalCode" value="<%= session.getAttribute("hospitalcode")%>">
+		    <input type="hidden" id="hidUserName" name="hidUserName" value="<%= session.getAttribute("name")%>">
 			<form id="frmPayment" action="/vtnreport/getPaymentContentSrvl" method="post"> </form>
 			<form id="frmTax" action="/vtnreport/getTaxContentSrvl" method="post"> </form>
 			<form id="frmEmail" action="/vtnreport/getEmailContentSrvl" method="post"> </form>
+			
+			<form id="frmReport" name="frmReport" action="/vtnreport/DoctorReportSrv" method="post" target="_blank">
+				<input type="hidden" id="hidMM" name="hidMM" />
+				<input type="hidden" id="hidYYYY" name="hidYYYY" />
+				<input type="hidden" id="hidHospitalCode" name="hidHospitalCode" value="<%= session.getAttribute("hospitalcode")%>" />
+				<input type="hidden" id="hidDoctorCode" name="hidDoctorCode" />
+				<input type="hidden" id="hidReport" name="hidReport" />
+				<input type="hidden" id="hidPrintDate" name="hidPrintDate" />
+				<input type="hidden" id="hidTerm" name="hidTerm" />
+			</form>
+			
 		</div>
 	<body>
 </html>
