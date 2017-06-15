@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -55,7 +56,7 @@
 						</label> 
 						</div>
 					</c:when>
-					<c:otherwise>
+		            <c:otherwise>
 					
 					</c:otherwise>
 				</c:choose>
@@ -78,6 +79,7 @@
 		  <input id="hidIterationCount" name="hidIterationCount" type="hidden" />
 		  <input id="hidKeySize" name="hidKeySize" type="hidden" />
 		  <input id="hidIsLoginNull" name="hidIsLoginNull" type="hidden"  />
+		  <input id="hidMessage" name="hidMessage" type="hidden"  value="${sessionScope.message}" />
         </form>
         
     </body>
