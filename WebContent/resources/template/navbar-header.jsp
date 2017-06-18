@@ -1,6 +1,35 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <nav class="navbar navbar-default no-margin">
+	<script>
+	     $(document).on('click','.clsNavbar',function(){
+	    	 if(!$(this).hasClass('collapsed')){
+	    		 $(this).addClass("active")
+	    		 $(this).attr("style",'background-color : #87b2e0');
+	    		 $(document).on('mouseover','.clsNavbar',function(){
+	    	    	 $(this).attr("style",'background-color : #87b2e0'); 
+	    	     });
+	    	     $(document).on('mouseout','.clsNavbar',function(){
+	    			 $(this).attr("style",'background-color : #87b2e0');
+	    		 });
+	    	 }else{
+	    		 $(this).removeClass("active");
+	    		 $(this).attr("style",'background-color : #ffffff');
+	    		 $(document).on('mouseover','.clsNavbar',function(){
+	    	    	 $(this).attr("style",'background-color : #87b2e0'); 
+	    	     });
+	    	     $(document).on('mouseout','.clsNavbar',function(){
+	    			 $(this).attr("style",'background-color : #ffffff');
+	    		 });
+	    	 } 
+	     }); 
+	</script>
+	<style>
+		a.clsBtnHover span img:hover {
+/*     		background-color : #87b2e0; */
+			width: 65px;  
+            height: 70px; 
+		}
+	</style>
 	<div class="container-fluid" style="background-color: #c9dce5">
 <!-- 	294783 -->
 		<!-- navbar-header-->
@@ -13,14 +42,13 @@
 				<a class="navbar-brand visible-xs" href="javascript:void(0);" style="color: #ffffff">	
 					<img src="resources/images/logo-vejthani.png" class="img-responsive" alt="logo vejthani" width="185" height="138">
 				</a>
-				<br>
-				<button id="btn-bar" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#divNavBar" style="background-color: #ffffff">
-					<span class="icon-bar" style="background-color: #19067f"></span> 
-					<span class="icon-bar" style="background-color: #19067f"></span> 
-					<span class="icon-bar" style="background-color: #19067f"></span>
+				<button type="button" class="navbar-toggle clsNavbar" data-toggle="collapse" data-target="#divNavBar" style="background-color: #ffffff" >
+					<span>
+						<img src="resources/images/icon-menu.png" class="img-responsive" alt="icon menu" width="35" height="35">
+					</span>
 				</button>
 			</div>  
-		</div> 	
+		</div>
 		<div class="collapse navbar-collapse" id="divNavBar">
 			<div class="col hidden-xs col-sm-4 text-left">
 	        	<div id="logo">

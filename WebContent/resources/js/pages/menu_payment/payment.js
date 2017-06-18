@@ -1,11 +1,10 @@
 $(document).ready(function() {
 	getYYYY();
 	checkRole();
-	$("#btn-payment").addClass("active").css("background-color","#87b2e0");
+ 	$("#btn-payment").addClass("active").css("background-color","#87b2e0");
 	
 var hospitalCode = $('#hidhospitalCode').val();
-	
-	
+
 	$("#txtDoctorCode").autocomplete({
 		autoFocus: true,
 	    cacheLength: 1,

@@ -37,17 +37,17 @@ public class MenuDao {
 				switch (lstMenuRole.get(i).get("MENU_CODE")) {
 				
 				case "RE001":
-					value +="<a href=\"#\" id=\"btn-payment\" class=\"btn btn-default\" onclick=\"getPaymnet()\">"
+					value +="<a href=\"#\" id=\"btn-payment\" class=\"btn btn-default clsBtnHover\" onclick=\"getPaymnet()\">"
 							+ " <span><img src=\"resources/images/icon-payment.png\" class=\"img-responsive\" alt=\"icon payment\" width=\"45\" height=\"45\"></span>"
 							+ "</a>&nbsp;";
 					break;
 				case "RE002":
-					value +="<a href=\"#\" id=\"btn-tax\" class=\"btn btn-default\" onclick=\"getTax()\">"
+					value +="<a href=\"#\" id=\"btn-tax\" class=\"btn btn-default clsBtnHover\" onclick=\"getTax()\">"
 							+ " <span><img src=\"resources/images/icon-tax.png\" class=\"img-responsive\" alt=\"icon tax\" width=\"45\" height=\"45\"></span>"
 							+ " </a>&nbsp;";
 					break;
 				case "RE003":
-					value +="<a href=\"#\" id=\"btn-email\" class=\"btn btn-default\" onclick=\"getEmail()\">"
+					value +="<a href=\"#\" id=\"btn-email\" class=\"btn btn-default clsBtnHover\" onclick=\"getEmail()\">"
 							+ " <span><img src=\"resources/images/icon-send-email.png\" class=\"img-responsive\" alt=\"icon send email\" width=\"45\" height=\"45\"></span>"
 						    + " </a>&nbsp;";
 					break;
