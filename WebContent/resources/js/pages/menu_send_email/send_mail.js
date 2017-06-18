@@ -15,10 +15,11 @@ $(document).ready(function() {
 	
 	//Data Table
 	$('#tblDoctor').dataTable({
-		"iDisplayLength": 10,
+//		"iDisplayLength": 1000000,
+		paging: false,
         "iDisplayStart": 0,
         "sPaginationType": "full_numbers",
-        "bLengthChange": true,
+        "bLengthChange": false,
 		"bProcessing": true,
         "bDestroy": true,
 		"columns": [
@@ -125,6 +126,13 @@ function getEmail(){
 var current_row = 0;
 
 
+function waitIcon(current_row_wait){
+	var table = $('#tblDoctor').DataTable();
+	table.cell(current_row_wait, 2 ).data( '<div class="text-center"><img src="resources/pics/process.gif" class="img-responsive" style="display:block; margin:auto;" alt="icon process" width="20" height="20"></div>' );
+	table.draw();
+}
+
+
 // Send Email
 function sendEmail(){
 	var total_table = $('#tblDoctor').dataTable();
@@ -139,6 +147,13 @@ function sendEmail(){
 	var tempPrintDate = $("#txtPrintDate").val();
 	var printDate = tempPrintDate.substring(6,10)+tempPrintDate.substring(3,5)+tempPrintDate.substring(0,2);
 
+	$("#dwlReport").prop( "disabled", true );
+	$("#txtPrintDate").prop( "disabled", true );
+	$("#dwlTerm").prop( "disabled", true );
+	$("#btnView").prop( "disabled", true );
+	$("#btnSendEmail").prop( "disabled", true );
+	
+	waitIcon(current_row);
 	if(current_row < total_table.fnGetData().length){
 		$.ajax({
 		url : '/vtnreport/SentEmailSrv',
@@ -165,8 +180,15 @@ function sendEmail(){
 			current_row++;
 			$('#record-mail-count').text(current_row);
 			if (current_row == total_table.fnGetData().length) {
-				alert(current_row);
+				processMmodalSuccess();
 				current_row = 0;
+				
+				$("#dwlReport").prop( "disabled", false );
+				$("#txtPrintDate").prop( "disabled", false );
+				$("#dwlTerm").prop( "disabled", false );
+				$("#btnView").prop( "disabled", false );
+				$("#btnSendEmail").prop( "disabled", false );
+				
 			}else{
 				sendEmail();
 			}
@@ -186,10 +208,11 @@ function getDoctor(){
 	var term = $('#dwlTerm').val();
 	
 	$('#tblDoctor').dataTable({
-		"iDisplayLength": 10,
+//		"iDisplayLength": 10000000,
+		paging: false,
         "iDisplayStart": 0,
         "sPaginationType": "full_numbers",
-        "bLengthChange": true,
+        "bLengthChange": false,
 		"bProcessing": true,
         "bDestroy": true,
 		"ajax" : {

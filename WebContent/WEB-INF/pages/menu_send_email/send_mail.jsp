@@ -89,8 +89,9 @@
 				</div>
 			
 			</div>
-			<div class="form-group text-right">
-				<label>The table has <span id="record-mail-count">0</span> / <span id="all-mail-count">0</span> records</label>
+			<hr>
+			<div class="form-group text-left">
+				<h4>The table has <span id="record-mail-count">0</span> / <span id="all-mail-count">0</span> records</h4>
 			</div>
 			<div class="row">
 					<div class="col-sm-12 col-xs-12">
@@ -118,5 +119,8 @@
 		<form id="frmPayment" action="/vtnreport/getPaymentContentSrvl" method="post"> </form>
 		<form id="frmTax" action="/vtnreport/getTaxContentSrvl" method="post"> </form>
 		<form id="frmEmail" action="/vtnreport/getEmailContentSrvl" method="post"> </form>
+		
+		<jsp:include page="../../../resources/template/modalMessage.jsp"></jsp:include>
+		
 </body>
 </html>

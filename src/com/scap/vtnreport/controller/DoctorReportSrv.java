@@ -92,7 +92,12 @@ public class DoctorReportSrv extends HttpServlet {
 
 		// Role User when doctorCode is Empty
 		if(role == 4 && from_doctor.isEmpty()){
-			from_doctor = "00000";
+			
+			if (report.equals("tax")) {
+				from_doctor = "%%";
+			} else {
+				from_doctor = "00000";
+			}
 			to_doctor = "99999";
 		}else{
 			from_doctor = to_doctor;
@@ -121,7 +126,7 @@ public class DoctorReportSrv extends HttpServlet {
 			try {
 				InputStream jasperStream = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/PaymentVoucher.jasper");
 		        JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","PaymentVoucher","Y");
+				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","PaymentVoucher",permission);
 			} catch (JRException | SQLException e) {
 				e.printStackTrace();
 			}
@@ -145,7 +150,7 @@ public class DoctorReportSrv extends HttpServlet {
 			try {
 				InputStream jasperStream = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/SummaryRevenueByDetail.jasper");
 		        JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","SummaryRevenueByDetail","Y");
+				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","SummaryRevenueByDetail",permission);
 			} catch (JRException | SQLException e) {
 				e.printStackTrace();
 			}
@@ -166,7 +171,7 @@ public class DoctorReportSrv extends HttpServlet {
 			try {
 				InputStream jasperStream = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/SummaryDFUnpaidByDetailAsOfDate.jasper");
 		        JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","SummaryDFUnpaidByDetailAsOfDate","Y");
+				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","SummaryDFUnpaidByDetailAsOfDate",permission);
 			} catch (JRException | SQLException e) {
 				e.printStackTrace();
 			}
@@ -189,7 +194,7 @@ public class DoctorReportSrv extends HttpServlet {
 	        try {
 				InputStream jasperStream = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/ExpenseDetail.jasper");
 		        JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","ExpenseDetail","Y");
+				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","ExpenseDetail",permission);
 			} catch (JRException | SQLException e) {
 				e.printStackTrace();
 			}
@@ -200,7 +205,7 @@ public class DoctorReportSrv extends HttpServlet {
 		case "tax" :
 			
 			params.put("hospital_code",hospitalCode);
-			params.put("doctor_code",to_doctor);
+			params.put("doctor_code",from_doctor);
 			params.put("term",term);
 			params.put("mm", mm);
 			params.put("yyyy",yyyy);
@@ -210,7 +215,7 @@ public class DoctorReportSrv extends HttpServlet {
 			try {
 				InputStream jasperStream = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/TaxLetter406.jasper");
 		        JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","TaxLetter406",permission);
+				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","TaxLetter406","Y");
 			} catch (JRException | SQLException e) {
 				e.printStackTrace();
 			}
