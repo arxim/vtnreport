@@ -70,6 +70,9 @@ $(document).ready(function() {
 			$("#divLabelTerm").hide();
 			$("#divValueTerm").hide();
 			
+			$('#record-mail-count').text("0");
+			$('#all-mail-count').text("0");
+			
 			$('#tblDoctor').DataTable().clear()
 			$('#tblDoctor').DataTable().draw();
 		}else{
@@ -77,6 +80,9 @@ $(document).ready(function() {
 			$("#divPrintDate").show();
 			$("#divLabelTerm").show();
 			$("#divValueTerm").show();
+
+			$('#record-mail-count').text("0");
+			$('#all-mail-count').text("0");
 			
 			$('#tblDoctor').DataTable().clear()
 			$('#tblDoctor').DataTable().draw();
