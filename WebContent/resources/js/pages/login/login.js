@@ -2,7 +2,6 @@
 	 loadHospitalDropdown();
  });
  
- 
 
 
 function  loadHospitalDropdown() {
