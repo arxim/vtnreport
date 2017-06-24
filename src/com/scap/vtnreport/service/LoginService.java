@@ -6,6 +6,7 @@ import com.scap.vtnreport.dao.UserDao;
 import com.scap.vtnreport.model.UserView;
 import com.scap.vtnreport.utils.AuthenticationLDAP;
 import com.scap.vtnreport.utils.MD5;
+import com.scap.vtnreport.utils.ADAuthen;
 import com.scap.vtnreport.utils.AesUtil;
 import com.scap.vtnreport.utils.StringUtils;
 
@@ -33,15 +34,48 @@ public class LoginService {
 				isLoginLdapPass = "FAIL";
 				isUserView = null;
 			} else {
-				// àªç¤ external database LDAP
-				AuthenticationLDAP voAuthenticationLDAP = new AuthenticationLDAP();
-				UserView isLdapUser = voAuthenticationLDAP.verifyUserObj(username,decryptPwd, hospitalcode);
-				if (isLdapUser != null) {
-					
+				
+				 System.out.println("LDAPLOGIN");
+				 
+				// Check External database LDAP
+				ADAuthen ldap = new ADAuthen();
+				String check = ldap.processADAuthen(username, decryptPwd);
+				
+				if (check.equals("Y")) {
 					isLoginLdapPass = "LDAPLOGIN";
-					isUserView = isLdapUser;
-					 
+					UserDao userDao = new UserDao();
+					UserView isUser = userDao.getUserByUserCodeLdap(username, hospitalcode);
+					// Check With UserCode
+					if (isUser != null) {
+						if (isUser != null && isUser.getUserGroupCode() != null) {
+							isLoginLdapPass = isUser.getUserGroupCode().toString();
+							isUserView = isUser;
+						} else {
+							isLoginLdapPass = "NONEROLE";
+							isUserView = null;
+						}
+					// Check With LicenseId (Doctor)
+					} else{
+						isUser = userDao.getUserByLicenseIdLdap(username, hospitalcode);
+						if (isUser != null) {
+							if (isUser != null && isUser.getUserGroupCode() != null) {
+								isLoginLdapPass = isUser.getUserGroupCode().toString();
+								isUserView = isUser;
+							} else {
+								isLoginLdapPass = "NONEROLE";
+								isUserView = null;
+							}
+							// save user login history
+						}else{
+				        	isLoginLdapPass = "FAIL";
+				        	isUserView = null;
+				        }
+					}
+
+				}else if(check.equals("U")){
+					isLoginLdapPass = "FAIL";
 				}
+				
 				// àªç¤ internal database
 				else {
 					// encryption password, before authentication
@@ -60,9 +94,6 @@ public class LoginService {
 			        	isLoginLdapPass = "FAIL";
 			        	isUserView = null;
 			        }
-					 
-
-				 
 				}
 
 			}
@@ -70,7 +101,6 @@ public class LoginService {
 			isLoginLdapPass = "FAIL";
 			e.printStackTrace();
 		}
-
 		return isUserView;
 
 	}

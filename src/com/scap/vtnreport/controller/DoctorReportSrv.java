@@ -77,7 +77,7 @@ public class DoctorReportSrv extends HttpServlet {
 		String printDate = request.getParameter("hidPrintDate");
 		
 		
-		if(role != 4){
+		if(role != 4 && role != 1){
 			from_doctor = user;
 			to_doctor = user;
 		}
@@ -88,10 +88,10 @@ public class DoctorReportSrv extends HttpServlet {
 		String to_date = JDate.getLastDayOfMonth(year, month);
 		
 		// Role Permission to print report 
-		String permission = role == 4 ? "Y" : "N";
+		String permission = role == 4 || role == 1 ? "Y" : "N";
 
 		// Role User when doctorCode is Empty
-		if(role == 4 && from_doctor.isEmpty()){
+		if((role == 4 || role == 1) && from_doctor.isEmpty()){
 			
 			if (report.equals("tax")) {
 				from_doctor = "%%";

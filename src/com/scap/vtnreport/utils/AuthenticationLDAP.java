@@ -112,7 +112,7 @@ public class AuthenticationLDAP {
 				user.setUserGroupCode(new BigDecimal("1"));
 			}
 		} catch (NamingException e) {
-//			e.printStackTrace();
+			e.printStackTrace();
 			return user;
 			
 		} finally {
