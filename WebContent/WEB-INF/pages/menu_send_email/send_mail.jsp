@@ -29,8 +29,8 @@
 						</div>
 						<div class="col-xs-6 col-sm-3 coltrol-label">
 							<select class="form-control" id="dwlReport">
-								<option value="01">Tax Letter 40 (6)</option>
 								<option value="02">Payment DF</option>
+								<option value="01">Tax Letter 40 (6)</option>
 							</select>
 						</div>
 						<div class="col-xs-6 col-sm-3 control-label" id="divLabelTerm">

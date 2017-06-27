@@ -99,8 +99,8 @@ public class UserDao {
 		           + "       U.ACTIVE "
 		           + "FROM USERS U "
 		           + "     JOIN USER_GROUP UG ON UG.USER_GROUP = U.USER_GROUP_CODE "
-		           + "WHERE U.HOSPITAL_CODE = 'VTN01' "
-		           + "      AND U.LOGIN_NAME = '70033' "
+		           + "WHERE U.HOSPITAL_CODE = ? "
+		           + "      AND U.LOGIN_NAME = ? "
 		           + "      AND U.ACTIVE = '1' "
 		           + "      AND U.USER_GROUP_CODE IN(4, 5, 1);";
 		PreparedStatement ps = null;

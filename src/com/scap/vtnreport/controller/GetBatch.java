@@ -45,9 +45,29 @@ public class GetBatch extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		JSONArray jsonArr = new JSONArray();
 		BatchDao data = new BatchDao();
-		
+		String method = request.getParameter("method");
+		System.out.println("Method : "+method);
 		try {
-			jsonArr = data.getBatch();
+			
+			switch (method) {
+			//Get Batch is Open
+			case "01":
+				jsonArr = data.getBatch();
+				break;
+			// Get Batch is Last Close
+			case "02":
+				jsonArr = data.getLastBatchOnClose();
+				break;
+			// Get Tax 406 Last Close
+			case "03":
+				jsonArr = data.getLastBatchTax406OnClose();
+				break;
+			default:
+				break;
+			}
+			
+			
+			
 		} catch (Exception e) {
 
 			e.printStackTrace();

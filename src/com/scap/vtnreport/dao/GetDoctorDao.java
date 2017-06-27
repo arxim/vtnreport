@@ -18,16 +18,24 @@ public class GetDoctorDao {
 		
 		JSONObject jsonObj = null;
 		
-		final String SQL ="SELECT  T1.DOCTOR_CODE, "
-		           + "		 T2.NAME_THAI, "
+		final String SQL ="SELECT T1.DOCTOR_CODE, "
+		           + "       T2.NAME_THAI, "
 		           + "       T1.STATUS_MODIFY "
-		           + "FROM SUMMARY_MONTHLY T1 "
+		           + "FROM PAYMENT_MONTHLY T1 "
 		           + "     LEFT JOIN DOCTOR T2 ON T1.HOSPITAL_CODE = T2.HOSPITAL_CODE "
 		           + "                            AND T1.DOCTOR_CODE = T2.CODE "
 		           + "WHERE T1.YYYY = ? "
 		           + "      AND T1.MM = ? "
-		           + "      AND (T1.STATUS_MODIFY = '' OR T1.STATUS_MODIFY IS NULL) "
-		           + "      AND T1.HOSPITAL_CODE = ?;";
+		           + "      AND (T1.STATUS_MODIFY = '' "
+		           + "           OR T1.STATUS_MODIFY IS NULL) "
+		           + "      AND T1.HOSPITAL_CODE = ? "
+		           + "      AND DR_NET_PAID_AMT > 0 "
+		           + "      AND DOCTOR_CODE IN "
+		           + "( "
+		           + "    SELECT CODE "
+		           + "    FROM DOCTOR "
+		           + "    WHERE EMAIL <> '' "
+		           + ");";
 
 		try (Connection conn = DbConnector.getDBConnection()) {
 			ps = conn.prepareStatement(SQL);
@@ -52,16 +60,24 @@ public JSONObject getDoctorTax406Datatable(String hospitalCode,String yyyy,Strin
 		
 		JSONObject jsonObj = null;
 		
-		final String SQL ="SELECT  T1.DOCTOR_CODE, "
-		           + "		 T2.NAME_THAI, "
+		final String SQL ="SELECT T1.DOCTOR_CODE, "
+		           + "       T2.NAME_THAI, "
 		           + "       T1.STATUS_MODIFY "
 		           + "FROM SUMMARY_TAX_406 T1 "
 		           + "     LEFT JOIN DOCTOR T2 ON T1.HOSPITAL_CODE = T2.HOSPITAL_CODE "
 		           + "                            AND T1.DOCTOR_CODE = T2.CODE "
 		           + "WHERE T1.YYYY = ? "
 		           + "      AND T1.MM = ? "
-		           + "      AND (T1.STATUS_MODIFY = '' OR T1.STATUS_MODIFY IS NULL) "
-		           + "      AND T1.HOSPITAL_CODE = ?;";
+		           + "      AND (T1.STATUS_MODIFY = '' "
+		           + "           OR T1.STATUS_MODIFY IS NULL) "
+		           + "      AND T1.HOSPITAL_CODE = ? "
+		           + "      AND SUM_TAX_DR_AMT > 0 "
+		           + "      AND DOCTOR_CODE IN "
+		           + "( "
+		           + "    SELECT CODE "
+		           + "    FROM DOCTOR "
+		           + "    WHERE EMAIL <> '' "
+		           + "); ";
 
 		try (Connection conn = DbConnector.getDBConnection()) {
 			ps = conn.prepareStatement(SQL);
@@ -96,7 +112,7 @@ public JSONObject getDoctorTax406Datatable(String hospitalCode,String yyyy,Strin
 		           + "       T1.YYYY, "
 		           + "       T1.MM, "
 		           + "       T1.STATUS_MODIFY "
-		           + "FROM SUMMARY_MONTHLY T1 "
+		           + "FROM PAYMENT_MONTHLY T1 "
 		           + "     LEFT JOIN DOCTOR T2 ON T1.HOSPITAL_CODE = T2.HOSPITAL_CODE "
 		           + "                            AND T1.DOCTOR_CODE = T2.CODE "
 		           + "WHERE T1.HOSPITAL_CODE = ? "

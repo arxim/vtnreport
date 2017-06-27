@@ -75,7 +75,7 @@ public class DoctorReportSrv extends HttpServlet {
 		String yyyy = request.getParameter("hidYYYY");
 		String term = request.getParameter("hidTerm");
 		String printDate = request.getParameter("hidPrintDate");
-		
+		String to_date="";
 		
 		if(role != 4 && role != 1){
 			from_doctor = user;
@@ -83,9 +83,12 @@ public class DoctorReportSrv extends HttpServlet {
 		}
 		
 		// Get Last Day of Month
-		int month = Integer.parseInt(mm);
-		int year = Integer.parseInt(yyyy);
-		String to_date = JDate.getLastDayOfMonth(year, month);
+		if(!mm.isEmpty()){
+			int month = Integer.parseInt(mm);
+			int year = Integer.parseInt(yyyy);
+			to_date = JDate.getLastDayOfMonth(year, month);
+		}
+		
 		
 		// Role Permission to print report 
 		String permission = role == 4 || role == 1 ? "Y" : "N";
@@ -207,7 +210,7 @@ public class DoctorReportSrv extends HttpServlet {
 			params.put("hospital_code",hospitalCode);
 			params.put("doctor_code",from_doctor);
 			params.put("term",term);
-			params.put("mm", mm);
+			params.put("mm", term);
 			params.put("yyyy",yyyy);
 			params.put("signature", absoluteDiskPath);
 			params.put("print_date", printDate);

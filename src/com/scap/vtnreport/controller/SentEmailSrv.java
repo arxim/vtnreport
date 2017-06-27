@@ -22,6 +22,7 @@ import com.scap.vtnreport.dao.StatusSendMail;
 import com.scap.vtnreport.service.JasperBuilderService;
 import com.scap.vtnreport.service.PrepareFileToSendMailService;
 import com.scap.vtnreport.service.SentEmailService;
+import com.scap.vtnreport.utils.JDate;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperReport;
@@ -86,10 +87,18 @@ public class SentEmailSrv extends HttpServlet {
 				arrData = vaEmail.getDoctorSendEmailTax406(hospitalCode,doctorCode, yyyy, term);
 				email = arrData.get(0).get("EMAIL").trim();
 				
+				System.out.println("Timing Get Doctor Sent Mail ==> "+JDate.getTime());
+				
 				if(!email.equals("0")){
 					bos = prepareFile.PrepareTaxLetter406(arrData,jasperReport,jasperStream,response,term,absoluteDiskPath,printDate);
+					
+					System.out.println("Timing Create Report ==> "+JDate.getTime());
+					
 					message  = sentEmail.SendMailSingleFile(bos, email);
-					StatusSendMail.SendMailTax406Success(hospitalCode, doctorCode,mm,yyyy);
+					
+					System.out.println("Timing Create Report ==> "+JDate.getTime());
+					
+					StatusSendMail.SendMailTax406Success(hospitalCode, doctorCode,mm,term);
 				}else{
 					message = "FAIL";
 				}
@@ -126,6 +135,8 @@ public class SentEmailSrv extends HttpServlet {
 				arrData = vaEmail.getDoctorSendEmailPayment(hospitalCode,doctorCode, yyyy, mm);
 				email = arrData.get(0).get("EMAIL").trim();
 				
+				System.out.println("Timing Get Doctor Sent Mail ==> "+JDate.getTime());
+				
 				if(!email.equals("0")){
 					
 					int month = Integer.parseInt(mm);
@@ -136,7 +147,12 @@ public class SentEmailSrv extends HttpServlet {
 					bos3 = prepareFile.PrepareExpenseDetail(arrData,jasperReport3,jasperStream3,response);
 					bos4 = prepareFile.PrepareSummaryDFUnpaidByDetailAsOfDate(arrData,jasperReport4,jasperStream4,response,month,year);
 					
+					System.out.println("Timing Create Report ==> "+JDate.getTime());
+					
 					message  = sentEmail.SendMailMultiFile(bos1,bos2,bos3,bos4, email);
+					
+					System.out.println("Timing Create Report ==> "+JDate.getTime());
+					
 					StatusSendMail.SendMailPaymentSuccess(hospitalCode, doctorCode,mm,yyyy);
 				}else{
 					message = "FAIL";

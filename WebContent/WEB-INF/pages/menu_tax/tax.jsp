@@ -39,7 +39,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-xs-6 col-sm-3 control-label">
+						<!-- <div class="col-xs-6 col-sm-3 control-label">
 							<p class="text-right">
 								<b id="lblMonth">Month</b>
 							</p>
@@ -61,19 +61,7 @@
 									  <option value="12">December</option>
 							     </select>
 							</div>			
-						</div>
-						<div class="col-xs-6 col-sm-3 control-label">
-								<p class="text-right">
-									<b id="lblYear">Year</b>
-								</p>
-						</div>
-						<div class="col-xs-6 col-sm-3">
-							<select class="form-control" id="dwlYear">
-								
-							</select>
-						</div>
-					</div>
-					<div class="row">
+						</div> -->
 						<div class="col-xs-6 col-sm-3 control-label">
 							<p class="text-right">
 								<b id="lblTerm">Term</b>
@@ -86,6 +74,21 @@
 								<option value="12">Yearly</option>
 							</select>
 						</div>
+						
+						<div class="col-xs-6 col-sm-3 control-label">
+								<p class="text-right">
+									<b id="lblYear">Year</b>
+								</p>
+						</div>
+						<div class="col-xs-6 col-sm-3">
+							<select class="form-control" id="dwlYear">
+								
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						
+						
 						<div class="col-xs-6 col-sm-3 control-label">
 							<p class="text-right">
 								<b id="lblPrintDate">Print Date</b>

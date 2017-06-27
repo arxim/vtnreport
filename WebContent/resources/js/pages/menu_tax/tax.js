@@ -53,6 +53,7 @@ function getYYYY(){
 			}, 
 			success : function(data) {
 				$("#dwlYear").append(data);
+				getLastBatchTax406OnClose();
 			}
 	 }); 
 }
@@ -103,4 +104,20 @@ function checkRole(){
 		$("#txtDoctorCode").val(userCode);
 		$("#txtDoctorName").val(userName)
 	}
+}
+
+
+function getLastBatchTax406OnClose(){
+	$.ajax({
+		type : "POST",
+		url : "/vtnreport/GetBatch",
+		dataType: "json",
+		data: {
+			method : "03",
+        },
+		success : function(data) {
+//			$('#dwlMonth').val(data[0]["mm"]).attr("selected", "selected");
+			$('#dwlYear').val(data[0]["yyyy"]).attr("selected", "selected");
+		}
+ }); 
 }

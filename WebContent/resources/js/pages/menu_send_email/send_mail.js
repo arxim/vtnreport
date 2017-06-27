@@ -1,6 +1,12 @@
 $(document).ready(function() {
 	getYYYY();
 	getBatch();
+	
+	$("#lblPrintDate").hide();
+	$("#divPrintDate").hide();
+	$("#divLabelTerm").hide();
+	$("#divValueTerm").hide();
+	
 	$("#btn-email").addClass("active").css("background-color","#87b2e0");
 	
 	$('#txtPrintDate').datepicker({
@@ -112,6 +118,9 @@ function getBatch(){
 		type : "POST",
 		url : "/vtnreport/GetBatch",
 		dataType: "json",
+		data: {
+			method : "02",
+        },
 		success : function(data) {
 			$("#txtMM").val(data[0]["mm"]);
 			$("#txtYYYY").val(data[0]["yyyy"]);

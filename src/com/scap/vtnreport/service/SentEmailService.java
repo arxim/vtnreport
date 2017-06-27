@@ -19,6 +19,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
 
+import com.scap.vtnreport.utils.JDate;
 import com.scap.vtnreport.utils.ReadProperties;
 
 public class SentEmailService {
@@ -59,7 +60,7 @@ public class SentEmailService {
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mail)); // To
 			message.setSubject(subject);
 //			message.setText("Hello mr.win, Please do not reply this mail");
-
+			System.out.println("Before Attachment ==>"+JDate.getTime());
 			DataSource aAttachment = new ByteArrayDataSource(pdfStream.toByteArray(), "application/pdf");
 			BodyPart messageBodyPart = new MimeBodyPart();
 			messageBodyPart.setText(body);
@@ -70,11 +71,13 @@ public class SentEmailService {
 			messageBodyPart.setFileName("TaxLetter406.pdf");
 			multipart.addBodyPart(messageBodyPart);
 			message.setContent(multipart);
-
+			
+			System.out.println("Before Attachment ==>"+JDate.getTime());
+			
 			Transport.send(message);
 			
 			msg = "PASS";
-			System.out.println("Mail Send Successfully.=>");
+			System.out.println("Mail Send Successfully.=>"+JDate.getTime());
 
 		} catch (MessagingException e) {
 			msg = "FAIL";
@@ -120,6 +123,8 @@ public class SentEmailService {
 				message.setSubject(subject);
 //				message.setText("Hello mr.win, Please do not reply this mail");
 
+				System.out.println("Before Attachment ==>"+JDate.getTime());
+				
 				// File 1 PaymentVoucher.jasper
 				DataSource aAttachment = new ByteArrayDataSource(pdfStream1.toByteArray(), "application/pdf");
 				BodyPart messageBodyPart = new MimeBodyPart();
@@ -158,10 +163,12 @@ public class SentEmailService {
 
 				message.setContent(multipart);
 
+				System.out.println("Before Attachment ==>"+JDate.getTime());
+				
 				Transport.send(message);
 				
 				msg = "PASS";
-				System.out.println("Mail Send Successfully.=>");
+				System.out.println("Mail Send Successfully.=>"+JDate.getTime());
 
 			} catch (MessagingException e) {
 				msg = "FAIL";

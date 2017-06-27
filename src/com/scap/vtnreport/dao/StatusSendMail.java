@@ -13,7 +13,7 @@ public class StatusSendMail {
 	public static void SendMailPaymentSuccess(String hospitalCode, String doctorCdoe,String mm,String yyyy) throws SQLException{
 		PreparedStatement ps = null;
 		
-		String SQL ="UPDATE SUMMARY_MONTHLY "
+		String SQL ="UPDATE PAYMENT_MONTHLY "
 		           + "  SET "
 		           + "      STATUS_MODIFY = 'T' "
 		           + "WHERE DOCTOR_CODE = ? "

@@ -35,13 +35,14 @@ public class LoginService {
 				isUserView = null;
 			} else {
 				
-				 System.out.println("LDAPLOGIN");
+				 
 				 
 				// Check External database LDAP
 				ADAuthen ldap = new ADAuthen();
 				String check = ldap.processADAuthen(username, decryptPwd);
 				
 				if (check.equals("Y")) {
+					System.out.println("LDAPLOGIN");
 					isLoginLdapPass = "LDAPLOGIN";
 					UserDao userDao = new UserDao();
 					UserView isUser = userDao.getUserByUserCodeLdap(username, hospitalcode);

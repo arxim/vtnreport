@@ -56,6 +56,7 @@ function getYYYY(){
 			}, 
 			success : function(data) {
 				$("#dwlYear").append(data);
+				getLastBatchOnClose();
 			}
 	 }); 
 }
@@ -86,6 +87,21 @@ function getReport(){
 	$("#frmReport").submit();
 	
 
+}
+
+function getLastBatchOnClose(){
+	$.ajax({
+		type : "POST",
+		url : "/vtnreport/GetBatch",
+		dataType: "json",
+		data: {
+			method : "02",
+        },
+		success : function(data) {
+			$('#dwlMonth').val(data[0]["mm"]).attr("selected", "selected");
+			$('#dwlYear').val(data[0]["yyyy"]).attr("selected", "selected");
+		}
+ }); 
 }
 
 // Check Role DR Or Account
