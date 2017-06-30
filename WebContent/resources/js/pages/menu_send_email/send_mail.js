@@ -76,6 +76,9 @@ $(document).ready(function() {
 			$("#divLabelTerm").hide();
 			$("#divValueTerm").hide();
 			
+			$(".paymentDF").show();
+			$(".taxt406").hide();
+			
 			$('#record-mail-count').text("0");
 			$('#all-mail-count').text("0");
 			
@@ -86,6 +89,9 @@ $(document).ready(function() {
 			$("#divPrintDate").show();
 			$("#divLabelTerm").show();
 			$("#divValueTerm").show();
+			
+			$(".paymentDF").hide();
+			$(".taxt406").show();
 
 			$('#record-mail-count').text("0");
 			$('#all-mail-count').text("0");
@@ -202,7 +208,7 @@ function sendEmail(){
 				$("#txtPrintDate").prop( "disabled", false );
 				$("#dwlTerm").prop( "disabled", false );
 				$("#btnView").prop( "disabled", false );
-				$("#btnSendEmail").prop( "disabled", false );
+				$("#btnSendEmail").prop( "disabled", true );
 				
 			}else{
 				sendEmail();

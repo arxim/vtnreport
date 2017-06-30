@@ -10,7 +10,7 @@ import com.scap.vtnreport.utils.DbConnector;
 
 public class StatusSendMail {
 	
-	public static void SendMailPaymentSuccess(String hospitalCode, String doctorCdoe,String mm,String yyyy) throws SQLException{
+	public static void SendMailPaymentSuccess(String hospitalCode, String doctorCode,String mm,String yyyy) throws SQLException{
 		PreparedStatement ps = null;
 		
 		String SQL ="UPDATE PAYMENT_MONTHLY "
@@ -23,7 +23,7 @@ public class StatusSendMail {
 		try (Connection conn = DbConnector.getDBConnection()) {
 			
 			ps = conn.prepareStatement(SQL);
-			ps.setString(1, doctorCdoe);
+			ps.setString(1, doctorCode);
 			ps.setString(2, hospitalCode);
 			ps.setString(3, mm);
 			ps.setString(4, yyyy);
@@ -38,7 +38,7 @@ public class StatusSendMail {
 	}
 	
 	
-	public static void SendMailTax406Success(String hospitalCode, String doctorCdoe,String mm,String yyyy) throws SQLException{
+	public static void SendMailTax406Success(String hospitalCode, String doctorCode,String term,String yyyy) throws SQLException{
 		PreparedStatement ps = null;
 		
 		String SQL ="UPDATE SUMMARY_TAX_406 "
@@ -51,9 +51,9 @@ public class StatusSendMail {
 		try (Connection conn = DbConnector.getDBConnection()) {
 			
 			ps = conn.prepareStatement(SQL);
-			ps.setString(1, doctorCdoe);
+			ps.setString(1, doctorCode);
 			ps.setString(2, hospitalCode);
-			ps.setString(3, mm);
+			ps.setString(3, term);
 			ps.setString(4, yyyy);
 			
 			ps.executeQuery();

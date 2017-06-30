@@ -98,7 +98,7 @@ public class SentEmailSrv extends HttpServlet {
 					
 					System.out.println("Timing Create Report ==> "+JDate.getTime());
 					
-					StatusSendMail.SendMailTax406Success(hospitalCode, doctorCode,mm,term);
+					StatusSendMail.SendMailTax406Success(hospitalCode, doctorCode,term,yyyy);
 				}else{
 					message = "FAIL";
 				}

@@ -33,32 +33,35 @@
 								<option value="01">Tax Letter 40 (6)</option>
 							</select>
 						</div>
-						<div class="col-xs-6 col-sm-3 control-label" id="divLabelTerm">
+					</div>
+					<div class="row">
+						<!-- Payment DF -->
+						<div class="col-xs-6 col-sm-3 control-label paymentDF">
+							<p class="text-right">
+								<b id="lblMonth">Month</b>
+							</p>
+						</div>
+						<div class="col-xs-6 col-sm-3 paymentDF" >
+							<input  class="form-control" id="txtMM" name="txtMM" disabled="disabled"/>
+						</div>
+						<!-- End Of Payment DF -->
+						<div class="col-xs-6 col-sm-3 control-label taxt406" id="divLabelTerm">
 							<p class="text-right">
 								<b id="lblTerm">Term</b>
 							</p>
 						</div>
-						<div class="col-xs-6 col-sm-3 coltrol-label" id="divValueTerm">
+						<div class="col-xs-6 col-sm-3 coltrol-label taxt406" id="divValueTerm">
 							<select class="form-control" id="dwlTerm">
 								<option value="01">First Term</option>
 								<option value="06">Second Term</option>
 								<option value="12">Yearly</option>
 							</select>
 						</div>
-					</div>
-					<div class="row">
+									
 						<div class="col-xs-6 col-sm-3 control-label">
 							<p class="text-right">
-								<b id="lblMonth">Month</b>
+								<b id="lblYear">Year</b>
 							</p>
-						</div>
-						<div class="col-xs-6 col-sm-3">
-								<input  class="form-control" id="txtMM" name="txtMM" disabled="disabled"/>
-							</div>			
-						<div class="col-xs-6 col-sm-3 control-label">
-								<p class="text-right">
-									<b id="lblYear">Year</b>
-								</p>
 						</div>
 						<div class="col-xs-6 col-sm-3">
 							<input class="form-control" id="txtYYYY" name="txtYYYY" disabled="disabled" />
