@@ -54,6 +54,7 @@ public class LoginSrvl extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html; charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		PrintWriter pw = response.getWriter();
 
 		String hospitalcode = request.getParameter("hospitalcode");

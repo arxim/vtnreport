@@ -20,7 +20,8 @@ public class MD5 {
 	}
 	
 	public static void main(String[] args) throws NoSuchAlgorithmException {
-		System.out.println(MD5.encrypt("welcome"));
+		System.out.println(MD5.encrypt("ว.1234"));
+		// 0c2057d6ffb8ef368b229425c8fa848c
 	}
 	
 }

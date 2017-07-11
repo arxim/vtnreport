@@ -77,7 +77,7 @@ public class LoginService {
 					isLoginLdapPass = "FAIL";
 				}
 				
-				// àªç¤ internal database
+				// ï¿½ï¿½ internal database
 				else {
 					// encryption password, before authentication
 				   UserDao userDao = new UserDao();
@@ -113,11 +113,11 @@ public class LoginService {
 		// String messege = voAuthenticationLDAP.verifyUser("nobel",
 		// "password");
 		try {
-			// àªç¤ external database LDAP
+			// ï¿½ï¿½ external database LDAP
 			if (!voAuthenticationLDAP.verifyUser(username,password, hospitalcode)) {
 				isLoginLdapPass = "LDAPLOGIN";
 			}
-			// àªç¤ internal database
+			// ï¿½ï¿½ internal database
 			else {
 
 				isLoginLdapPass = "FAIL";
