@@ -17,6 +17,7 @@ import com.scap.vtnreport.service.LoginService;
 import com.scap.vtnreport.service.MenuService;
 import com.scap.vtnreport.utils.AesUtil;
 import com.scap.vtnreport.utils.Encrytion;
+import com.scap.vtnreport.utils.MD5;
 
 /**
  * Servlet implementation class LoginAuthenticationSrvl
@@ -54,12 +55,13 @@ public class LoginSrvl extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html; charset=UTF-8");
-		request.setCharacterEncoding("UTF-8");
+//		request.setCharacterEncoding("UTF-8");
+		
 		PrintWriter pw = response.getWriter();
 
 		String hospitalcode = request.getParameter("hospitalcode");
 		String passphrase = request.getParameter("hidPassphrase"); 
-		//àªç¤ value login
+		//ï¿½ï¿½ value login
 		String isKeyLoginNull = request.getParameter("hidIsLoginNull"); 
 		
 		//new sesion

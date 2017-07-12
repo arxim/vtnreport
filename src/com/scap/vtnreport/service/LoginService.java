@@ -37,48 +37,48 @@ public class LoginService {
 				
 				 
 				 
-				// Check External database LDAP
-				ADAuthen ldap = new ADAuthen();
-				String check = ldap.processADAuthen(username, decryptPwd);
-				
-				if (check.equals("Y")) {
-					System.out.println("LDAPLOGIN");
-					isLoginLdapPass = "LDAPLOGIN";
-					UserDao userDao = new UserDao();
-					UserView isUser = userDao.getUserByUserCodeLdap(username, hospitalcode);
-					// Check With UserCode
-					if (isUser != null) {
-						if (isUser != null && isUser.getUserGroupCode() != null) {
-							isLoginLdapPass = isUser.getUserGroupCode().toString();
-							isUserView = isUser;
-						} else {
-							isLoginLdapPass = "NONEROLE";
-							isUserView = null;
-						}
-					// Check With LicenseId (Doctor)
-					} else{
-						isUser = userDao.getUserByLicenseIdLdap(username, hospitalcode);
-						if (isUser != null) {
-							if (isUser != null && isUser.getUserGroupCode() != null) {
-								isLoginLdapPass = isUser.getUserGroupCode().toString();
-								isUserView = isUser;
-							} else {
-								isLoginLdapPass = "NONEROLE";
-								isUserView = null;
-							}
-							// save user login history
-						}else{
-				        	isLoginLdapPass = "FAIL";
-				        	isUserView = null;
-				        }
-					}
-
-				}else if(check.equals("U")){
-					isLoginLdapPass = "FAIL";
-				}
+//				// Check External database LDAP
+//				ADAuthen ldap = new ADAuthen();
+//				String check = ldap.processADAuthen(username, decryptPwd);
+//				
+//				if (check.equals("Y")) {
+//					System.out.println("LDAPLOGIN");
+//					isLoginLdapPass = "LDAPLOGIN";
+//					UserDao userDao = new UserDao();
+//					UserView isUser = userDao.getUserByUserCodeLdap(username, hospitalcode);
+//					// Check With UserCode
+//					if (isUser != null) {
+//						if (isUser != null && isUser.getUserGroupCode() != null) {
+//							isLoginLdapPass = isUser.getUserGroupCode().toString();
+//							isUserView = isUser;
+//						} else {
+//							isLoginLdapPass = "NONEROLE";
+//							isUserView = null;
+//						}
+//					// Check With LicenseId (Doctor)
+//					} else{
+//						isUser = userDao.getUserByLicenseIdLdap(username, hospitalcode);
+//						if (isUser != null) {
+//							if (isUser != null && isUser.getUserGroupCode() != null) {
+//								isLoginLdapPass = isUser.getUserGroupCode().toString();
+//								isUserView = isUser;
+//							} else {
+//								isLoginLdapPass = "NONEROLE";
+//								isUserView = null;
+//							}
+//							// save user login history
+//						}else{
+//				        	isLoginLdapPass = "FAIL";
+//				        	isUserView = null;
+//				        }
+//					}
+//
+//				}else if(check.equals("U")){
+//					isLoginLdapPass = "FAIL";
+//				}
 				
 				// �� internal database
-				else {
+//				else {
 					// encryption password, before authentication
 				   UserDao userDao = new UserDao();
 			       UserView isUser = userDao.getUser(username, MD5.encrypt(decryptPwd), hospitalcode);
@@ -95,7 +95,7 @@ public class LoginService {
 			        	isLoginLdapPass = "FAIL";
 			        	isUserView = null;
 			        }
-				}
+//				}
 
 			}
 		} catch (Exception e) {

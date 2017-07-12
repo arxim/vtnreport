@@ -1,13 +1,18 @@
 package com.scap.vtnreport.utils;
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class MD5 {
+import org.apache.log4j.Logger;
 
-	public static String encrypt(String encData) throws NoSuchAlgorithmException {
+public class MD5 {
+	
+	static Logger LOGGER = Logger.getLogger(MD5.class);
+
+	public static String encrypt(String encData) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(encData.getBytes());
+        md.update(encData.getBytes("UTF-8"));
 
         byte byteData[] = md.digest();
 
@@ -19,9 +24,10 @@ public class MD5 {
 		return sb.toString();
 	}
 	
-	public static void main(String[] args) throws NoSuchAlgorithmException {
+	public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		System.out.println(MD5.encrypt("ว.1234"));
 		// 0c2057d6ffb8ef368b229425c8fa848c
+		// not work 971452fc63b4e3feca289df20dc2f43e
 	}
 	
 }
