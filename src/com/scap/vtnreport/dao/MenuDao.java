@@ -51,8 +51,15 @@ public class MenuDao {
 							+ " <span><img src=\"resources/images/icon-send-email.png\" class=\"img-responsive\" alt=\"icon send email\" width=\"45\" height=\"45\"></span>"
 						    + " </a>&nbsp;";
 					break;
+				case "RE004":
+					value +="<a href=\"#\" id=\"btn-manual\" class=\"btn btn-default clsBtnHover\" onclick=\"getManual()\">"
+							+ " <span><img src=\"resources/images/icon-manual.png\" class=\"img-responsive\" alt=\"icon Manual\" width=\"45\" height=\"45\"></span>"
+						    + " </a>&nbsp;";
+					
+					break;
 				}
-				 
+				
+				
 				
 //				if (lstMenuRole.get(i).get("MENU_PARENT").equals("Y")) {
 //					value += "<div class=\"checkbox col-xs-offset-2\">" + "<label>" + "<input type=\"checkbox\" id=\""
