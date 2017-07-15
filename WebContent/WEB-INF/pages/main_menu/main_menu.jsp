@@ -13,6 +13,8 @@
 </head>
 <body>
 	<div id="page-content-wrapper">
+		<form id="frmPaymentAll" action="/vtnreport/getPaymentAllContentSrvl" method="post">
+		</form>
 		<form id="frmPayment" action="/vtnreport/getPaymentContentSrvl" method="post">
 		</form>
 		<form id="frmTax" action="/vtnreport/getTaxContentSrvl" method="post">

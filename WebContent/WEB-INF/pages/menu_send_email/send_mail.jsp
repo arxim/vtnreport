@@ -29,7 +29,8 @@
 						</div>
 						<div class="col-xs-6 col-sm-3 coltrol-label">
 							<select class="form-control" id="dwlReport">
-								<option value="02">Payment DF</option>
+								<option value="03">Payment DF Merge File</option>
+								<option value="02">Payment DF Split File</option>
 								<option value="01">Tax Letter 40 (6)</option>
 							</select>
 						</div>
@@ -119,6 +120,7 @@
 		<input type="hidden" id="hidUserCode" name="hidUserCode" value="<%= session.getAttribute("userid") %>">
 		<input type="hidden" id="hidRole" name="hidRole" value="<%= session.getAttribute("role") %>">
 		<input type="hidden" id="hidHospitalCode" name="hidHospitalCode" value="<%= session.getAttribute("hospitalcode")%>">
+		<form id="frmPaymentAll" action="/vtnreport/getPaymentContentAllSrvl" method="post"> </form>
 		<form id="frmPayment" action="/vtnreport/getPaymentContentSrvl" method="post"> </form>
 		<form id="frmTax" action="/vtnreport/getTaxContentSrvl" method="post"> </form>
 		<form id="frmEmail" action="/vtnreport/getEmailContentSrvl" method="post"> </form>

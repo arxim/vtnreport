@@ -1,19 +1,10 @@
 $(document).ready(function() {
 	getYYYY();
-	checkRole();   
-	$("#btn-tax").addClass("active").css("background-color","#87b2e0");
+	checkRole();
+ 	$("#btn-sum-payment").addClass("active").css("background-color","#87b2e0");
 	
-	$('#txtPrintDate').datepicker({
-		format : "dd/mm/yyyy",
-		autoclose : true,
-		todayHighlight : true
-	});
-	
-	// Set Current Date
-	$('#txtPrintDate').datepicker('setDate', 'now');
-	
-	var hospitalCode = $('#hidhospitalCode').val();
-	//Autocomplete
+var hospitalCode = $('#hidhospitalCode').val();
+
 	$("#txtDoctorCode").autocomplete({
 		autoFocus: true,
 	    cacheLength: 1,
@@ -31,6 +22,7 @@ $(document).ready(function() {
 	            success: function(data) {
 	                response(data);
 	                $("#txtDoctorName").val("");
+	                $("#hidDoctor").val("");
 	            }
 	        });
 	    },
@@ -38,7 +30,18 @@ $(document).ready(function() {
 	   event.preventDefault();
 	   $("#txtDoctorName").val(ui.item.value); // Code : Description
 	   $("#txtDoctorCode").val(ui.item.id); // Code
-	 }
+	   $("#hidDoctor").val(ui.item.id);
+	 },
+     change: function( event, ui ) {
+    	 
+    	 if($("#hidDoctor").val() == ""){
+    		 
+ 			$("#txtDoctorCode").val("");
+ 			$("#hidDoctor").val("");
+ 			$("#txtDoctorName").val("");
+ 			
+ 		}
+     }
 	});
 });
 
@@ -53,34 +56,10 @@ function getYYYY(){
 			}, 
 			success : function(data) {
 				$("#dwlYear").append(data);
-				getLastBatchTax406OnClose();
+				getLastBatchOnClose();
 			}
 	 }); 
 }
-
-// View Report
-function getReport(){
-	
-	var yyyy = $('#dwlYear').val();
-	var mm = $('#dwlMonth').val();
-	var hospitalCode = $('#hidHospitalCode').val();
-	var	report = "tax";
-	var doctorCode = $('#txtDoctorCode').val().trim();
-	var tempPrintDate = $("#txtPrintDate").val();
-	var printDate = tempPrintDate.substring(6,10)+tempPrintDate.substring(3,5)+tempPrintDate.substring(0,2);
-	var term = $("#dwlTerm").val();
-	
-	$("#hidReport").val(report);
-	$("#hidMM").val(mm);
-	$("#hidYYYY").val(yyyy);
-	$("#hidDoctorCode").val(doctorCode);
-	$("#hidPrintDate").val(printDate);
-	$("#hidTerm").val(term);
-
-	$("#frmReport").submit();
-
-}
-
 function getPaymnetAll(){
 	$('#frmPaymentAll').submit();
 }
@@ -99,7 +78,40 @@ function getManual(){
 	window.open('SCAP-VTN-DFS_PRESENT_V1.0.pdf',"_blank");
 }
 
-//Check Role DR Or Account
+function getReport(){
+	
+	var yyyy = $('#dwlYear').val();
+	var mm = $('#dwlMonth').val();
+	var hospitalCode = $('#hidHospitalCode').val();
+	var	report = $('#dwlReport').val();
+	var doctorCode = $('#txtDoctorCode').val().trim();
+	
+	$("#hidReport").val("05");
+	$("#hidMM").val(mm);
+	$("#hidYYYY").val(yyyy);
+	$("#hidDoctorCode").val(doctorCode);
+
+	$("#frmReport").submit();
+	
+
+}
+
+function getLastBatchOnClose(){
+	$.ajax({
+		type : "POST",
+		url : "/vtnreport/GetBatch",
+		dataType: "json",
+		data: {
+			method : "02",
+        },
+		success : function(data) {
+			$('#dwlMonth').val(data[0]["mm"]).attr("selected", "selected");
+			$('#dwlYear').val(data[0]["yyyy"]).attr("selected", "selected");
+		}
+ }); 
+}
+
+// Check Role DR Or Account
 function checkRole(){
 	
 	var role = $("#hidRole").val();
@@ -111,20 +123,5 @@ function checkRole(){
 		$("#txtDoctorCode").val(userCode);
 		$("#txtDoctorName").val(userName)
 	}
-}
-
-
-function getLastBatchTax406OnClose(){
-	$.ajax({
-		type : "POST",
-		url : "/vtnreport/GetBatch",
-		dataType: "json",
-		data: {
-			method : "03",
-        },
-		success : function(data) {
-//			$('#dwlMonth').val(data[0]["mm"]).attr("selected", "selected");
-			$('#dwlYear').val(data[0]["yyyy"]).attr("selected", "selected");
-		}
- }); 
+	
 }

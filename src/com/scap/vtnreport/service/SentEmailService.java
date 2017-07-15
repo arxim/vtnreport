@@ -85,6 +85,67 @@ public class SentEmailService {
 		return msg;
 	}
 	
+	// Single File Send
+		public String SendMailMergePdfFile(ByteArrayOutputStream pdfStream,String mail) {
+			ReadProperties prop = new ReadProperties();
+			Map<String, String>  propData = prop.getDataReadPropertiesFile("servermail.properties");
+			String auth_host = propData.get("auth_host");
+			String auth_port = propData.get("auth_port");
+			String auth_email = propData.get("auth_email");
+			String auth_password = propData.get("auth_password");
+			String msg = "";
+
+			Properties props = new Properties();
+			props.put("mail.smtp.host", auth_host);
+			props.put("mail.smtp.socketFactory.port", auth_port);
+			props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+			props.put("mail.smtp.auth", "true");
+			props.put("mail.smtp.port", auth_port);
+			
+			String subject = propData.get("subject_payment");
+			String body = propData.get("body_payment");
+
+			try {
+
+				Session mailSession = Session.getInstance(props, new javax.mail.Authenticator() {
+					protected PasswordAuthentication getPasswordAuthentication() {
+						return new PasswordAuthentication(auth_email, auth_password);
+					}
+				});
+
+				Message message = new MimeMessage(mailSession);
+
+				message.setFrom(new InternetAddress(auth_email)); // From
+
+				/*** Recipient ***/
+				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mail)); // To
+				message.setSubject(subject);
+//				message.setText("Hello mr.win, Please do not reply this mail");
+				System.out.println("Before Attachment ==>"+JDate.getTime());
+				DataSource aAttachment = new ByteArrayDataSource(pdfStream.toByteArray(), "application/pdf");
+				BodyPart messageBodyPart = new MimeBodyPart();
+				messageBodyPart.setText(body);
+				Multipart multipart = new MimeMultipart();
+				multipart.addBodyPart(messageBodyPart);
+				messageBodyPart = new MimeBodyPart();
+				messageBodyPart.setDataHandler(new DataHandler(aAttachment));
+				messageBodyPart.setFileName("TaxLetter406.pdf");
+				multipart.addBodyPart(messageBodyPart);
+				message.setContent(multipart);
+				
+				System.out.println("Before Attachment ==>"+JDate.getTime());
+				
+				Transport.send(message);
+				
+				msg = "PASS";
+				System.out.println("Mail Send Successfully.=>"+JDate.getTime());
+
+			} catch (MessagingException e) {
+				msg = "FAIL";
+			}
+			return msg;
+		}
+	
 	// Multi  File Send
 		public String SendMailMultiFile(ByteArrayOutputStream pdfStream1,ByteArrayOutputStream pdfStream2,ByteArrayOutputStream pdfStream3,ByteArrayOutputStream pdfStream4,String mail) {
 			ReadProperties prop = new ReadProperties();

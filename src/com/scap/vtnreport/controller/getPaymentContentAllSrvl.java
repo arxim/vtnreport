@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class MainMenuSrv
+ * Servlet implementation class getPaymentContentAllSrvl
  */
-@WebServlet("/MainMenuSrv")
-public class MainMenuSrv extends HttpServlet {
+@WebServlet("/getPaymentContentAllSrvl")
+public class getPaymentContentAllSrvl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainMenuSrv() {
+    public getPaymentContentAllSrvl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,25 +29,24 @@ public class MainMenuSrv extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	 
-		response.setContentType("text/html; charset=UTF-8"); 
-		HttpSession session = request.getSession(false); 
-		String page = "";
-		if(session.getAttribute("_user") != null){
-			page = "/vtnreport/getPaymentContentAllSrvl";
-		}else{
-		    page = "/SessionTimeoutSrvl";
-		} 
-		response.sendRedirect(page);
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		response.setContentType("text/html; charset=UTF-8");
+		HttpSession session = request.getSession(false);
+		String page = "";
+		if(session.getAttribute("_user") != null){
+			page = "/WEB-INF/pages/menu_payment/payment_all.jsp";  
+		}else{
+		    page = "/SessionTimeoutSrvl";
+		}
+		
+		RequestDispatcher rd = request.getRequestDispatcher(page); 
+		rd.forward(request, response);
 	}
 
 }

@@ -10,34 +10,34 @@
     <jsp:include page="../../../resources/template/script-header.jsp"></jsp:include>
 	<jsp:include page="../../../resources/template/navbar-header.jsp"></jsp:include>
 	<script src="${pageContext.request.contextPath}/resources/js/pages/main_menu/main_menu.js" type="text/javascript"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/pages/menu_payment/payment.js" type="text/javascript"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/pages/menu_payment/payment_all.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="page-content-wrapper">
 		<div class="container-fluid" id="panelContent">
 			<div class="panel panel-vtn">
 				<div class="panel-heading text-center">
-					<b>Report Payment Detail</b>
+					<b>Report Payment</b>
 				</div>
 			</div>
 			<div class="container">
 				<div class="panel-body">
 					<div class="form-horizontal">
-						<div class="row">
-								<div class="col-xs-6 col-sm-3 control-label">
-									<p class="text-right">
-										<b id="lblReport">Report</b>
-									</p>
-								</div>
-								<div class="col-xs-6 col-sm-3">
-									<select id="dwlReport" class="form-control">
-										<option value="01">รายงานสรุปรายได้แพทย์</option>
-										<option value="02">รายงานรายละเอียดรายได้แพทย์</option>
-										<option value="03">รายงานรายละเอียดรายได้แพทย์ค้างจ่าย</option>
-										<option value="04">รายงานรายการปรับปรุงค่าแพทย์(หัก/เพิ่ม)</option>
-									</select>
-								</div>
-						</div>
+<!-- 						<div class="row"> -->
+<!-- 								<div class="col-xs-6 col-sm-3 control-label"> -->
+<!-- 									<p class="text-right"> -->
+<!-- 										<b id="lblReport">Report</b> -->
+<!-- 									</p> -->
+<!-- 								</div> -->
+<!-- 								<div class="col-xs-6 col-sm-3"> -->
+<!-- 									<select id="dwlReport" class="form-control"> -->
+<!-- 										<option value="01">รายงานสรุปรายได้แพทย์</option> -->
+<!-- 										<option value="02">รายงานรายละเอียดรายได้แพทย์</option> -->
+<!-- 										<option value="03">รายงานรายละเอียดรายได้แพทย์ค้างจ่าย</option> -->
+<!-- 										<option value="04">รายงานรายการปรับปรุงค่าแพทย์(หัก/เพิ่ม)</option> -->
+<!-- 									</select> -->
+<!-- 								</div> -->
+<!-- 						</div> -->
 						<div class="row">
 							<div class="col-xs-6 col-sm-3 control-label">
 								<p class="text-right">

@@ -16,7 +16,7 @@ public class MenuDao {
 				+ "  FROM USER_GROUP UG "
 				+ " JOIN STP_MENU_REPORT_MAPPING MM ON UG.USER_GROUP = MM.USER_GROUP_CODE"
 				+ " JOIN STP_MENU_REPORT M ON  MM.MENU_CODE = M.MENU_CODE"
-				+ " WHERE UG.USER_GROUP = ? AND M.STATUS = 'Y' ";
+				+ " WHERE UG.USER_GROUP = ? AND M.STATUS = 'Y' ORDER BY MENU_CODE";
 		 String value = "";
 		//System.out.println(SQL);
 		DbConnector DBConnector = new DbConnector();
@@ -35,6 +35,12 @@ public class MenuDao {
 				
  
 				switch (lstMenuRole.get(i).get("MENU_CODE")) {
+				
+				case "RE000":
+					value +="<a href=\"#\" id=\"btn-sum-payment\" class=\"btn btn-default clsBtnHover\" onclick=\"getPaymnetAll()\">"
+							+ " <span><img src=\"resources/images/bar-chart.png\" class=\"img-responsive\" alt=\"icon payment all\" width=\"45\" height=\"45\"></span>"
+							+ "</a>&nbsp;";
+					break;
 				
 				case "RE001":
 					value +="<a href=\"#\" id=\"btn-payment\" class=\"btn btn-default clsBtnHover\" onclick=\"getPaymnet()\">"

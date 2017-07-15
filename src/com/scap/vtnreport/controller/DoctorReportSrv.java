@@ -1,15 +1,12 @@
 package com.scap.vtnreport.controller;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,10 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.scap.vtnreport.service.JasperBuilderService;
-import com.scap.vtnreport.service.SentEmailService;
+import com.scap.vtnreport.service.PrepareFileToJasperPrint;
 import com.scap.vtnreport.utils.JDate;
 
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 
@@ -198,6 +196,35 @@ public class DoctorReportSrv extends HttpServlet {
 				InputStream jasperStream = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/ExpenseDetail.jasper");
 		        JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
 				voJasperBuilder.jasperBuilder(jasperStream,jasperReport, response,params, "application/pdf","ExpenseDetail",permission);
+			} catch (JRException | SQLException e) {
+				e.printStackTrace();
+			}
+
+			break;
+			
+		// Merge PDF 4 file
+		case "05":
+	        try {
+	        	
+	        	PrepareFileToJasperPrint jasperPrint = new PrepareFileToJasperPrint();
+	        	
+	        	InputStream StreamPaymentVoucher = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/PaymentVoucher.jasper");
+	        	InputStream StreamSummaryRevenueByDetail = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/SummaryRevenueByDetail.jasper");
+	        	InputStream StreamSummaryDFUnpaidByDetailAsOfDate = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/SummaryDFUnpaidByDetailAsOfDate.jasper");
+	        	InputStream StreamExpenseDetail = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/ExpenseDetail.jasper");
+	        	
+	        	JasperReport jasperPaymentVoucher = (JasperReport) JRLoader.loadObject(StreamPaymentVoucher);
+		        JasperReport jasperSummaryRevenueByDetail = (JasperReport) JRLoader.loadObject(StreamSummaryRevenueByDetail);
+		        JasperReport jasperSummaryDFUnpaidByDetailAsOfDate = (JasperReport) JRLoader.loadObject(StreamSummaryDFUnpaidByDetailAsOfDate);
+		        JasperReport jasperExpenseDetail = (JasperReport) JRLoader.loadObject(StreamExpenseDetail);
+				
+				JasperPrint jpPaymentVoucher = jasperPrint.PaymentVoucherReport(jasperPaymentVoucher, from_doctor, to_doctor, mm, yyyy, to_date, absoluteDiskPath);
+				JasperPrint jpSummaryRevenueByDetail = jasperPrint.SummaryRevenueByDetail(jasperSummaryRevenueByDetail, hospitalCode, from_doctor, to_doctor, mm, yyyy);
+				JasperPrint jpSummaryDFUnpaidByDetailAsOfDate = jasperPrint.SummaryDFUnpaidByDetailAsOfDate(jasperSummaryDFUnpaidByDetailAsOfDate, to_date, to_doctor, hospitalCode);
+				JasperPrint jpExpenseDetail = jasperPrint.ExpenseDetail(jasperExpenseDetail, hospitalCode, from_doctor, to_doctor, mm, yyyy);
+				
+				voJasperBuilder.jasperBuilderMergePdf(jpPaymentVoucher, jpSummaryRevenueByDetail, jpSummaryDFUnpaidByDetailAsOfDate, jpExpenseDetail, response, "application/pdf", "PaymentSummaryAll", permission);
+
 			} catch (JRException | SQLException e) {
 				e.printStackTrace();
 			}

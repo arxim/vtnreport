@@ -2,6 +2,10 @@ $(document).ready(function() {
 	
 });
 
+function getPaymnetAll(){
+	$('#frmPaymentAll').submit();
+}
+
 function getPaymnet(){
 	$('#frmPayment').submit();
 }

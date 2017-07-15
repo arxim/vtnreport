@@ -70,7 +70,7 @@ $(document).ready(function() {
 	// On Change Select Dropdown
 	$("#dwlReport").change(function() {
 		
-		if ($("#dwlReport").val() == '02') {
+		if ($("#dwlReport").val() == '02' || $("#dwlReport").val() == '03') {
 			$("#lblPrintDate").hide();
 			$("#divPrintDate").hide();
 			$("#divLabelTerm").hide();
@@ -134,6 +134,9 @@ function getBatch(){
  }); 
 }
 
+function getPaymnetAll(){
+	$('#frmPaymentAll').submit();
+}
 function getPaymnet(){
 	$('#frmPayment').submit();
 }
@@ -180,7 +183,7 @@ function sendEmail(){
 		url : '/vtnreport/SentEmailSrv',
 		type : 'post',
 		data : {
-			yyyy : "2014" ,
+			yyyy : yyyy ,
 			mm : mm,
 			hospitalCode : hospitalCode ,
 			doctorCode : doctorCode,

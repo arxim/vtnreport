@@ -4,12 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,15 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.scap.vtnreport.dao.GetDoctorDao;
 import com.scap.vtnreport.dao.StatusSendMail;
-import com.scap.vtnreport.service.JasperBuilderService;
 import com.scap.vtnreport.service.PrepareFileToSendMailService;
 import com.scap.vtnreport.service.SentEmailService;
 import com.scap.vtnreport.utils.JDate;
 
-import net.sf.jasperreports.engine.JRException;
+
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
-import com.scap.vtnreport.dao.StatusSendMail;
 /**
  * Servlet implementation class SentEmailSrv
  */
@@ -171,6 +166,60 @@ public class SentEmailSrv extends HttpServlet {
 					 bos3.close();
 				 if(bos4 != null)
 					 bos4.close();
+				}
+			
+			break;
+			
+		// All Report Of Payment Merge PDF
+		case "03":
+			ByteArrayOutputStream bosMergePdf = null;
+			try {
+				InputStream jasperStream1 = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/PaymentVoucher.jasper");
+				InputStream jasperStream2 = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/SummaryRevenueByDetail.jasper");
+				InputStream jasperStream3 = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/ExpenseDetail.jasper");
+				InputStream jasperStream4 = request.getSession().getServletContext().getResourceAsStream("/WEB-INF/JasperReport/SummaryDFUnpaidByDetailAsOfDate.jasper");
+				
+				// Get SubReport RealPath
+				ServletContext servletContext = request.getSession().getServletContext();
+				String relativeWebPath = "/WEB-INF/JasperReport/";
+				String absoluteDiskPath = servletContext.getRealPath(relativeWebPath);
+				
+				JasperReport jasperReport1 = (JasperReport) JRLoader.loadObject(jasperStream1);
+				JasperReport jasperReport2 = (JasperReport) JRLoader.loadObject(jasperStream2);
+				JasperReport jasperReport3= (JasperReport) JRLoader.loadObject(jasperStream3);
+				JasperReport jasperReport4 = (JasperReport) JRLoader.loadObject(jasperStream4);
+				
+				arrData = vaEmail.getDoctorSendEmailPayment(hospitalCode,doctorCode, yyyy, mm);
+				email = arrData.get(0).get("EMAIL").trim();
+				
+				System.out.println("Timing Get Doctor Sent Mail ==> "+JDate.getTime());
+				
+				if(!email.equals("0")){
+					
+					int month = Integer.parseInt(mm);
+					int year = Integer.parseInt(yyyy);
+					
+					bosMergePdf = prepareFile.PrepareMergePayment(arrData, jasperReport1, jasperReport2, jasperReport3, jasperReport4, jasperStream1, jasperStream2, jasperStream3, jasperStream4, response, month, year,absoluteDiskPath);
+					
+					
+					System.out.println("Timing Create Report ==> "+JDate.getTime());
+					
+					message  = sentEmail.SendMailMergePdfFile(bosMergePdf, email);
+					
+					System.out.println("Timing Create Report ==> "+JDate.getTime());
+					
+					StatusSendMail.SendMailPaymentSuccess(hospitalCode, doctorCode,mm,yyyy);
+				}else{
+					message = "FAIL";
+				}
+	
+			} catch (Exception e) {
+				message = "FAIL";
+				e.printStackTrace();
+			}
+			 finally {
+				 if (bosMergePdf != null)
+					 bosMergePdf.close();
 				}
 			
 			break;
