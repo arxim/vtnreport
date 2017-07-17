@@ -71,6 +71,8 @@ $(document).ready(function() {
 	$("#dwlReport").change(function() {
 		
 		if ($("#dwlReport").val() == '02' || $("#dwlReport").val() == '03') {
+			
+			$('#btnSendEmail').prop( "disabled", true );
 			$("#lblPrintDate").hide();
 			$("#divPrintDate").hide();
 			$("#divLabelTerm").hide();
@@ -84,7 +86,10 @@ $(document).ready(function() {
 			
 			$('#tblDoctor').DataTable().clear()
 			$('#tblDoctor').DataTable().draw();
+			
 		}else{
+			
+			$('#btnSendEmail').prop( "disabled", true );
 			$("#lblPrintDate").show();
 			$("#divPrintDate").show();
 			$("#divLabelTerm").show();
@@ -98,6 +103,7 @@ $(document).ready(function() {
 			
 			$('#tblDoctor').DataTable().clear()
 			$('#tblDoctor').DataTable().draw();
+			
 		}
 
 	});
@@ -252,7 +258,11 @@ function getDoctor(){
 			}
 		},
 		"fnInitComplete": function( oSettings ) {
-			$('#btnSendEmail').prop( "disabled", false );
+			countDataTable = $('#tblDoctor').dataTable().fnGetData().length;
+			if(countDataTable > 0){
+				$('#btnSendEmail').prop( "disabled", false );
+			}
+			
 			$('#all-mail-count').text($('#tblDoctor').dataTable().fnGetData().length);
 		 }
 	});

@@ -24,10 +24,10 @@
 	     }); 
 	</script>
 	<style>
-		a.clsBtnHover span img:hover {
+		a.btn  {
 /*     		background-color : #87b2e0; */
-			width: 65px;  
-            height: 70px; 
+			width: 128px;  
+            height: 80px; 
 		}
 	</style>
 	<div class="container-fluid" style="background-color: #c9dce5">
@@ -50,12 +50,12 @@
 			</div>  
 		</div>
 		<div class="collapse navbar-collapse" id="divNavBar">
-			<div class="col hidden-xs col-sm-4 text-left">
+			<div class="col hidden-xs col-sm-3 text-left">
 	        	<div id="logo">
 					<img src="resources/images/logo-vejthani.png" class="img-responsive" alt="logo vejthani" width="220" height="170">
 				</div>
 	      	</div>
-			<div class="col-xs-12 col-sm-4 text-center">
+			<div class="col-xs-12 col-sm-6 text-center">
 				<c:choose>
 			     <c:when test="${sessionScope.menuitem!= null}"> 
 			         ${sessionScope.menuitem}
@@ -65,7 +65,7 @@
 			     	</c:otherwise>
 			    </c:choose>
 			</div>
-			<div class="col-xs-12 col-sm-4 text-center">
+			<div class="col-xs-12 col-sm-3 text-center">
 	 			<ul class="nav navbar-nav navbar-right">
 					<li style="color: #19067f">
 					   <div class="col hidden-xs">	

@@ -37,29 +37,34 @@ public class MenuDao {
 				switch (lstMenuRole.get(i).get("MENU_CODE")) {
 				
 				case "RE000":
-					value +="<a href=\"#\" id=\"btn-sum-payment\" class=\"btn btn-default clsBtnHover\" onclick=\"getPaymnetAll()\">"
-							+ " <span><img src=\"resources/images/bar-chart.png\" class=\"img-responsive\" alt=\"icon payment all\" width=\"45\" height=\"45\"></span>"
+					value +="<a href=\"#\" id=\"btn-sum-payment\" class=\"btn btn-default  clsBtnHover\" onclick=\"getPaymnetAll()\">"
+							+ " <span><center><img src=\"resources/images/bar-chart.png\" class=\"img-responsive\" alt=\"icon payment all\" width=\"45\" height=\"45\">"
+							+ " <small><b>Payment Summary</b></small></center></span>"
 							+ "</a>&nbsp;";
 					break;
 				
 				case "RE001":
 					value +="<a href=\"#\" id=\"btn-payment\" class=\"btn btn-default clsBtnHover\" onclick=\"getPaymnet()\">"
-							+ " <span><img src=\"resources/images/icon-payment.png\" class=\"img-responsive\" alt=\"icon payment\" width=\"45\" height=\"45\"></span>"
+							+ " <span><center><img src=\"resources/images/icon-payment.png\" class=\"img-responsive\" alt=\"icon payment\" width=\"45\" height=\"45\">"
+							+ " <small><b>Payment Detail</b></small></center></span>"
 							+ "</a>&nbsp;";
 					break;
 				case "RE002":
 					value +="<a href=\"#\" id=\"btn-tax\" class=\"btn btn-default clsBtnHover\" onclick=\"getTax()\">"
-							+ " <span><img src=\"resources/images/icon-tax.png\" class=\"img-responsive\" alt=\"icon tax\" width=\"45\" height=\"45\"></span>"
+							+ " <span><center><img src=\"resources/images/icon-tax.png\" class=\"img-responsive\" alt=\"icon tax\" width=\"45\" height=\"45\">"
+							+ " <small><b>Tax Certificate</b></small></center></span>"
 							+ " </a>&nbsp;";
 					break;
 				case "RE003":
 					value +="<a href=\"#\" id=\"btn-email\" class=\"btn btn-default clsBtnHover\" onclick=\"getEmail()\">"
-							+ " <span><img src=\"resources/images/icon-send-email.png\" class=\"img-responsive\" alt=\"icon send email\" width=\"45\" height=\"45\"></span>"
+							+ " <span><center><img src=\"resources/images/icon-send-email.png\" class=\"img-responsive\" alt=\"icon send email\" width=\"45\" height=\"45\">"
+							+ " <small><b>Sent Mail</b></small></center></span>"
 						    + " </a>&nbsp;";
 					break;
 				case "RE004":
 					value +="<a href=\"#\" id=\"btn-manual\" class=\"btn btn-default clsBtnHover\" onclick=\"getManual()\">"
-							+ " <span><img src=\"resources/images/icon-manual.png\" class=\"img-responsive\" alt=\"icon Manual\" width=\"45\" height=\"45\"></span>"
+							+ " <span><center><img src=\"resources/images/icon-manual.png\" class=\"img-responsive\" alt=\"icon Manual\" width=\"45\" height=\"45\">"
+							+ " <small><b>Manual</b></small></center></span>"
 						    + " </a>&nbsp;";
 					
 					break;

@@ -29,9 +29,9 @@
 						</div>
 						<div class="col-xs-6 col-sm-3 coltrol-label">
 							<select class="form-control" id="dwlReport">
-								<option value="03">Payment DF Merge File</option>
-								<option value="02">Payment DF Split File</option>
-								<option value="01">Tax Letter 40 (6)</option>
+								<option value="03">Payment Summary</option>
+<!-- 								<option value="02">Payment DF Split File</option> -->
+								<option value="01">Tax Certificate</option>
 							</select>
 						</div>
 					</div>

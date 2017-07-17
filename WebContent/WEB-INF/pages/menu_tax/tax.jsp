@@ -109,6 +109,20 @@
 							<button type="button" class="btn btn-default" id="btnView" onclick="getReport()">view</button>
 						</div>
 					</div>
+					<div class="row">
+						<br/>
+						<br/>
+						<div class="col-xs-6 col-sm-3 control-label text-danger">
+							<p class="text-right">
+								<b id="lblNote">หมายเหตุ</b>
+							</p>
+						</div>
+						<div class="col-xs-6 col-sm-9 control-label text-danger">
+							<p class="text-left">
+								<b id="NoteContent">ยังไม่ระบุ</b>
+							</p>
+						</div>
+					</div>
 				</div>
 			</div>
 			<input type="hidden" id="hidUserCode" name="hidUserCode" value="<%= session.getAttribute("userid") %>">
