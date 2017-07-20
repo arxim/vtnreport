@@ -250,7 +250,7 @@ function getDoctor(){
 			url : "/vtnreport/GetDoctorToSendEmailSrv",
 			dataSrc : "data",
 			data :{
-				yyyy : "2014",
+				yyyy : yyyy,
 				mm : mm,
 				term : term,
 				hospitalCode : hospitalCode,
