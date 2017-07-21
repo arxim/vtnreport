@@ -1,5 +1,5 @@
  $(document).ready(function(){
-	 loadHospitalDropdown();
+//	 loadHospitalDropdown();
  });
  
  
@@ -16,7 +16,7 @@ function  loadHospitalDropdown() {
 			},
 			success : function(data) {
 				if($.trim(data) !=""){
-					$('#dwlHospital').append(data);
+					$('#dwlHospital').val(data);
 				} 
 				 
 			}
