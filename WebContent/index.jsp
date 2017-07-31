@@ -67,11 +67,6 @@
 			
 		  <!-- HIDDEN SESSION -->
 	      <input id="dwlHospital" name="hospitalcode" type="hidden" value="VTN01"></input>
-	      <input id="hidPassphrase" name="hidPassphrase" type="hidden" value="${passphrase}"/>
-	      <input id="hidIv" name="hidIv" type="hidden" />
-		  <input id="hidSalt" name="hidSalt" type="hidden" />
-		  <input id="hidIterationCount" name="hidIterationCount" type="hidden" />
-		  <input id="hidKeySize" name="hidKeySize" type="hidden" />
 			
           </form>
           

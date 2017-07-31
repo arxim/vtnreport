@@ -58,23 +58,21 @@ public class LoginSrvl extends HttpServlet {
 //		request.setCharacterEncoding("UTF-8");
 		
 		PrintWriter pw = response.getWriter();
-
+		
+		String username = request.getParameter("username");
+		String password = request.getParameter("password"); 
 		String hospitalcode = request.getParameter("hospitalcode");
-		String passphrase = request.getParameter("hidPassphrase"); 
-		//�� value login
-		String isKeyLoginNull = request.getParameter("hidIsLoginNull"); 
+		// value login
+//		String isKeyLoginNull = request.getParameter("hidIsLoginNull"); 
 		
 		//new sesion
 		HttpSession session = request.getSession();
 		
 		try {
             //old session
-			HttpSession sessionPass = request.getSession(false);
-			String sessionInSrvl = sessionPass.getAttribute("passphrase").toString();
-			
-			
+//			HttpSession sessionPass = request.getSession(false);
 
-			if (sessionInSrvl != null && sessionInSrvl.equals(passphrase) && !isKeyLoginNull.equals("isEmpty")) {
+			if (username != null && !username.isEmpty() && password != null && !password.isEmpty() && hospitalcode != null && !hospitalcode.isEmpty()) {
 				LoginService loginService = new LoginService();
 				UserView isLoginUser = loginService.doLoginProcess(request);
 				if (isLoginUser != null) { 

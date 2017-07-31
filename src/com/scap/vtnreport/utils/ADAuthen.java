@@ -56,10 +56,11 @@ public class ADAuthen {
 			
 			DirContext ctx = new InitialDirContext(env);
 			logger.debug("Ldap Connection to server success !!!");
-
 			String dn = findAccountByAccountName(ctx, accountName);
+			
 			if (dn != null) {
 				if (testBindUserDN(dn, accountPassword)) {
+					logger.debug("##### Authentication success #####");
 					process = "Y";
 				} else {
 					logger.debug("##### Authentication failed #####");
