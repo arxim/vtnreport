@@ -69,9 +69,9 @@
 						</div>
 						<div class="col-xs-6 col-sm-3 coltrol-label" id="divValueTerm">
 							<select class="form-control" id="dwlTerm">
-								<option value="01">First Term</option>
-								<option value="06">Second Term</option>
-								<option value="12">Yearly</option>
+								<option value="01">DF Received in Jan - Jun (1HY)</option>
+								<option value="06">DF Received in Jul - Dec (2HY)</option>
+								<option value="12">DF Received in Jan - Dec</option>
 							</select>
 						</div>
 						
@@ -114,12 +114,16 @@
 						<br/>
 						<div class="col-xs-6 col-sm-3 control-label text-danger">
 							<p class="text-right">
-								<b id="lblNote">หมายเหตุ</b>
+								<b id="lblNote">Remark</b>
 							</p>
 						</div>
 						<div class="col-xs-6 col-sm-9 control-label text-danger">
 							<p class="text-left">
-								<b id="NoteContent">ยังไม่ระบุ</b>
+								<b id="NoteContent">
+									The Certificate of Income will be issued on 15-Feb and 15-Aug, details are as follows.<br/>
+									&nbsp;&nbsp;1st Half-Year (DF received in January - June)       : issued on 15 August<br/> 
+   									&nbsp;&nbsp;2nd Half-Year (DF received in July - December)    : issued on 15 February
+								</b>
 							</p>
 						</div>
 					</div>

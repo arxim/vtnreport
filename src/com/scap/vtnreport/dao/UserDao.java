@@ -117,7 +117,7 @@ public class UserDao {
 			if (rs.next()) {
 				user = new UserView();
 				user.setLoginName(rs.getString("LOGIN_NAME"));
-				user.setName(rs.getString("LOGIN_NAME"));
+				user.setName(rs.getString("NAME_THAI"));
 				user.setUserGroupCode(new BigDecimal(rs.getString("USER_GROUP_CODE")));
 				user.setActive(rs.getString("ACTIVE"));
 				user.setHospitalCode(rs.getString("HOSPITAL_CODE"));
