@@ -1,16 +1,11 @@
 package com.scap.vtnreport.service;
 
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
-
 import com.scap.vtnreport.dao.UserDao;
 import com.scap.vtnreport.model.UserView;
-import com.scap.vtnreport.utils.AuthenticationLDAP;
 import com.scap.vtnreport.utils.MD5;
 import com.scap.vtnreport.utils.ADAuthen;
-import com.scap.vtnreport.utils.AesUtil;
-import com.scap.vtnreport.utils.StringUtils;
 
 public class LoginService {
 	

@@ -1,7 +1,7 @@
 package com.scap.vtnreport.utils;
+
 import java.util.Hashtable;
 import java.util.Map;
-
 import javax.naming.AuthenticationException;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
@@ -9,9 +9,7 @@ import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
-
 import org.apache.log4j.Logger;
-
 import com.scap.vtnreport.utils.ReadProperties;
 
 public class ADAuthen {
@@ -84,7 +82,7 @@ public class ADAuthen {
 
 		SearchControls searchControls = new SearchControls();
 		searchControls.setSearchScope(2);
-		
+
 		NamingEnumeration<SearchResult> results = ctx.search("", searchFilter, searchControls);
 		String dn;
 		if (results.hasMore()) {

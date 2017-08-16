@@ -61,17 +61,12 @@ public class LoginSrvl extends HttpServlet {
 		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password"); 
-		String hospitalcode = request.getParameter("hospitalcode");
-		// value login
-//		String isKeyLoginNull = request.getParameter("hidIsLoginNull"); 
-		
+		String hospitalcode = request.getParameter("hospitalcode");		
+
 		//new sesion
 		HttpSession session = request.getSession();
 		
 		try {
-            //old session
-//			HttpSession sessionPass = request.getSession(false);
-
 			if (username != null && !username.isEmpty() && password != null && !password.isEmpty() && hospitalcode != null && !hospitalcode.isEmpty()) {
 				LoginService loginService = new LoginService();
 				UserView isLoginUser = loginService.doLoginProcess(request);
@@ -82,52 +77,30 @@ public class LoginSrvl extends HttpServlet {
 					session.setAttribute("role", isLoginUser.getUserGroupCode());
 					session.setAttribute("userid", isLoginUser.getLoginName()); 
 					session.setAttribute("message", "PASS");
-				 
 					session.setAttribute("_user",isLoginUser);
-					// request.getRequestDispatcher(request.getContextPath()+"/HomeSrvl").include(request,
-					// response);
-					// response.sendRedirect(request.getContextPath()+"/MainMenuSrv");
-					// request.getRequestDispatcher("/WEB-INF/pages/forms/home.jsp").include(request,
-					// response);
 					
 					if(isLoginUser.getUserGroupCode() != null){
 						MenuService menuItem = new MenuService();
 						session.setAttribute("menuitem",menuItem.getMenuMappingDetail(isLoginUser.getUserGroupCode().toString()));
 					}
 					
-					
 					RequestDispatcher rd = request.getRequestDispatcher("/MainMenuSrv");
 					rd.forward(request, response);
-
 				} else { 
 					session.setAttribute("message", "FAIL");
 					RequestDispatcher rd = request.getRequestDispatcher("/LoadLoginSrvl");
 					rd.forward(request, response);
-					/* session.setAttribute("message", "FAIL");
-					 response.sendRedirect(request.getContextPath());*/
 				}
-
-			}
-
-			else { 
-				 /*session.setAttribute("message", "FAIL");
-				 response.sendRedirect(request.getContextPath()); */
+			} else { 
 				session.setAttribute("message", "FAIL");
 				RequestDispatcher rd = request.getRequestDispatcher("/LoadLoginSrvl");
 				rd.forward(request, response);
-
 			}
- 
 		} catch (Exception e) {
-			/*e.printStackTrace();*/
-			/*session.setAttribute("message", "FAIL");
-			response.sendRedirect(request.getContextPath());*/
 			session.setAttribute("message", "FAIL");
 			RequestDispatcher rd = request.getRequestDispatcher("/LoadLoginSrvl");
 			rd.forward(request, response);
 		}
 		pw.close();
-
 	}
-
 }
