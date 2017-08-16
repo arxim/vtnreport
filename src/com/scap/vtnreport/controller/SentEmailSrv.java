@@ -93,7 +93,11 @@ public class SentEmailSrv extends HttpServlet {
 					
 					System.out.println("Timing Create Report ==> "+JDate.getTime());
 					
-					StatusSendMail.SendMailTax406Success(hospitalCode, doctorCode,term,yyyy);
+					if(message.equals("PASS")){
+						StatusSendMail.SendMailTax406Success(hospitalCode, doctorCode,term,yyyy);
+					}
+					
+					
 				}else{
 					message = "FAIL";
 				}
@@ -148,7 +152,11 @@ public class SentEmailSrv extends HttpServlet {
 					
 					System.out.println("Timing Create Report ==> "+JDate.getTime());
 					
-					StatusSendMail.SendMailPaymentSuccess(hospitalCode, doctorCode,mm,yyyy);
+					if(message.equals("PASS")){
+						StatusSendMail.SendMailPaymentSuccess(hospitalCode, doctorCode,mm,yyyy);
+					}
+					
+					
 				}else{
 					message = "FAIL";
 				}
@@ -208,7 +216,10 @@ public class SentEmailSrv extends HttpServlet {
 					
 					System.out.println("Timing Create Report ==> "+JDate.getTime());
 					
-					StatusSendMail.SendMailPaymentSuccess(hospitalCode, doctorCode,mm,yyyy);
+					if(message.equals("PASS")){
+						StatusSendMail.SendMailPaymentSuccess(hospitalCode, doctorCode,mm,yyyy);
+					}
+					
 				}else{
 					message = "FAIL";
 				}

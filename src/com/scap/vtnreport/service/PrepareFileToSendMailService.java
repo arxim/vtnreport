@@ -31,7 +31,7 @@ public class PrepareFileToSendMailService {
 		params.put("hospital_code",doctorData.get(0).get("HOSPITAL_CODE"));
 		params.put("doctor_code", doctorData.get(0).get("DOCTOR_CODE"));
 		params.put("term",term);
-		params.put("year",doctorData.get(0).get("YYYY"));
+		params.put("yyyy",doctorData.get(0).get("YYYY"));
 		params.put("signature", signature);
 		params.put("print_date", printDate);
 

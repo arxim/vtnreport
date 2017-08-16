@@ -119,7 +119,7 @@ function checkRole(){
 	var userName = $("#hidUserName").val();
 	
 	if(role == "5"){
-		$("#txtDoctorCode").prop('disabled', true);
+		$("#txtDoctorCode").prop('readonly', true);
 		$("#txtDoctorCode").val(userCode);
 		$("#txtDoctorName").val(userName)
 	}

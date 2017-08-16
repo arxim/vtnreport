@@ -177,9 +177,9 @@ function sendEmail(){
 	var tempPrintDate = $("#txtPrintDate").val();
 	var printDate = tempPrintDate.substring(6,10)+tempPrintDate.substring(3,5)+tempPrintDate.substring(0,2);
 
-	$("#dwlReport").prop( "disabled", true );
-	$("#txtPrintDate").prop( "disabled", true );
-	$("#dwlTerm").prop( "disabled", true );
+	$("#dwlReport").prop( "readonly", true );
+	$("#txtPrintDate").prop( "readonly", true );
+	$("#dwlTerm").prop( "readonly", true );
 	$("#btnView").prop( "disabled", true );
 	$("#btnSendEmail").prop( "disabled", true );
 	
@@ -213,9 +213,9 @@ function sendEmail(){
 				processMmodalSuccess();
 				current_row = 0;
 				
-				$("#dwlReport").prop( "disabled", false );
-				$("#txtPrintDate").prop( "disabled", false );
-				$("#dwlTerm").prop( "disabled", false );
+				$("#dwlReport").prop( "readonly", false );
+				$("#txtPrintDate").prop( "readonly", false );
+				$("#dwlTerm").prop( "readonly", false );
 				$("#btnView").prop( "disabled", false );
 				$("#btnSendEmail").prop( "disabled", true );
 				

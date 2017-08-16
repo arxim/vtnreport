@@ -43,7 +43,7 @@
 							</p>
 						</div>
 						<div class="col-xs-6 col-sm-3 paymentDF" >
-							<input  class="form-control" id="txtMM" name="txtMM" disabled="disabled"/>
+							<input  class="form-control" id="txtMM" name="txtMM" readonly="readonly"/>
 						</div>
 						<!-- End Of Payment DF -->
 						<div class="col-xs-6 col-sm-3 control-label taxt406" id="divLabelTerm">
@@ -65,7 +65,7 @@
 							</p>
 						</div>
 						<div class="col-xs-6 col-sm-3">
-							<input class="form-control" id="txtYYYY" name="txtYYYY" disabled="disabled" />
+							<input class="form-control" id="txtYYYY" name="txtYYYY" readonly="readonly" />
 						</div>
 					</div>
 					<div class="row">

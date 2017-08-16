@@ -35,7 +35,7 @@
 							
 						</div>
 						<div class="col-xs-6 col-sm-6">
-							<input id="txtDoctorName" name="txtDoctorName" type="text" class="form-control" disabled="disabled"/>
+							<input id="txtDoctorName" name="txtDoctorName" type="text" class="form-control" readonly="readonly"/>
 						</div>
 					</div>
 					<div class="row">

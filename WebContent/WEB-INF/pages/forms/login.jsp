@@ -38,7 +38,12 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header" style="padding:35px 50px;">
-          <h4><span class="glyphicon glyphicon-lock"></span> Payment Report </h4>
+        	<div>
+        		 <h4><span class="glyphicon glyphicon-lock"></span> Report E-Payment </h4>
+        	</div>
+        	<div>
+        		<h4> Doctor Fee </h4>
+        	</div>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
            <form id="frmLogin" action="/vtnreport/LoginSrvl" method="post">
