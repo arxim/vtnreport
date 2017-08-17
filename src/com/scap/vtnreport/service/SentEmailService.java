@@ -25,7 +25,7 @@ import com.scap.vtnreport.utils.ReadProperties;
 public class SentEmailService {
 
 	// Single File Send
-	public String SendMailSingleFile(ByteArrayOutputStream pdfStream,String mail) {
+	public String SendMailSingleFile(ByteArrayOutputStream pdfStream,String mail,String doctor) {
 		ReadProperties prop = new ReadProperties();
 		Map<String, String>  propData = prop.getDataReadPropertiesFile("servermail.properties");
 		String auth_host = propData.get("auth_host");
@@ -37,6 +37,7 @@ public class SentEmailService {
 
 		Properties props = new Properties();
 		props.put("mail.smtp.host", auth_host);
+		props.put("mail.smtp.starttls.enable","true");
 		props.put("mail.smtp.socketFactory.port", auth_port);
 		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.auth", "true");
@@ -59,7 +60,14 @@ public class SentEmailService {
 
 			/*** Recipient ***/
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mail)); // To
-			message.setSubject(subject);
+			message.setSubject(subject+" "+doctor);
+			
+			/*** Recipient ***/
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mail)); // To
+			if(!bcc_email.equals("")){
+				message.setRecipients(Message.RecipientType.BCC, InternetAddress.parse(bcc_email)); // BCC
+			}
+			
 //			message.setText("Hello mr.win, Please do not reply this mail");
 			System.out.println("Before Attachment ==>"+JDate.getTime());
 			DataSource aAttachment = new ByteArrayDataSource(pdfStream.toByteArray(), "application/pdf");
@@ -87,7 +95,7 @@ public class SentEmailService {
 	}
 	
 	// Single File Send
-	public String SendMailMergePdfFile(ByteArrayOutputStream pdfStream,String mail) {
+	public String SendMailMergePdfFile(ByteArrayOutputStream pdfStream,String mail,String doctor) {
 		ReadProperties prop = new ReadProperties();
 		Map<String, String>  propData = prop.getDataReadPropertiesFile("servermail.properties");
 		String auth_host = propData.get("auth_host");
@@ -99,6 +107,7 @@ public class SentEmailService {
 
 		Properties props = new Properties();
 		props.put("mail.smtp.host", auth_host);
+		props.put("mail.smtp.starttls.enable","true");
 		props.put("mail.smtp.socketFactory.port", auth_port);
 		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.auth", "true");
@@ -124,7 +133,7 @@ public class SentEmailService {
 			if(!bcc_email.equals("")){
 				message.setRecipients(Message.RecipientType.BCC, InternetAddress.parse(bcc_email)); // BCC
 			}
-			message.setSubject(subject);
+			message.setSubject(subject+" "+doctor);
 			//message.setText("Hello mr.win, Please do not reply this mail");
 			System.out.println("Before Attachment ==>"+JDate.getTime());
 			DataSource aAttachment = new ByteArrayDataSource(pdfStream.toByteArray(), "application/pdf");
@@ -152,7 +161,7 @@ public class SentEmailService {
 	}
 	
 	// Multi  File Send
-	public String SendMailMultiFile(ByteArrayOutputStream pdfStream1,ByteArrayOutputStream pdfStream2,ByteArrayOutputStream pdfStream3,ByteArrayOutputStream pdfStream4,String mail) {
+	public String SendMailMultiFile(ByteArrayOutputStream pdfStream1,ByteArrayOutputStream pdfStream2,ByteArrayOutputStream pdfStream3,ByteArrayOutputStream pdfStream4,String mail,String doctor) {
 		ReadProperties prop = new ReadProperties();
 		Map<String, String>  propData = prop.getDataReadPropertiesFile("servermail.properties");
 		String auth_host = propData.get("auth_host");
@@ -167,6 +176,7 @@ public class SentEmailService {
 
 		Properties props = new Properties();
 		props.put("mail.smtp.host", auth_host);
+		props.put("mail.smtp.starttls.enable","true");
 		props.put("mail.smtp.socketFactory.port", auth_port);
 		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.auth", "true");
@@ -189,7 +199,7 @@ public class SentEmailService {
 			if(!bcc_email.equals("")){
 				message.setRecipients(Message.RecipientType.BCC, InternetAddress.parse(bcc_email)); // BCC
 			}
-			message.setSubject(subject);
+			message.setSubject(subject+" "+ doctor);
 			//message.setText("Hello mr.win, Please do not reply this mail");
 
 			System.out.println("Before Attachment ==>"+JDate.getTime());

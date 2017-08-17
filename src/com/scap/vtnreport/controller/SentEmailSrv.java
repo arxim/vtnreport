@@ -89,7 +89,7 @@ public class SentEmailSrv extends HttpServlet {
 					
 					System.out.println("Timing Create Report ==> "+JDate.getTime());
 					
-					message  = sentEmail.SendMailSingleFile(bos, email);
+					message  = sentEmail.SendMailSingleFile(bos, email,doctorCode);
 					
 					System.out.println("Timing Create Report ==> "+JDate.getTime());
 					
@@ -148,7 +148,7 @@ public class SentEmailSrv extends HttpServlet {
 					
 					System.out.println("Timing Create Report ==> "+JDate.getTime());
 					
-					message  = sentEmail.SendMailMultiFile(bos1,bos2,bos3,bos4, email);
+					message  = sentEmail.SendMailMultiFile(bos1,bos2,bos3,bos4, email,doctorCode);
 					
 					System.out.println("Timing Create Report ==> "+JDate.getTime());
 					
@@ -212,7 +212,7 @@ public class SentEmailSrv extends HttpServlet {
 					
 					System.out.println("Timing Create Report ==> "+JDate.getTime());
 					
-					message  = sentEmail.SendMailMergePdfFile(bosMergePdf, email);
+					message  = sentEmail.SendMailMergePdfFile(bosMergePdf, email,doctorCode);
 					
 					System.out.println("Timing Create Report ==> "+JDate.getTime());
 					
