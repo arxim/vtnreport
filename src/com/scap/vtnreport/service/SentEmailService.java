@@ -24,7 +24,7 @@ import com.scap.vtnreport.utils.ReadProperties;
 
 public class SentEmailService {
 
-	// Single File Send
+	// Single File Send for Tax
 	public String SendMailSingleFile(ByteArrayOutputStream pdfStream,String mail,String doctor) {
 		ReadProperties prop = new ReadProperties();
 		Map<String, String>  propData = prop.getDataReadPropertiesFile("servermail.properties");
@@ -94,7 +94,7 @@ public class SentEmailService {
 		return msg;
 	}
 	
-	// Single File Send
+	// Single File Send for Payment
 	public String SendMailMergePdfFile(ByteArrayOutputStream pdfStream,String mail,String doctor) {
 		ReadProperties prop = new ReadProperties();
 		Map<String, String>  propData = prop.getDataReadPropertiesFile("servermail.properties");
@@ -143,7 +143,7 @@ public class SentEmailService {
 			multipart.addBodyPart(messageBodyPart);
 			messageBodyPart = new MimeBodyPart();
 			messageBodyPart.setDataHandler(new DataHandler(aAttachment));
-			messageBodyPart.setFileName("TaxLetter406.pdf");
+			messageBodyPart.setFileName("DF_Payment_Report.pdf");
 			multipart.addBodyPart(messageBodyPart);
 			message.setContent(multipart);
 			
