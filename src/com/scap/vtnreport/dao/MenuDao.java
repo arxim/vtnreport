@@ -15,10 +15,11 @@ public class MenuDao {
 		final String SQL = " SELECT  UG.USER_GROUP,ACTION_TYPE,MM.MENU_CODE,M.MENU_NAME, M.LINK_PAGE,M.STATUS"
 				+ "  FROM USER_GROUP UG "
 				+ " JOIN STP_MENU_REPORT_MAPPING MM ON UG.USER_GROUP = MM.USER_GROUP_CODE"
-				+ " JOIN STP_MENU_REPORT M ON  MM.MENU_CODE = M.MENU_CODE"
-				+ " WHERE UG.USER_GROUP = ? AND M.STATUS = 'Y' ORDER BY MENU_CODE";
+				+ " JOIN STP_MENU_REPORT M ON MM.MENU_CODE = M.MENU_CODE"
+				+ " WHERE UG.USER_GROUP = ?"
+				+ " AND M.STATUS = 'Y' ORDER BY MENU_CODE";
 		 String value = "";
-		//System.out.println(SQL);
+		System.out.println(SQL);
 		DbConnector DBConnector = new DbConnector();
 		try (Connection conn = DBConnector.getDBConnection()) {
 			ps = conn.prepareStatement(SQL);

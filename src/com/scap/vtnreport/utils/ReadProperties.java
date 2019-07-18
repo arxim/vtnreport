@@ -2,6 +2,8 @@ package com.scap.vtnreport.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -13,31 +15,43 @@ import java.util.Set;
 public class ReadProperties {
 	
 	public static void main(String[] args){
-		 
+		ReadProperties rp = new ReadProperties();
 		String propertiesName = "db.properties";
-		ReadProperties prop = new ReadProperties();
-	    ArrayList<HashMap<String,String>>  propData = prop.getDataObjReadPropertiesFile("hospital.properties");
-        System.out.println("propData "+propData);
- 
-		 
-		 
-	 
-	 
-		//"hospital.properties"
-		//"db.properties"
-		//"log4j.properties"
+		//ArrayList<String> al = new ArrayList<String>();
+		//al.add("driverClassName");
+		//al.add("url");
+		//al.add("user");
+		//System.out.println(al);
+		rp.getPropertiesData(propertiesName, "db.","driverClassName");
 	}
 	
+    public HashMap<String,String> getPropertiesData(String propFile, String prefix, ArrayList<String> keyData) {
+    	HashMap<String,String>  propData = new HashMap<String,String>();
+        InputStream is = getClass().getClassLoader().getResourceAsStream(propFile);
+        Properties dbProps = new Properties();
+        try {
+            dbProps.load(is);
+            for(int i = 0; i<keyData.size(); i++){
+            	propData.put(keyData.get(i), dbProps.getProperty(prefix+keyData.get(i)));            	
+            }
+            System.out.println(propData);
+        } catch (Exception e) { System.out.println(e); }
+        return propData;
+    }
+    
+    public HashMap<String,String> getPropertiesData(String propFile, String prefix, String keyData) {
+		ArrayList<String> al = new ArrayList<String>();
+		al.add(keyData);
+		return this.getPropertiesData(propFile, prefix, al);
+    }
+	
 	public Map<String, String>  getDataReadPropertiesFile(String propertyFileName) {
-
 		Properties prop = new Properties();
 		InputStream input = null; 
 		HashMap<String, String> map = new HashMap<String, String>();
 		try {
-
 			String filename = propertyFileName;
 			input = getClass().getClassLoader().getResourceAsStream(filename);
-
 			// not found file
 			if (input == null) {
 				return map;
@@ -45,23 +59,13 @@ public class ReadProperties {
 
 			// found file
 			prop.load(input);
-
-			// Java and Enumeration
-			// เป็น Interface ที่ใช้ในการอ้างถึงสมาชิกดึงข้อมูลจาก Collection
-			// ประเภท Set ต่าง ๆ โดยมี method สำคัญ ๆ คือ hasMoreElements และ
-			// nextElement
 			Enumeration<?> e = prop.propertyNames();
-
 			while (e.hasMoreElements()) {
 				//map = new HashMap<String, String>();
 				String key = (String) e.nextElement();
 				String value = prop.getProperty(key);
-				 
 			    map.put(key,value); 
 			}
-		
-			 
-
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		} finally {
@@ -81,9 +85,6 @@ public class ReadProperties {
 		Map<String, String>  propData =  getDataReadPropertiesFile(propertyFileName); 
 		ArrayList<HashMap<String,String>> dataList = new ArrayList<HashMap<String,String>>();
 		HashMap<String, String> map = null;
-        
-        
-        
         Set<String> keys = propData.keySet();
         for(String key: keys){
         	map = new HashMap<String, String>(); 

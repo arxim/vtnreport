@@ -18,7 +18,7 @@ public class UserDao {
 				+ " U.PASSWORD, U.NAME, U.USER_GROUP_CODE, U.ACTIVE "
 				+ " FROM USERS U"
 				+ " JOIN  USER_GROUP UG ON UG.USER_GROUP = U.USER_GROUP_CODE "
-				+ " WHERE  U.HOSPITAL_CODE = ? AND U.LOGIN_NAME = ? AND U.PASSWORD = ? AND U.ACTIVE ='1' AND U.USER_GROUP_CODE IN (4,5,1)";
+				+ " WHERE U.HOSPITAL_CODE = ? AND U.LOGIN_NAME = ? AND U.PASSWORD = ? AND U.ACTIVE ='1' AND U.USER_GROUP_CODE IN (4,5,1)";
 		PreparedStatement ps = null;
 		UserView user = null;
 		DbConnector dbConnection = new DbConnector();
@@ -36,8 +36,6 @@ public class UserDao {
 				user.setUserGroupCode(new BigDecimal(rs.getString("USER_GROUP_CODE")));
 				user.setActive(rs.getString("ACTIVE"));
 				user.setHospitalCode(rs.getString("HOSPITAL_CODE"));
-				
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -52,10 +52,10 @@ public class LoginSrvl extends HttpServlet {
 	 */
 
 	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+		HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html; charset=UTF-8");
-//		request.setCharacterEncoding("UTF-8");
+		// request.setCharacterEncoding("UTF-8");
 		
 		PrintWriter pw = response.getWriter();
 		
@@ -70,6 +70,8 @@ public class LoginSrvl extends HttpServlet {
 			if (username != null && !username.isEmpty() && password != null && !password.isEmpty() && hospitalcode != null && !hospitalcode.isEmpty()) {
 				LoginService loginService = new LoginService();
 				UserView isLoginUser = loginService.doLoginProcess(request);
+				System.out.println(isLoginUser.getName());
+
 				if (isLoginUser != null) { 
 					 
 					session.setAttribute("hospitalcode", hospitalcode);
