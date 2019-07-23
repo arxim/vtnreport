@@ -7,15 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletResponse;
-
-import com.scap.vtnreport.utils.JDate;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 
+import com.scap.vtnreport.utils.JDate;
 
 public class PrepareFileToSendMailService {
 
@@ -64,7 +62,7 @@ public class PrepareFileToSendMailService {
 		return bos;
 	}
 
-	// ExpenseDetail.jasper
+	// RevenueDetail.jasper
 	public ByteArrayOutputStream PrepareSummaryRevenueByDetail(ArrayList<HashMap<String, String>> doctorData,
 			JasperReport jasperReport, InputStream jasperStream, HttpServletResponse response) throws JRException, IOException, SQLException {
 
@@ -112,6 +110,7 @@ public class PrepareFileToSendMailService {
 		return bos;
 	}
 
+	// UnpaidDetail.jasper
 	public ByteArrayOutputStream PrepareSummaryDFUnpaidByDetailAsOfDate(ArrayList<HashMap<String, String>> arrData, JasperReport jasperReport,
 			InputStream jasperStream, HttpServletResponse response,int month,int year) throws Exception{
 

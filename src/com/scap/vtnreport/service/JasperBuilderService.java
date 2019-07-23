@@ -147,7 +147,6 @@ public class JasperBuilderService {
 	}
 	
 	// Merge PDF 4 file Sent Email
-	
 	public ByteArrayOutputStream jasperBuilderPdfEncryptMergePdf(JasperPrint jasperPrint1,JasperPrint jasperPrint2,JasperPrint jasperPrint3,JasperPrint jasperPrint4, String contentType, String vaFilesName,
 			String password) throws JRException, IOException, SQLException {
 		ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
