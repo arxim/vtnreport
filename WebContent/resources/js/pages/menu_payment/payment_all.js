@@ -78,6 +78,10 @@ function getManual(){
 	window.open('SCAP-VTN-DFS_PRESENT_V1.0.pdf',"_blank");
 }
 
+function getMailSchedule(){
+	$('#frmEmailSchedule').submit();
+}
+
 function getReport(){
 	
 	var yyyy = $('#dwlYear').val();

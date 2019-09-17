@@ -124,6 +124,7 @@
 		<form id="frmPayment" action="/vtnreport/getPaymentContentSrvl" method="post"> </form>
 		<form id="frmTax" action="/vtnreport/getTaxContentSrvl" method="post"> </form>
 		<form id="frmEmail" action="/vtnreport/getEmailContentSrvl" method="post"> </form>
+		<form id="frmEmailSchedule" action="/vtnreport/setMailScheduleSrvl" method="post"> </form>
 		
 		<jsp:include page="../../../resources/template/modalMessage.jsp"></jsp:include>
 		

@@ -69,6 +69,14 @@ public class MenuDao {
 						    + " </a>&nbsp;";
 					
 					break;
+				case "RE005":
+					value +="<a href=\"#\" id=\"btn-mailschedule\" class=\"btn btn-default clsBtnHover\" onclick=\"getMailSchedule()\">"
+							+ " <span><center><img src=\"resources/images/icon-manual.png\" class=\"img-responsive\" alt=\"Mail Schedule\" width=\"45\" height=\"45\">"
+							+ " <small><b>Mail Schedule</b></small></center></span>"
+						    + " </a>&nbsp;";
+					
+					break;
+				
 				}
 				
 				

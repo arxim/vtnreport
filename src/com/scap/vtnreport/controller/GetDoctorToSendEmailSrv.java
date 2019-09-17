@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import com.scap.vtnreport.dao.GetDoctorDao;
+import com.scap.vtnreport.utils.ReadProperties;
 
 /**
  * Servlet implementation class GetDoctorToSendEmailSrv
@@ -42,6 +44,9 @@ public class GetDoctorToSendEmailSrv extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
+		ReadProperties prop = new ReadProperties();
+		Map<String, String>  propData = prop.getDataReadPropertiesFile("servermail.properties");
+		String limit_send_mail = propData.get("limit_send");
 		String hospitalCode = request.getParameter("hospitalCode");
 		String mm = request.getParameter("mm");
 		String yyyy = request.getParameter("yyyy");
@@ -50,13 +55,14 @@ public class GetDoctorToSendEmailSrv extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		JSONObject jsonData = null;
 		
-
+		System.out.println(limit_send_mail);
+		
 		GetDoctorDao vaEmail = new GetDoctorDao();
 		try {
 			if(report.equals("01")){
-				jsonData = vaEmail.getDoctorTax406Datatable(hospitalCode, yyyy, term);
+				jsonData = vaEmail.getDoctorTax406Datatable(hospitalCode, yyyy, term,limit_send_mail);
 			}else{
-				jsonData = vaEmail.getDoctorPaymentDatatable(hospitalCode, yyyy, mm);
+				jsonData = vaEmail.getDoctorPaymentDatatable(hospitalCode, yyyy, mm,limit_send_mail);
 			}
 			
 		} catch (Exception e) {

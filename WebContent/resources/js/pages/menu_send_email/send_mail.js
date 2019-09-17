@@ -152,7 +152,9 @@ function getTax(){
 function getEmail(){
 	$('#frmEmail').submit();
 }
-
+function getMailSchedule(){
+	$('#frmEmailSchedule').submit();
+}
 var current_row = 0;
 
 
@@ -186,7 +188,7 @@ function sendEmail(){
 	waitIcon(current_row);
 	if(current_row < total_table.fnGetData().length){
 		$.ajax({
-		url : '/vtnreport/SentEmailSrv',
+		url : '/vtnreport/SendEmailNewSrvl',
 		type : 'post',
 		data : {
 			yyyy : yyyy ,

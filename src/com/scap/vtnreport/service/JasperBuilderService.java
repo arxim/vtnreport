@@ -71,7 +71,7 @@ public class JasperBuilderService {
 			DbConnector con = new DbConnector();
 			conn = con.getConnection();
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, conn);
-
+			System.out.println(contentType);
 			response.setContentType(contentType);
 			response.setHeader("Content-disposition", "inline; filename=" + vaFilesName + ".pdf");
 			OutputStream out = response.getOutputStream();

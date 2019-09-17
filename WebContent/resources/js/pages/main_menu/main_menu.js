@@ -19,3 +19,13 @@ function getManual(){
 //	window.location.href = 'SCAP-VTN-DFS_PRESENT_V1.0.pdf',"_blank";
 	window.open('SCAP-VTN-DFS_PRESENT_V1.0.pdf',"_blank");
 }
+
+function getMailSchedule(){
+	alert("getMailSchedule");
+	$('#frmEmailSchedule').submit();
+}
+
+/*function getMailSchedule(){
+	alert("frmEmailSchedule");
+	$('#frmEmailSchedule').submit();
+}*/

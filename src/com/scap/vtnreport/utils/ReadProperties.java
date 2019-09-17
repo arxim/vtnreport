@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.TreeMap;
 
 public class ReadProperties {
 	
@@ -45,6 +46,28 @@ public class ReadProperties {
 		return this.getPropertiesData(propFile, prefix, al);
     }
 	
+    public TreeMap<String,String> getPropertiesData(String propFile, String prefix) {
+    	TreeMap<String, String> propData = new TreeMap<String, String>();
+        InputStream is = getClass().getClassLoader().getResourceAsStream(propFile);
+        Properties dbProps = new Properties();
+        try {
+            dbProps.load(is);
+            Enumeration enuKeys = dbProps.keys();
+            while (enuKeys.hasMoreElements()) {
+                    String key = (String) enuKeys.nextElement();
+                    String value = dbProps.getProperty(key);
+                    if (key.startsWith(prefix)) {
+                        //System.out.println(key + "= " + value);
+                        propData.put(key,value );  
+                    }
+                }
+                
+           // System.out.println(propData);
+        } catch (Exception e) { System.out.println(e); }
+        return propData;
+    }
+    
+    
 	public Map<String, String>  getDataReadPropertiesFile(String propertyFileName) {
 		Properties prop = new Properties();
 		InputStream input = null; 
