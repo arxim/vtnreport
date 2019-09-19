@@ -21,6 +21,7 @@
 		</form>
 		<form id="frmEmail" action="/vtnreport/getEmailContentSrvl" method="post">
 		</form>
+		<form id="frmFormDocument" action="/vtnreport/getFormContentSrvl" method="post"> </form>
 	</div>
 </body>
 </html>

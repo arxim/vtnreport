@@ -36,3 +36,7 @@ function getManual(){
 function getMailSchedule(){
 	$('#frmEmailSchedule').submit();
 }
+
+function getForm(){
+	$('#frmFormDocument').submit();
+}

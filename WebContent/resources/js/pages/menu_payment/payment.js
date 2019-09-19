@@ -79,6 +79,11 @@ function getMailSchedule(){
 	$('#frmEmailSchedule').submit();
 }
 
+function getForm(){
+	$('#frmFormDocument').submit();
+}
+
+
 function getReport(){
 	
 	var yyyy = $('#dwlYear').val();

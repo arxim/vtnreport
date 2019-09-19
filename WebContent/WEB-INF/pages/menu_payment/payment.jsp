@@ -107,6 +107,7 @@
 			<form id="frmTax" action="/vtnreport/getTaxContentSrvl" method="post"> </form>
 			<form id="frmEmail" action="/vtnreport/getEmailContentSrvl" method="post"> </form>
 			<form id="frmEmailSchedule" action="/vtnreport/setMailScheduleSrvl" method="post"> </form>
+			<form id="frmFormDocument" action="/vtnreport/getFormContentSrvl" method="post"> </form>
 			
 			<!-- <form id="frmReport" name="frmReport" action="/vtnreport/DoctorReportSrv" method="post" target="_blank"> -->
 			<form id="frmReport" name="frmReport" action="/vtnreport/ReportPDFBuilderSrvl" method="post" target="_blank">

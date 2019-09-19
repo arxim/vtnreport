@@ -35,6 +35,9 @@ function getEmail(){
 function getMailSchedule(){
 	$('#frmEmailSchedule').submit();
 }
+function getForm(){
+	$('#frmFormDocument').submit();
+}
 var current_row = 0;
 
 

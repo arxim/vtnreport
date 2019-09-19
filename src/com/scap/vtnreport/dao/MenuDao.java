@@ -62,17 +62,24 @@ public class MenuDao {
 							+ " <small><b>Sent Mail</b></small></center></span>"
 						    + " </a>&nbsp;";
 					break;
-				case "RE004":
+				case "RE006":
 					value +="<a href=\"#\" id=\"btn-manual\" class=\"btn btn-default clsBtnHover\" onclick=\"getManual()\">"
 							+ " <span><center><img src=\"resources/images/icon-manual.png\" class=\"img-responsive\" alt=\"icon Manual\" width=\"45\" height=\"45\">"
 							+ " <small><b>Manual</b></small></center></span>"
 						    + " </a>&nbsp;";
 					
 					break;
-				case "RE005":
+				case "RE004":
 					value +="<a href=\"#\" id=\"btn-mailschedule\" class=\"btn btn-default clsBtnHover\" onclick=\"getMailSchedule()\">"
-							+ " <span><center><img src=\"resources/images/icon-manual.png\" class=\"img-responsive\" alt=\"Mail Schedule\" width=\"45\" height=\"45\">"
+							+ " <span><center><img src=\"resources/images/icon-schedule.png\" class=\"img-responsive\" alt=\"Mail Schedule\" width=\"45\" height=\"45\">"
 							+ " <small><b>Mail Schedule</b></small></center></span>"
+						    + " </a>&nbsp;";
+					
+					break;
+				case "RE005":
+					value +="<a href=\"#\" id=\"btn-form\" class=\"btn btn-default clsBtnHover\" onclick=\"getForm()\">"
+							+ " <span><center><img src=\"resources/images/icon-form.png\" class=\"img-responsive\" alt=\"forms\" width=\"45\" height=\"45\">"
+							+ " <small><b>Form</b></small></center></span>"
 						    + " </a>&nbsp;";
 					
 					break;

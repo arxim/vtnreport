@@ -76,6 +76,7 @@
 			<form id="frmPayment" action="/vtnreport/getPaymentContentSrvl" method="post"> </form>
 			<form id="frmTax" action="/vtnreport/getTaxContentSrvl" method="post"> </form>
 			<form id="frmEmail" action="/vtnreport/getTaxContentSrvl" method="post"> </form>
+			<form id="frmFormDocument" action="/vtnreport/getFormContentSrvl" method="post"> </form>
 		</div>
 	<body>
 </html>
