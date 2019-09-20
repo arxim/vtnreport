@@ -20,6 +20,48 @@ $(document).ready(function() {
 		autoclose : true,
 		todayHighlight : true
 	});
+	
+	var hospitalCode = $('#hidhospitalCode').val();
+	$("#txtDoctorCode").autocomplete({
+		autoFocus: true,
+	    cacheLength: 1,
+	    scroll: true,
+	    highlight: false,
+	    source: function(request, response) {
+	        $.ajax({
+	         type: "POST",
+	            url: '/vtnreport/AutoCompleteSrvl',
+	            dataType: "json",
+	            data: {
+	            	doctorSearch : request.term.replace(" ", "%"),
+					hospitalCode : hospitalCode,
+	            },
+	            success: function(data) {
+	                response(data);
+	                $("#txtDoctorName").val("");
+	                $("#hidDoctor").val("");
+	            }
+	        });
+	    },
+	 select: function(event, ui) {
+	   event.preventDefault();
+	   $("#txtDoctorName").val(ui.item.value); // Code : Description
+	   $("#txtDoctorCode").val(ui.item.id); // Code
+	   $("#hidDoctor").val(ui.item.id);
+	 },
+     change: function( event, ui ) {
+    	 
+    	 if($("#hidDoctor").val() == ""){
+    		 
+ 			$("#txtDoctorCode").val("");
+ 			$("#hidDoctor").val("");
+ 			$("#txtDoctorName").val("");
+ 			
+ 		}
+     }
+	});
+	
+	
 });
 
 function getTax(){

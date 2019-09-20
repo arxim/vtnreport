@@ -72,6 +72,21 @@
 							</div>
 						</div>
 					</div>
+					<div class="row">
+					<div class="col-xs-6 col-sm-3 control-label">
+						<p class="text-right">
+							<b id="lblDoctorCode">Doctor Code</b>
+						</p>
+					</div>
+					<div class="col-xs-6 col-sm-3">
+						<input id="hidDoctor" name="hidDoctor" type="hidden" /> 
+						<input id="txtDoctorCode" name="txtDoctorCode" type="text" class="form-control" />
+					</div>
+					<div class="col-xs-6"></div>
+					<div class="col-xs-6 col-sm-6">
+						<input id="txtDoctorName" name="txtDoctorName" type="text" class="form-control" readonly="readonly" />
+					</div>
+				</div>
 				<div id="reason" >	
 				<div class="row" id="location">
 					<div class="col-xs-6 col-sm-3 control-label">
@@ -134,11 +149,8 @@
 							<input class="form-check-input" type="checkbox" id="ST">
 							<label class="form-check-label" for="gridCheck1">Header letter of Vejthani Hospital</label>
 						</div>
-						
 					</div>
 				</div>
-
-
 			</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 text-right">
