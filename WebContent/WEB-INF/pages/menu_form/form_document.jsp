@@ -119,13 +119,22 @@
 					</div>
 					<div class="col-xs-6 col-sm-3 ">
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="ST">
-							<label class="form-check-label" for="gridCheck1"> Signature & Rubber Stamp</label>
-						</div>
-						<div class="form-check">
 							<input class="form-check-input" type="checkbox" id="DS">
 							<label class="form-check-label" for="gridCheck1"> Digital Signature </label>
 						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="ST">
+							<label class="form-check-label" for="gridCheck1"> Signature</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="ST">
+							<label class="form-check-label" for="gridCheck1">Rubber Stamp</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="ST">
+							<label class="form-check-label" for="gridCheck1">Header letter of Vejthani Hospital</label>
+						</div>
+						
 					</div>
 				</div>
 
