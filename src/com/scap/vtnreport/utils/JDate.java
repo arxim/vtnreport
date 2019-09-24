@@ -56,6 +56,19 @@ public class JDate {
 		return strSeconds;
 	}
 	
+	static public String getYear() {
+        //Date now = new Date(System.currentTimeMillis());
+        Calendar rightNow = Calendar.getInstance();
+        //String strYear = Integer.toString(now.getYear()+1900);
+        String strYear = "";
+        if (rightNow.get(Calendar.YEAR) >= 2550) { 
+            strYear = Integer.toString(rightNow.get(Calendar.YEAR) - 543); 
+        } else {
+            strYear = Integer.toString(rightNow.get(Calendar.YEAR));
+        }
+        return strYear;
+    }
+	
 	
 
 }

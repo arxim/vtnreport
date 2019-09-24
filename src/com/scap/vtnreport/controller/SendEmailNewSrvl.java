@@ -231,7 +231,7 @@ public class SendEmailNewSrvl extends HttpServlet {
 			try {
 				
 				
-				sentEmail.SetScheduleSendMail(printDate, hospitalCode, yyyy, mm, absoluteDiskPath, report);
+				sentEmail.SetScheduleSendMail(printDate, hospitalCode, yyyy, mm, absoluteDiskPath, report,0);
 				
 				/*ReadProperties prop4 = new ReadProperties();
 				Map<String, String>  propEmailData4 = prop4.getPropertiesData("servermail.properties", "sender_emails");

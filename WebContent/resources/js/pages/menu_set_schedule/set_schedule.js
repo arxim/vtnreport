@@ -62,7 +62,7 @@ function setScheduleEmail(){
 	var mm=dateTime[1].substring(3,5);
 	var date=dateTime[0].substring(0,2);
 	var month=dateTime[0].substring(3,5);
-	var cron_schedule ="0 "+mm+" "+hh+" "+date+" "+month+"  ?";
+	var cron_schedule ="0 "+mm+" "+hh+" "+date+" "+month+" ?";
 	var yyyy = $('#txtYYYY').val();
 	var mm = $('#txtMM').val();
 	

@@ -2,7 +2,10 @@ package com.scap.vtnreport.service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +34,7 @@ import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
@@ -130,7 +134,7 @@ public class SentEmailNewService implements Job{
 		return  msg;
 	}
 	
-	private String sendMailJob(String hospitalCode,String yyyy,String mm,String absoluteDiskPath,String report) {
+	private String sendMailJob(String hospitalCode,String yyyy,String mm,String absoluteDiskPath,String report,String datetime) {
 		System.out.println("sentMailJob --->>> Time is " + new Date());
 		ByteArrayOutputStream bosMergePdfs = null;
 		try {
@@ -151,14 +155,44 @@ public class SentEmailNewService implements Job{
 			String to_date = JDate.getLastDayOfMonth(year, month);
 			
 			System.out.println(propEmailData4);
-			for(i=0;i< propEmailData4.size();i++) {
-				if(i==propEmailData4.size()) {break;}else {}
+			for(i=0;i<= propEmailData4.size();i++) {
+//				if(i==propEmailData4.size()) {break;}else {}
 				
 				System.out.println(i+"   "+propEmailData4.get("sender_emails."+i));
 				System.out.println(i+"   "+propPassWordData4.get("sender_pwds."+i));
 				
 				GetDoctorDao vaEmail = new GetDoctorDao();
 				arrData = vaEmail.getAllDoctorSendEmailPayment(hospitalCode, yyyy, mm);
+				if(i==propEmailData4.size() && arrData.size() == 0) {break;}
+				
+				else if(i==propEmailData4.size() && arrData.size()>0){
+//					System.out.println("nextday");
+					return "n";
+//					String split[] = datetime.split(" ", 6);
+//					String datetime2 = "";
+//					for (int k=5;k<3;k--) {
+//			            datetime2 = datetime2+split[k]+"-";
+//					}
+//					datetime2 = datetime+JDate.getYear();
+//					
+//					SimpleDateFormat DateFormat = new SimpleDateFormat("0 mm kk MM dd ?");
+//					Calendar c = Calendar.getInstance();
+//					c.setTime(DateFormat.parse(datetime));
+//					c.add(Calendar.DATE, 1); 
+//					datetime = DateFormat.format(c.getTime());
+//					System.out.println(datetime);
+//					
+//					Trigger trigger2 = TriggerBuilder.newTrigger()
+//			                .withIdentity("cronTrigger1", "group1")
+//			                .withSchedule(CronScheduleBuilder.cronSchedule(datetime))
+//			                //.withSchedule(CronScheduleBuilder.cronSchedule("0 34 16 10 09 ?"))
+//			                .build();
+//					char[] chars = datetime.toCharArray();
+//					char[]
+//					SetScheduleSendMail(datetime, hospitalCode, yyyy, mm, absoluteDiskPath, report);
+					
+					
+				}
 				if(arrData.size()>0) {
 					for(j=0; j< limit_send; j++) {
 						
@@ -234,8 +268,8 @@ public class SentEmailNewService implements Job{
 					}
 				}else {message = "PASS";}
 			}
-			
-			
+
+			message = "PASS";
 		} catch (Exception e) {
 			message = "FAIL";
 			e.printStackTrace();
@@ -251,8 +285,43 @@ public class SentEmailNewService implements Job{
 		return message;
 	}
 	
-	public void SetScheduleSendMail(String dateTime,String hospitalCode,String yyyy,String mm,String absoluteDiskPath,String report) {
+	public void SetScheduleSendMail(String dateTime,String hospitalCode,String yyyy,String mm,String absoluteDiskPath,String report,int check) {
 		System.out.println("test job");
+//		try {
+//			Scheduler scheduler1 = new StdSchedulerFactory().getScheduler();
+//			JobDetail job1 = createJob(dateTime,hospitalCode,yyyy,mm,absoluteDiskPath,report, "Job1");
+//			if (scheduler1.isShutdown()) {
+//				Trigger trigger1 = TriggerBuilder.newTrigger()
+//		                .withIdentity("cronTrigger1", "group1")
+//		                .withSchedule(CronScheduleBuilder.cronSchedule(dateTime))
+//		                //.withSchedule(CronScheduleBuilder.cronSchedule("0 34 16 10 09 ?"))
+//		                .build();
+//				scheduler1.start();
+//		        scheduler1.scheduleJob(job1, trigger1);
+////	            JobKey jobkey = new JobKey("job1");
+////	            scheduler1.deleteJob(jobkey);
+//	            scheduler1.clear();
+//		        scheduler1.shutdown();
+//			}
+//			else
+//			{
+//				scheduler1.shutdown();
+//				Trigger trigger2 = TriggerBuilder.newTrigger()
+//		                .withIdentity("cronTrigger1", "group1")
+//		                .withSchedule(CronScheduleBuilder.cronSchedule(dateTime))
+//		                //.withSchedule(CronScheduleBuilder.cronSchedule("0 34 16 10 09 ?"))
+//		                .build();
+//				scheduler1.start();
+//		        scheduler1.scheduleJob(job1, trigger2);
+////	            JobKey jobkey = new JobKey("job1");
+////	            scheduler1.deleteJob(jobkey);
+//	            scheduler1.clear();
+//		        scheduler1.shutdown();
+//			}
+//		} catch (SchedulerException e1) {
+//			e1.printStackTrace();
+//		}
+//		JobDetail job1 = createJob(dateTime,hospitalCode,yyyy,mm,absoluteDiskPath,report, "Job1");
 		JobDetail job1 = JobBuilder.newJob(SentEmailNewService.class)
                 .withIdentity("job1", "group1").build();
                 
@@ -261,6 +330,7 @@ public class SentEmailNewService implements Job{
 		job1.getJobDataMap().put("mm", mm);
 		job1.getJobDataMap().put("absoluteDiskPath", absoluteDiskPath);
 		job1.getJobDataMap().put("report", report);
+		job1.getJobDataMap().put("datetime", dateTime);//
 		
 		
 		Trigger trigger1 = TriggerBuilder.newTrigger()
@@ -270,13 +340,37 @@ public class SentEmailNewService implements Job{
                 .build();
 		try {
 			Scheduler scheduler1 = new StdSchedulerFactory().getScheduler();
-			scheduler1.start();
-	        scheduler1.scheduleJob(job1, trigger1);
-	        
+			if(check == 0) {
+		        scheduler1.scheduleJob(job1, trigger1);
+		        scheduler1.start();
+		       
+			}
+			else {
+				scheduler1.clear();
+				scheduler1.scheduleJob(job1, trigger1);
+			    scheduler1.start();
+			}
+				        
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}
+		
 	}
+	public JobDetail createJob(String dateTime,String hospitalCode,String yyyy,String mm,String absoluteDiskPath,String report,String Name) {
+		JobDetail job1 = JobBuilder.newJob(SentEmailNewService.class)
+                .withIdentity(Name, "group1").build();
+                
+		job1.getJobDataMap().put("hospitalCode", hospitalCode);
+		job1.getJobDataMap().put("yyyy", yyyy);
+		job1.getJobDataMap().put("mm", mm);
+		job1.getJobDataMap().put("absoluteDiskPath", absoluteDiskPath);
+		job1.getJobDataMap().put("report", report);
+		
+		return job1 ;
+	}
+//	public void NewSetScheduleSendMail(String dateTime,String hospitalCode,String yyyy,String mm,String absoluteDiskPath,String report) {
+//		
+//	}
 	
 	public static void main(String[] args) {
 		System.out.println("test job");
@@ -306,7 +400,7 @@ public class SentEmailNewService implements Job{
         
 	}
 
-
+	
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 		JobDataMap dataMap = context.getJobDetail().getJobDataMap();
@@ -315,12 +409,64 @@ public class SentEmailNewService implements Job{
 		String mm = dataMap.getString("mm");
 		String absoluteDiskPath = dataMap.getString("absoluteDiskPath");
 		String report = dataMap.getString("report");
+		String datetime = dataMap.getString("datetime");// 
 		System.out.println(hospitalCode+"  "+yyyy+"   "+mm+"   "+absoluteDiskPath+"   "+report);
 		
-		sendMailJob(hospitalCode, yyyy, mm, absoluteDiskPath, report);
+		System.out.println("Firetime : "+context.getFireTime()); // check fire time
+
+		String next_day = sendMailJob(hospitalCode, yyyy, mm, absoluteDiskPath, report, datetime); // pass value to Send Mail
+		System.out.println("value:"+next_day);  // check return value
+		System.out.println("NotNull :"+next_day != null); // check return value
+		if(next_day != null ) {
+			if(next_day.equals("n")) {
+				String split[] = datetime.split(" ", 6);
+				String datetime2 = "";
+				for (int k=5;k<3;k--) {
+		            datetime2 = datetime2+split[k]+"-";
+				}
+				datetime2 = datetime+JDate.getYear();
+				
+				SimpleDateFormat DateFormat = new SimpleDateFormat("0 mm kk dd MM ?");
+				Calendar c = Calendar.getInstance();
+				try {
+					c.setTime(DateFormat.parse(datetime));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	//			c.add(Calendar.DATE, 1); 
+				c.add(Calendar.MINUTE, 1);
+				datetime = DateFormat.format(c.getTime());
+				System.out.println(datetime); // check date time
+				try {
+					stopService(context);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}	
+				SetScheduleSendMail(datetime, hospitalCode, yyyy, mm, absoluteDiskPath, report,1);
+				}
+			}
+		else
+		{
+			System.out.println("Complete !!");
+			try {
+				stopService(context);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		}
 		//String report;
-		//sendMailJob();
+	
+		public void stopService(JobExecutionContext schedulerFactory) throws Exception {
+			Scheduler scheduler = schedulerFactory.getScheduler();
+	        scheduler.shutdown();
+	        System.out.println("scheduler shutdown : "+scheduler.isShutdown());
 	}
+	
 
 
 }
