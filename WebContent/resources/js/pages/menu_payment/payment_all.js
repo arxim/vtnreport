@@ -16,6 +16,7 @@ var hospitalCode = $('#hidhospitalCode').val();
 	            url: '/vtnreport/AutoCompleteSrvl',
 	            dataType: "json",
 	            data: {
+	            	type:"DOCTOR",
 	            	doctorSearch : request.term.replace(" ", "%"),
 					hospitalCode : hospitalCode,
 	            },

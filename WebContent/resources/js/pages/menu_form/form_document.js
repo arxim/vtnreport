@@ -5,8 +5,10 @@ $(document).ready(function() {
 		
 		if(dw_val=="02"||dw_val=="01"||dw_val=="03"){
 			$("#reason").hide();
+			$("#reason2").hide();
 		}else{
 			$("#reason").show();
+			$("#reason2").show();
 		}
 	});
 	
@@ -21,7 +23,6 @@ $(document).ready(function() {
 		todayHighlight : true
 	});
 	
-	var hospitalCode = $('#hidhospitalCode').val();
 	$("#txtDoctorCode").autocomplete({
 		autoFocus: true,
 	    cacheLength: 1,
@@ -33,8 +34,9 @@ $(document).ready(function() {
 	            url: '/vtnreport/AutoCompleteSrvl',
 	            dataType: "json",
 	            data: {
+	            	type:"DOCTOR",
 	            	doctorSearch : request.term.replace(" ", "%"),
-					hospitalCode : hospitalCode,
+					hospitalCode : $('#hidHospitalCode').val(),
 	            },
 	            success: function(data) {
 	                response(data);
@@ -60,6 +62,46 @@ $(document).ready(function() {
  		}
      }
 	});
+	
+	$("#txtCounty").autocomplete({
+		autoFocus: true,
+	    cacheLength: 1,
+	    scroll: true,
+	    highlight: false,
+	    source: function(request, response) {
+	        $.ajax({
+	         type: "POST",
+	            url: '/vtnreport/AutoCompleteSrvl',
+	            dataType: "json",
+	            data: {
+	            	type:"COUNTY",
+	            	countySearch : request.term.replace(" ", "%"),
+					hospitalCode : $('#hidHospitalCode').val()
+	            },
+	            success: function(data) {
+	                response(data);
+	                $("#txtCounty").val("");
+	                $("#hidCounty").val("");
+	            }
+	        });
+	    },
+	 select: function(event, ui) {
+	   event.preventDefault();
+	   $("#txtCounty").val(ui.item.value); // Code
+	   $("#hidCounty").val(ui.item.id);
+	 },
+     change: function( event, ui ) {
+    	 
+    	/* if($("#hidDoctor").val() == ""){
+    		 
+ 			$("#txtCounty").val("");
+ 			$("#hidCounty").val("");
+ 			
+ 		}*/
+     }
+	});
+	
+	
 	
 	
 });

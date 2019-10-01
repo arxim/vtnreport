@@ -87,21 +87,35 @@
 						<input id="txtDoctorName" name="txtDoctorName" type="text" class="form-control" readonly="readonly" />
 					</div>
 				</div>
+				<div id="reason2" >	
+				<div class="row" id="MeetingName">
+					<div class="col-xs-6 col-sm-3 control-label">
+						<p class="text-right">
+							<b id="lblMeetingName">Meeting Name</b>
+						</p>
+					</div>
+					<div class="col-xs-6 col-sm-9">
+						<input id="txtMeetingName" name="txtLocation" type="text"class="form-control ui-autocomplete-input " placeholder="Example: ESHRE Annual Meeting">
+					</div>
+				</div>
+				</div>
+				<!-- End reason2 -->
 				<div id="reason" >	
 				<div class="row" id="location">
 					<div class="col-xs-6 col-sm-3 control-label">
 						<p class="text-right">
-							<b id="lblReport">Location</b>
+							<b id="lblReport">County</b>
 						</p>
 					</div>
 					<div class="col-xs-6 col-sm-9">
-						<input id="txtLocation" name="txtLocation" type="text"class="form-control ui-autocomplete-input " placeholder="Example: United States of America">
+						<input id="hidCounty" name="hidCounty" type="hidden" /> 
+						<input id="txtCounty" name="txtCounty" type="text"class="form-control ui-autocomplete-input ">
 					</div>
 				</div>
 				<div class="row" id="period">
 					<div class="col-xs-6 col-sm-3 control-label">
 						<p class="text-right">
-							<b id="lblReport">Period Of</b>
+							<b id="lblReport">From to</b>
 						</p>
 					</div>
 					<div class="col-xs-6 col-sm-9">
@@ -109,6 +123,9 @@
 					</div>
 				</div>
 			</div><!-- End reason -->
+			
+			
+			
 			<!-- 	<div class="row">
 					<div class="col-xs-6 col-sm-3 control-label">
 						<p class="text-right">
@@ -126,7 +143,8 @@
 					</div>
 
 				</div> -->
-				<div class="row">
+				
+				<!-- <div class="row">
 					<div class="col-xs-6 col-sm-3 control-label">
 						<p class="text-right">
 							<b id="lblReport"></b>
@@ -150,8 +168,45 @@
 							<label class="form-check-label" for="gridCheck1">Header letter of Vejthani Hospital</label>
 						</div>
 					</div>
+				</div> -->
+				
+			<div class="row">
+					<div class="col-xs-6 col-sm-3 ">
+						<p class="text-right">
+							<b id="lblReport">Signature</b>
+						</p>
+					</div>
+					<div class="col-xs-6 col-sm-3 ">
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="SS" id="DS" value="option1">
+	 						<label class="form-check-label" for="inlineRadio1">Digital Sign&nbsp&nbsp&nbsp</label>
+ 						
+ 						
+							<input class="form-check-input" type="radio" name="SS" id="DS" value="option1">
+	 						<label class="form-check-label" for="inlineRadio1">Real Sign</label>
+ 						</div>
+ 						 
+					</div>
 				</div>
-			</div>
+				<div class="row">
+					<div class="col-xs-6 col-sm-3">
+						<p class="text-right">
+							<b id="lblReport">Stamp</b>
+						</p>
+					</div>
+					<div class="col-xs-6 col-sm-3 ">
+						<div class="form-check form-check-inline ">
+							<input class="form-check-input" type="radio" name="TT" id="S" value="option1">
+	 						<label class="form-check-label" for="inlineRadio1">Digital Stamp</label>
+ 						
+							<input class="form-check-input" type="radio" name="TT" id="T" value="option1">
+	 						<label class="form-check-label" for="inlineRadio1">Real Stamp</label>
+ 						</div>
+					</div>
+				</div>
+				
+				
+			</div><!-- Form-Horizontal -->
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 text-right">
 						<!-- <button type="button" id="btnView" class="btn btn-default" onclick="getDoctor()">View</button> -->

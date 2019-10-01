@@ -51,4 +51,32 @@ public class AutoCompleteDao {
 		return jsonArray;
 	}
 
+	public JSONArray lookupCounty(String voCountySearch, String hospitalCode) throws Exception {
+		JSONArray jsonArray = null;
+		PreparedStatement ps = null;
+		DbConnector con = new DbConnector();
+	
+		final String SQL ="SELECT COUNTY_CODE,DESP,DESPS  FROM ( SELECT ROW_NUMBER() OVER(PARTITION BY COUNTY_CODE ORDER BY COUNTY_CODE) 'SEQ', " + 
+				"COUNTY_CODE, COUNTY_DESCPTION_EN+' : '+COUNTY_DESCPTION_TH AS DESP,COUNTY_DESCPTION_EN+' : '+COUNTY_DESCPTION_TH AS DESPS FROM COUNTY  " + 
+				" WHERE  COUNTY_DESCPTION_EN + COUNTY_DESCPTION_TH LIKE ? " + 
+				"OR COUNTY_DESCPTION_TH + COUNTY_DESCPTION_EN LIKE ? ) T1 WHERE SEQ <= 200;";
+		
+		try (Connection conn = con.getConnection()) {
+			ps = conn.prepareStatement(SQL);
+			ps.setString(1, "%" + voCountySearch.toLowerCase() + "%");
+			ps.setString(2, "%" + voCountySearch.toUpperCase() + "%");
+			jsonArray = DbConnector.getJsonAutoComplete(ps.executeQuery());
+
+			System.out.println(hospitalCode + " : " + voCountySearch);
+			System.out.println(jsonArray);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (ps != null)
+				ps.close();
+		}
+		return jsonArray;
+	}
+
+	
 }

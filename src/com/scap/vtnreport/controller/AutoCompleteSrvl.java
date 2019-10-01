@@ -46,9 +46,16 @@ public class AutoCompleteSrvl extends HttpServlet {
 		
 		String hospitalCode = request.getParameter("hospitalCode");
 		String doctorSearch = request.getParameter("doctorSearch");
-		
+		String countySearch = request.getParameter("countySearch");
+		String type=request.getParameter("type");
+		System.out.println(type);
 		try {
-			jsonArr = autocomplete.lookupDoctor(doctorSearch, hospitalCode);
+			if(type.equals("COUNTY")) {
+				jsonArr = autocomplete.lookupCounty(countySearch, hospitalCode);
+			}else {
+				jsonArr = autocomplete.lookupDoctor(doctorSearch, hospitalCode);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
