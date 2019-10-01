@@ -182,7 +182,7 @@
 	 						<label class="form-check-label" for="inlineRadio1">Digital Sign&nbsp&nbsp&nbsp</label>
  						
  						
-							<input class="form-check-input" type="radio" name="SS" id="DS" value="option1">
+							<input class="form-check-input" type="radio" name="SS" id="RS" value="option1">
 	 						<label class="form-check-label" for="inlineRadio1">Real Sign</label>
  						</div>
  						 
@@ -199,7 +199,7 @@
 							<input class="form-check-input" type="radio" name="TT" id="S" value="option1">
 	 						<label class="form-check-label" for="inlineRadio1">Digital Stamp</label>
  						
-							<input class="form-check-input" type="radio" name="TT" id="T" value="option1">
+							<input class="form-check-input" type="radio" name="TT" id="RT" value="option1">
 	 						<label class="form-check-label" for="inlineRadio1">Real Stamp</label>
  						</div>
 					</div>
@@ -207,10 +207,14 @@
 				
 				
 			</div><!-- Form-Horizontal -->
-				<div class="row">
+				<div id="btnView"  class="row">
 					<div class="col-xs-12 col-sm-12 text-right">
-						<!-- <button type="button" id="btnView" class="btn btn-default" onclick="getDoctor()">View</button> -->
 						<button type="button" id="btnFormDocument" class="btn btn-default" onclick="getForm()">View</button>
+					</div>
+				</div>
+				<div id="btnSendMail"  class="row">
+					<div class="col-xs-12 col-sm-12 text-right">
+						<button type="button" id="btnFormDocument" class="btn btn-default" onclick="getSendMail()">Send E-Mail</button>
 					</div>
 				</div>
 			

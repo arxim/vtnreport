@@ -101,6 +101,25 @@ $(document).ready(function() {
      }
 	});
 	
+	$("#btnSendMail").hide();
+	 $('input:radio').change(function(){
+	       var id= $(this).attr("id"); 
+	        if(id=="RS"|| id=="RT"){
+	        	$("#btnSendMail").show();
+	        	$("#btnView").hide();
+	        }else{
+	        	if($("#RS").is(':checked') || $("#RT").is(':checked') ){
+	        		$("#btnSendMail").show();
+		        	$("#btnView").hide();
+	        	}else{
+	        		$("#btnSendMail").hide();
+		        	$("#btnView").show();
+	        	}
+	        	
+	        	
+	        }
+	 });   
+	
 	
 	
 	
