@@ -47,7 +47,7 @@
 				<div class="row">
 						<div class="col-xs-6 col-sm-3 control-label">
 							<p class="text-right">
-								<b id="lblPrintDate">Payment Date From</b>
+								<b id="lblPrintDate">Revenue Date From</b>
 							</p>
 						</div>
 						<div class="col-xs-6 col-sm-3" id="">
@@ -60,7 +60,7 @@
 						</div>
 						<div class="col-xs-6 col-sm-3 control-label">
 							<p class="text-right">
-								<b id="lblPrintDate">Payment Date To</b>
+								<b id="lblPrintDate">Revenue Date To</b>
 							</p>
 						</div>
 						<div class="col-xs-6 col-sm-3" id="">
@@ -173,17 +173,17 @@
 			<div class="row">
 					<div class="col-xs-6 col-sm-3 ">
 						<p class="text-right">
-							<b id="lblReport">Signature</b>
+							<b id="lblReport">Sign</b>
 						</p>
 					</div>
 					<div class="col-xs-6 col-sm-3 ">
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="SS" id="DS" value="option1">
-	 						<label class="form-check-label" for="inlineRadio1">Digital Sign&nbsp&nbsp&nbsp</label>
+	 						<label class="form-check-label" for="inlineRadio1">Digital Sign</label>
  						
  						
 							<input class="form-check-input" type="radio" name="SS" id="RS" value="option1">
-	 						<label class="form-check-label" for="inlineRadio1">Real Sign</label>
+	 						<label class="form-check-label" for="inlineRadio1">Sign</label>
  						</div>
  						 
 					</div>
@@ -191,16 +191,16 @@
 				<div class="row">
 					<div class="col-xs-6 col-sm-3">
 						<p class="text-right">
-							<b id="lblReport">Stamp</b>
+							<b id="lblReport">Company seal</b>
 						</p>
 					</div>
 					<div class="col-xs-6 col-sm-3 ">
 						<div class="form-check form-check-inline ">
 							<input class="form-check-input" type="radio" name="TT" id="S" value="option1">
-	 						<label class="form-check-label" for="inlineRadio1">Digital Stamp</label>
+	 						<label class="form-check-label" for="inlineRadio1">Digital Seal&nbsp</label>
  						
 							<input class="form-check-input" type="radio" name="TT" id="RT" value="option1">
-	 						<label class="form-check-label" for="inlineRadio1">Real Stamp</label>
+	 						<label class="form-check-label" for="inlineRadio1">Seal</label>
  						</div>
 					</div>
 				</div>

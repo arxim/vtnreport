@@ -1,10 +1,16 @@
 $(document).ready(function() {
+	checkRole();
 	$("#reason").hide();
+	$("#reason2").hide();
+	
 	$('#dwlReport').change(function() {
 		var dw_val =$('#'+$(this).attr("id")).val();
 		
 		if(dw_val=="02"||dw_val=="01"||dw_val=="03"){
 			$("#reason").hide();
+			$("#reason2").hide();
+		}else if(dw_val=="04"){
+			$("#reason").show();
 			$("#reason2").hide();
 		}else{
 			$("#reason").show();
@@ -147,3 +153,16 @@ function getForm(){
 	$('#frmFormDocument').submit();
 }
 
+//Check Role DR Or Account
+function checkRole(){
+	
+	var role = $("#hidRole").val();
+	var userCode = $("#hidUserCode").val();
+	var userName = $("#hidUserName").val();
+	
+	if(role == "5"){
+		$("#txtDoctorCode").prop('readonly', true);
+		$("#txtDoctorCode").val(userCode);
+		$("#txtDoctorName").val(userName)
+}
+}
