@@ -69,6 +69,69 @@ public class JDate {
         return strYear;
     }
 	
+	static public String getDay() {
+        //Date now = new Date(System.currentTimeMillis());
+        Calendar rightNow = Calendar.getInstance();
+        //SystemDate
+        //String strDay = Integer.toString(now.getDate());
+        String strDay = Integer.toString(rightNow.get(Calendar.DAY_OF_MONTH));
+        if (strDay.length() == 1) {
+            strDay = "0" + strDay;
+        }
+        return strDay;
+    }
+    
+    static public String getMonth() {
+//        Date now = new Date(System.currentTimeMillis());
+        Calendar rightNow = Calendar.getInstance();
+//        String strMonth = Integer.toString(now.getMonth()+1);
+        String strMonth = Integer.toString(rightNow.get(Calendar.MONTH)+1);
+        if (strMonth.length() == 1) {
+            strMonth = "0" + strMonth;
+        }
+        //System.out.println(strMonth);
+        return strMonth;
+    }
+    
+    static public String getDateDD_MM_YYY() {
+        return getDay()+" "+ getMonthName()+ " " + getYear();
+    }
+    
+    static public String getMonthName() {
+    	 Calendar rightNow = Calendar.getInstance();
+    	 String nameMonth = "";
+//       String strMonth = Integer.toString(now.getMonth()+1);
+       String strMonth = Integer.toString(rightNow.get(Calendar.MONTH)+1);
+       switch(strMonth) {
+       case "01" : nameMonth = "มกราคม";
+        break;
+       case "02" : nameMonth = "กุมภาพันธ์";
+  		break;
+       case "03" : nameMonth = "มีนาคม";
+  		break;
+       case "04" : nameMonth = "เมษายน";
+  		break;
+       case "05" : nameMonth = "พฤษภาคม";
+  		break;
+       case "06" : nameMonth = "มิถุนายน";
+  		break;
+       case "07" : nameMonth = "กรกฎาคม";
+  		break;
+       case "08" : nameMonth = "สิงหาคม";
+  		break;
+       case "09" : nameMonth = "กันยายน";
+  		break;
+       case "10" : nameMonth = "ตุลาคม";
+  		break;
+       case "11" : nameMonth = "พฤศจิกายน";
+  		break;
+       case "12" : nameMonth = "ธันวาคม";
+  		break;
+       }
+    	return nameMonth;
+    }
+	
+    
 	
 
 }

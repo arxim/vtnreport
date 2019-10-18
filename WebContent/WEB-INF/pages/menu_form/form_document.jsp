@@ -52,6 +52,7 @@
 						</div>
 						<div class="col-xs-6 col-sm-3" id="">
 							<div class="input-group">
+								<input id="hidStartDate" name="hidStartDate" type="hidden" /> 
 								<input type="text" id="txtStartDate" name="txtStartDate" class="form-control datePicker" placeholder="dd/mm/yyyy" /> 
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-calendar"></span>
@@ -65,6 +66,7 @@
 						</div>
 						<div class="col-xs-6 col-sm-3" id="">
 							<div class="input-group">
+								<input id="hidEndDate" name="hidEndDate" type="hidden" /> 
 								<input type="text" id="txtEndDate" name="txtEndDate" class="form-control datePicker" placeholder="dd/mm/yyyy" /> 
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-calendar"></span>
@@ -79,11 +81,12 @@
 						</p>
 					</div>
 					<div class="col-xs-6 col-sm-3">
-						<input id="hidDoctor" name="hidDoctor" type="hidden" /> 
+					
 						<input id="txtDoctorCode" name="txtDoctorCode" type="text" class="form-control" />
 					</div>
 					<div class="col-xs-6"></div>
 					<div class="col-xs-6 col-sm-6">
+						<input id="hidDoctorName" name="hidDoctorName" type="hidden" /> 
 						<input id="txtDoctorName" name="txtDoctorName" type="text" class="form-control" readonly="readonly" />
 					</div>
 				</div>
@@ -95,7 +98,7 @@
 						</p>
 					</div>
 					<div class="col-xs-6 col-sm-9">
-						<input id="txtMeetingName" name="txtLocation" type="text"class="form-control ui-autocomplete-input " placeholder="Example: ESHRE Annual Meeting">
+						<input id="txtMeetingName" name="txtMeetingName" type="text"class="form-control ui-autocomplete-input " placeholder="Example: ESHRE Annual Meeting">
 					</div>
 				</div>
 				</div>
@@ -119,7 +122,7 @@
 						</p>
 					</div>
 					<div class="col-xs-6 col-sm-9">
-						<input id="txtLocation" name="txtLocation" type="text"class="form-control ui-autocomplete-input" placeholder="Example: 6-23 Agust, 2019">
+						<input id="txtMeetingDate" name="txtMeetingDate" type="text"class="form-control ui-autocomplete-input" placeholder="Example: 6-23 Agust, 2019">
 					</div>
 				</div>
 			</div><!-- End reason -->
@@ -209,12 +212,12 @@
 			</div><!-- Form-Horizontal -->
 				<div id="btnView"  class="row">
 					<div class="col-xs-12 col-sm-12 text-right">
-						<button type="button" id="btnFormDocument" class="btn btn-default" onclick="getForm()">View</button>
+						<button type="button" id="btnFormDocument" class="btn btn-default" onclick="setForm()">View</button>
 					</div>
 				</div>
 				<div id="btnSendMail"  class="row">
 					<div class="col-xs-12 col-sm-12 text-right">
-						<button type="button" id="btnFormDocument" class="btn btn-default" onclick="getSendMail()">Send E-Mail</button>
+						<button type="button" id="btnFormDocument" class="btn btn-default" onclick="setSendMail()">Send E-Mail</button>
 					</div>
 				</div>
 			
@@ -230,6 +233,21 @@
 		<form id="frmTax" action="/vtnreport/getTaxContentSrvl" method="post"> </form>
 		<form id="frmEmailSchedule" action="/vtnreport/setMailScheduleSrvl" method="post"> </form>
 		<form id="frmFormDocument" action="/vtnreport/getFormContentSrvl" method="post"> </form>
+		<form id="frmReport" name="frmReport" action="/vtnreport/GenerateReportSrvl" method="post" target="_blank">
+
+				<input type="hidden" id="hidtype" name="hidtype" />
+				<input type="hidden" id="hidStartMM" name="hidStartMM" />
+				<input type="hidden" id="hidEndMM" name="hidEndMM" />
+				<input type="hidden" id="hidStartYYYY" name="hidStartYYYY" />
+				<input type="hidden" id="hidEndYYYY" name="hidEndYYYY" />
+				<input type="hidden" id="hidHospitalCode" name="hidHospitalCode" value="<%= session.getAttribute("hospitalcode")%>" />
+				<input type="hidden" id="hidDoctorCode" name="hidDoctorCode" />
+				<input type="hidden" id="hidReport" name="hidReport" />
+				<input type="hidden" id="hidMeetingName" name="hidMeetingName" />
+				<input type="hidden" id="hidMeetingDate" name="hidMeetingDate" />
+				<input type="hidden" id="hidtxtCounty" name="hidtxtCounty" />
+			</form>
+			
 		<jsp:include page="../../../resources/template/modalMessage.jsp"></jsp:include>
 		
 </body>

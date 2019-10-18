@@ -166,3 +166,113 @@ function checkRole(){
 		$("#txtDoctorName").val(userName)
 }
 }
+
+function setForm(){
+	var reportCode = $('#dwlReport').val();
+	var startDate = $('#txtStartDate').val();
+	var startMM = startDate.substring(3,5);
+	var startYYYY = startDate.substring(6,10);
+	var endDate = $('#txtEndDate').val();
+	var endMM = endDate.substring(3,5);
+	var endYYYY = endDate.substring(6,10);
+	var doctorCode = $('#txtDoctorCode').val();
+	var doctorName = $('#txtDoctorName').val();
+	var meetingName = $('#txtMeetingName').val();
+	var location = $('#txtCounty').val();
+	var meetingDate = $('#txtMeetingDate').val();
+	var type = "1";
+	
+//	alert(meetingDate+location);
+		
+	$("#hidtype").val(type);
+	$("#hidReport").val(reportCode);
+	$("#hidStartMM").val(startMM);
+	$("#hidStartYYYY").val(startYYYY);
+	$("#hidEndMM").val(endMM);
+	$("#hidEndYYYY").val(endYYYY);
+	$("#hidDoctorCode").val(doctorCode);
+	$("#hidMeetingName").val(meetingName);
+	$("#hidMeetingDate").val(meetingDate);
+	$("#hidtxtCounty").val(location);
+
+
+	$("#frmReport").submit();
+//	alert("re:"+reportCode+"stDate:"+startDate+"stM:"+startMM+"stY:"+startYYYY+"endM:"+endMM+"endY:"+endYYYY);
+	
+	
+//	$.ajax({
+//		url : '/vtnreport/GenerateReportSrvl',
+//		type : 'post',
+//		data : {
+//			startYYYY : startYYYY ,
+//			startMM : startMM ,
+//			endYYYY : endYYYY ,
+//			endMM : endMM ,
+//			doctorCode : doctorCode ,
+//			reportCode : reportCode ,
+//			meetingName : meetingName ,
+//			location : location ,
+//			meetingDate : meetingDate ,
+//			type : type
+//		},
+//		success : function(response) {
+//
+//		}
+//	});
+	
+	
+}
+
+function setSendMail(){
+	var reportCode = $('#dwlReport').val();
+	var startDate = $('#txtStartDate').val();
+	var startMM = startDate.substring(3,5);
+	var startYYYY = startDate.substring(6,10);
+	var endDate = $('#txtEndDate').val();
+	var endMM = endDate.substring(3,5);
+	var endYYYY = endDate.substring(6,10);
+	var doctorCode = $('#txtDoctorCode').val();
+	var doctorName = $('#txtDoctorName').val();
+	var meetingName = $('#txtMeetingName').val();
+	var location = $('#txtCounty').val();
+	var meetingDate = $('#txtMeetingDate').val();
+	var type = "2";
+	
+//	alert("re:"+reportCode+"stDate:"+startDate+"stM:"+startMM+"stY:"+startYYYY);
+	$("#hidtype").val(type);
+	$("#hidReport").val(reportCode);
+	$("#hidStartMM").val(startMM);
+	$("#hidStartYYYY").val(startYYYY);
+	$("#hidEndMM").val(endMM);
+	$("#hidEndYYYY").val(endYYYY);
+	$("#hidDoctorCode").val(doctorCode);
+	$("#hidMeetingName").val(meetingName);
+	$("#hidMeetingDate").val(meetingDate);
+	$("#hidtxtCounty").val(location);
+
+
+	$("#frmReport").submit();
+//	
+//	$.ajax({
+//		url : '/vtnreport/GenerateReportSrvl',
+//		type : 'post',
+//		data : {
+//			startYYYY : startYYYY ,
+//			startMM : startMM,
+//			endYYYY : endYYYY,
+//			endMM : endMM,
+//			doctorCode : doctorCode ,
+//			reportCode : reportCode ,
+//			meetingName : meetingName ,
+//			location : location ,
+//			meetingDate : meetingDate ,
+//			type : type
+//		},
+//		success : function(response) {
+//
+//		}
+//	});
+	
+	
+	
+}

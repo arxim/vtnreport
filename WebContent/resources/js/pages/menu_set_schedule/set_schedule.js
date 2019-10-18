@@ -48,6 +48,11 @@ function waitIcon(current_row_wait){
 }
 
 
+function successCallBack(){
+    // the main process have to be here
+    alert("test");
+}
+
 // Send Email
 function setScheduleEmail(){
 	var total_table = $('#tblDoctor').dataTable();
@@ -76,21 +81,72 @@ function setScheduleEmail(){
 	//waitIcon(current_row);
 	//if(current_row < total_table.fnGetData().length){
 	$.ajax({
-		url : '/vtnreport/SendEmailNewSrvl',
-		type : 'post',
-		data : {
-			yyyy : yyyy ,
-			mm : mm,
-			hospitalCode : hospitalCode ,
-			report : report,
-			term : term,
-			printDate : cron_schedule
-		},
-		success : function(response) {
+		url : '/vtnreport/CheckSchedulerSrvl',
+		type : 'get',
+		 dataType: 'json',
+		 success : function(data) {
+//			alert("1:"+(data[0]["Datetime"]));
+			if((data[0]["Datetime"]) != 0){
+			 var r = confirm("ระบบกำลังทำงาน  จะทำการส่ง Mail ตามช่วงเวลา "+(data[0]["Datetime"]+"น. ต้องการปลี่ยนแปลงเวลาเดิมหรือไม่"));
+			  if (r == true) {
+				  $.ajax({
+						url : '/vtnreport/SendEmailNewSrvl',
+						type : 'post',
+						data : {
+							yyyy : yyyy ,
+							mm : mm,
+							hospitalCode : hospitalCode ,
+							report : report,
+							term : term,
+							printDate : cron_schedule
+						},
+						success : function(response) {
+				
+						}
+					});
+			  } else {
 
+			  }
+			}
+			else{
+				 $.ajax({
+						url : '/vtnreport/SendEmailNewSrvl',
+						type : 'post',
+						data : {
+							yyyy : yyyy ,
+							mm : mm,
+							hospitalCode : hospitalCode ,
+							report : report,
+							term : term,
+							printDate : cron_schedule
+						},
+						success : function(response) {
+				
+						}
+					});
+			}
+			
 		}
 	});
+	
+	
+//	$.ajax({
+//		url : '/vtnreport/SendEmailNewSrvl',
+//		type : 'post',
+//		data : {
+//			yyyy : yyyy ,
+//			mm : mm,
+//			hospitalCode : hospitalCode ,
+//			report : report,
+//			term : term,
+//			printDate : cron_schedule
+//		},
+//		success : function(response) {
+//
+//		}
+//	});
 }
+
 
 function getBatch(){
 	$.ajax({

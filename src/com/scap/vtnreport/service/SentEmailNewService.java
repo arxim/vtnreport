@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -27,6 +28,8 @@ import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
 import javax.servlet.ServletContext;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.Job;
 import org.quartz.JobBuilder;
@@ -50,9 +53,15 @@ import com.scap.vtnreport.utils.ReadProperties;
 
 public class SentEmailNewService implements Job{
 	
+	public static String CheckRunning = "";
+	public static Date getDatetrigger = null;  
 	private String message;
-
-
+	private JobExecutionContext getcontext;
+	private Scheduler schedulerlocal;
+//	private Scheduler scheduler1;
+//	private Scheduler scheduler1 = new StdSchedulerFactory().getScheduler();
+	
+	
 	public String SendSingleMailPdfFile(ByteArrayOutputStream pdfStream,String mail,String doctor,String report,String auth_email,String auth_password) {
 		ReadProperties prop = new ReadProperties();
 		Map<String, String>  propData = prop.getDataReadPropertiesFile("servermail.properties");
@@ -85,7 +94,19 @@ public class SentEmailNewService implements Job{
 			subject = propData.get("subject_payment");
 			body = propData.get("body_payment");
 			pdf_name="DF_Payment_Report.pdf";
-		}else{}
+		}else if(report.equals("03")){
+			subject = "IncomePayment";
+			body = "Detail Of IncomePayment";
+			pdf_name="IncomePayment.pdf";
+//		}else if(report.equals("04")){
+//			
+//		}else if(report.equals("05")){
+//			
+//		}else if(report.equals("06")){
+//			
+		}else{
+			
+		}
 		
 		
 		Session mailSession = Session.getInstance(props, new javax.mail.Authenticator() {
@@ -287,6 +308,8 @@ public class SentEmailNewService implements Job{
 	
 	public void SetScheduleSendMail(String dateTime,String hospitalCode,String yyyy,String mm,String absoluteDiskPath,String report,int check) {
 		System.out.println("test job");
+		CheckRunning = "1";
+		System.out.println(CheckRunning.equals("1"));
 //		try {
 //			Scheduler scheduler1 = new StdSchedulerFactory().getScheduler();
 //			JobDetail job1 = createJob(dateTime,hospitalCode,yyyy,mm,absoluteDiskPath,report, "Job1");
@@ -340,21 +363,28 @@ public class SentEmailNewService implements Job{
                 .build();
 		try {
 			Scheduler scheduler1 = new StdSchedulerFactory().getScheduler();
-			if(check == 0) {
-		        scheduler1.scheduleJob(job1, trigger1);
-		        scheduler1.start();
-		       
-			}
-			else {
+//			if(check == 0) {
+//		        scheduler1.scheduleJob(job1, trigger1);
+//		        scheduler1.start();
+//		       
+//			}
+//			else {
 				scheduler1.clear();
 				scheduler1.scheduleJob(job1, trigger1);
+				System.out.println(CheckRunning);
+//				System.out.println("after:"+CheckRunning);
 			    scheduler1.start();
-			}
+				getDatetrigger = trigger1.getNextFireTime();
+				 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+				System.out.println("[{"+"Datetime"+":["+formatter.format(getDatetrigger)+"]}]");
+				
+				System.out.println(getDatetrigger);
+//			}
 				        
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}
-		
+		System.out.println("after:"+CheckRunning);
 	}
 	public JobDetail createJob(String dateTime,String hospitalCode,String yyyy,String mm,String absoluteDiskPath,String report,String Name) {
 		JobDetail job1 = JobBuilder.newJob(SentEmailNewService.class)
@@ -413,7 +443,7 @@ public class SentEmailNewService implements Job{
 		System.out.println(hospitalCode+"  "+yyyy+"   "+mm+"   "+absoluteDiskPath+"   "+report);
 		
 		System.out.println("Firetime : "+context.getFireTime()); // check fire time
-
+		
 		String next_day = sendMailJob(hospitalCode, yyyy, mm, absoluteDiskPath, report, datetime); // pass value to Send Mail
 		System.out.println("value:"+next_day);  // check return value
 		System.out.println("NotNull :"+next_day != null); // check return value
@@ -438,8 +468,11 @@ public class SentEmailNewService implements Job{
 				c.add(Calendar.MINUTE, 1);
 				datetime = DateFormat.format(c.getTime());
 				System.out.println(datetime); // check date time
+
 				try {
+					
 					stopService(context);
+					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -451,7 +484,9 @@ public class SentEmailNewService implements Job{
 		{
 			System.out.println("Complete !!");
 			try {
+				
 				stopService(context);
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -460,15 +495,39 @@ public class SentEmailNewService implements Job{
 		
 		}
 		//String report;
-	
 		public void stopService(JobExecutionContext schedulerFactory) throws Exception {
 			Scheduler scheduler = schedulerFactory.getScheduler();
 	        scheduler.shutdown();
+	        CheckRunning = "0";     
 	        System.out.println("scheduler shutdown : "+scheduler.isShutdown());
 	}
-	
+		
+		public void stopService() throws Exception {
+//			schedulerlocal.shutdown();
+	        CheckRunning = "0";     
+	        System.out.println("scheduler shutdown : "+schedulerlocal.isShutdown());
+	}
 
+
+		public JSONArray isCheckRunning() throws SchedulerException, JSONException {
+			
+//			 SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy hh.mm"); 
+			 SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy hh.mm");
+			System.out.println(CheckRunning);
+			 String strDate = "";
+			if(CheckRunning.equals("1")) {  
+			  strDate = "[{"+"Datetime"+":["+formatter.format(getDatetrigger)+"]}]";
+//				 strDate ="[{"+"Datetime"+":["+1+"]}]";
+			}
+			else {
+			  strDate ="[{"+"Datetime"+":["+0+"]}]";
+			}
+			System.out.println(strDate);
+			JSONArray jsonArr = new JSONArray(strDate);
+			return jsonArr;
+		}
+		
+		
 
 }
-
 
