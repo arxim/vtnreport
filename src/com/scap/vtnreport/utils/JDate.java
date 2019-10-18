@@ -69,6 +69,8 @@ public class JDate {
         return strYear;
     }
 	
+	
+	
 	static public String getDay() {
         //Date now = new Date(System.currentTimeMillis());
         Calendar rightNow = Calendar.getInstance();
@@ -95,6 +97,10 @@ public class JDate {
     
     static public String getDateDD_MM_YYY() {
         return getDay()+" "+ getMonthName()+ " " + getYear();
+    }
+    
+    static public String getDateMM_DD_YYY() {
+        return getMonthNameEng()+ " "+ getDay()+","+ Calendar.getInstance().get(Calendar.YEAR);
     }
     
     static public String getMonthName() {
@@ -130,6 +136,41 @@ public class JDate {
        }
     	return nameMonth;
     }
+    
+    static public String getMonthNameEng() {
+   	 Calendar rightNow = Calendar.getInstance();
+   	 String nameMonth = "";
+//      String strMonth = Integer.toString(now.getMonth()+1);
+      String strMonth = Integer.toString(rightNow.get(Calendar.MONTH)+1);
+      switch(strMonth) {
+      case "01" : nameMonth = "January";
+       break;
+      case "02" : nameMonth = "February";
+ 		break;
+      case "03" : nameMonth = "March";
+ 		break;
+      case "04" : nameMonth = "April";
+ 		break;
+      case "05" : nameMonth = "May";
+ 		break;
+      case "06" : nameMonth = "June";
+ 		break;
+      case "07" : nameMonth = "July";
+ 		break;
+      case "08" : nameMonth = "August";
+ 		break;
+      case "09" : nameMonth = "September";
+ 		break;
+      case "10" : nameMonth = "October";
+ 		break;
+      case "11" : nameMonth = "November";
+ 		break;
+      case "12" : nameMonth = "December";
+ 		break;
+      }
+   	return nameMonth;
+   }
+	
 	
     
 	

@@ -97,7 +97,8 @@ public class GenerateReportSrvl extends HttpServlet {
 		SimpleDateFormat DateFormat = new SimpleDateFormat("MMMMM dd,yyyy");
 		SimpleDateFormat datedb = new SimpleDateFormat("yyyyMMDD");
 		Date date = new Date();  
-		String datetime = DateFormat.format(date);
+//		String datetime = DateFormat.format(date); // currenttime
+		String datetime = JDate.getDateMM_DD_YYY();
 		
 		String doctorCode = request.getParameter("hidDoctorCode");
 		String reportCode = request.getParameter("hidReport");
@@ -267,7 +268,7 @@ public class GenerateReportSrvl extends HttpServlet {
 			title = propTitle.get("title_1")+"\n"+propTitle.get("title_2")+"\n"+propTitle.get("title_3")+"\n"+propTitle.get("title_4")+"\n"+propTitle.get("title_5");
 			header = propHeader.get("header_1")+"\n"+propHeader.get("header_2")+numberAsString+"/"+arrData.get(0).get("batch_date").substring(2, 4);
 			columnheader = propColumnHeader.get("columnheader_1");
-			form = arrData.get(0).get("NAME_ENG")+" "+propForm.get("form_eng_1")+datetimeEng+" "+propForm.get("form_eng_2")
+			form = " "+propForm.get("form_eng_1")+datetimeEng+" "+propForm.get("form_eng_2")
 				   +arrData.get(0).get("POSITION")+" "+propForm.get("form_eng_3")+arrData.get(0).get("DESCRIPTION")+" "+propForm.get("form_eng_4")+formatter.format(set_avg_format)+" ("+engtext+" Bhat Only).";
 			form2 = propForm.get("form_eng_8");
 //			form2 = arrData.get(0).get("NAME_ENG")+" "+propForm.get("form_eng_meet_1")+propForm.get("form_eng_meet_2");
