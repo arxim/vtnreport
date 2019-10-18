@@ -204,7 +204,7 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 		</columnHeader>
 		<detail>
 			<band height="25"  isSplitAllowed="true" >
-				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="323"
 						y="5"
