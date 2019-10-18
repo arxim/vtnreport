@@ -516,7 +516,7 @@ public class GenerateReportSrvl extends HttpServlet {
 			break;
 		}
 //		System.out.print("hello");
-//		vaDetail.runningNumber();
+		vaDetail.runningNumber();
 	}
 
 }
