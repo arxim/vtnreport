@@ -2,7 +2,7 @@
 <!-- Created with iReport - A designer for JasperReports -->
 <!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 <jasperReport
-		 name="Untitled_report_1"
+		 name="IncomeCerificate"
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Portrait"
@@ -32,18 +32,28 @@
 	<parameter name="current_date" isForPrompting="false" class="java.lang.String">
 		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<parameter name="doctor_code" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="doctor_code" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["90562"]]></defaultValueExpression>
+	</parameter>
 	<parameter name="AVG_Amount" isForPrompting="false" class="java.lang.String"/>
-	<parameter name="startMM" isForPrompting="false" class="java.lang.String"/>
-	<parameter name="startYYYY" isForPrompting="false" class="java.lang.String"/>
-	<parameter name="endMM" isForPrompting="false" class="java.lang.String"/>
-	<parameter name="endYYYY" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="startMM" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["10"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="startYYYY" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["2018"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="endMM" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["10"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="endYYYY" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["2019"]]></defaultValueExpression>
+	</parameter>
 	<queryString><![CDATA[SELECT HOSPITAL.COMPANY_NAME,DOCTOR_PROFILE.CODE,NAME_THAI,POSITION,BRANCH,SUB_BRANCH,FROM_DATE,DR_NET_PAID_AMT,SUMMARY_MONTHLY.MM,SUMMARY_MONTHLY.YYYY,BATCH.YYYY as batch_date
 FROM SUMMARY_MONTHLY
 LEFT JOIN DOCTOR_PROFILE ON DOCTOR_PROFILE.CODE = SUMMARY_MONTHLY.DOCTOR_CODE
 LEFT JOIN HOSPITAL ON HOSPITAL.CODE = DOCTOR_PROFILE.HOSPITAL_CODE
 LEFT JOIN BATCH ON BATCH.HOSPITAL_CODE = HOSPITAL.CODE
-WHERE SUMMARY_MONTHLY.MM BETWEEN $P{startMM} AND $P{endMM} AND SUMMARY_MONTHLY.YYYY BETWEEN $P{startYYYY} AND $P{endYYYY}  AND DOCTOR_PROFILE.CODE = $P{doctor_code} AND BATCH.CLOSE_DATE = ''
+WHERE SUMMARY_MONTHLY.YYYY+SUMMARY_MONTHLY.MM BETWEEN $P{startYYYY}+$P{startMM} AND $P{endYYYY}+$P{endMM}   AND DOCTOR_PROFILE.CODE = $P{doctor_code} AND BATCH.CLOSE_DATE = ''
 group by DOCTOR_PROFILE.CODE, COMPANY_NAME,NAME_THAI,POSITION,BRANCH,SUB_BRANCH,FROM_DATE,DR_NET_PAID_AMT,SUMMARY_MONTHLY.MM,SUMMARY_MONTHLY.YYYY,BATCH.YYYY]]></queryString>
 
 	<field name="COMPANY_NAME" class="java.lang.String"/>

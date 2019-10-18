@@ -26,17 +26,15 @@ public ArrayList<HashMap<String, String>> getGenerateReport(String doctorCode,St
 		           + "LEFT JOIN DOCTOR_PROFILE ON DOCTOR_PROFILE.CODE = SUMMARY_MONTHLY.DOCTOR_CODE "
 		           + "LEFT JOIN HOSPITAL ON HOSPITAL.CODE = DOCTOR_PROFILE.HOSPITAL_CODE "
 		           + "LEFT JOIN TRN_RUNNING_REPORT ON TRN_RUNNING_REPORT.HOSPITAL_CODE = HOSPITAL.CODE "
-		           + "WHERE MM BETWEEN ? AND ? AND YYYY BETWEEN ? AND ? AND DOCTOR_PROFILE.CODE = ? "
+		           + "WHERE YYYY+MM BETWEEN ? AND ? AND DOCTOR_PROFILE.CODE = ? "
 		           + "group by DOCTOR_PROFILE.CODE, COMPANY_NAME,NAME_THAI,NAME_ENG,POSITION,FROM_DATE,RUNNING_NUMBER "
 		           + "ORDER BY RUNNING_NUMBER DESC";
 
 		try (Connection conn = DbConnector.getDBConnection()) {
 			ps = conn.prepareStatement(SQL);
-			ps.setString(1, startmm);
-			ps.setString(2, endmm);
-			ps.setString(3, startyyyy);
-			ps.setString(4, endyyyy);
-			ps.setString(5, doctorCode);
+			ps.setString(1, startyyyy+startmm);
+			ps.setString(2, endyyyy+endmm);
+			ps.setString(3, doctorCode);
 			data = DbConnector.convertArrayListHashMap(ps.executeQuery());
 			System.out.println(data);
 		} catch (Exception e) {
@@ -62,16 +60,14 @@ public ArrayList<HashMap<String, String>> getGenerateReportEng(String doctorCode
 		           + "LEFT JOIN TRN_RUNNING_REPORT ON TRN_RUNNING_REPORT.HOSPITAL_CODE = HOSPITAL.CODE "
 				   + "LEFT JOIN DEPARTMENT ON DEPARTMENT.CODE = DOCTOR_PROFILE.DEPARTMENT_CODE "
 				   + "LEFT JOIN BATCH ON BATCH.HOSPITAL_CODE = HOSPITAL.CODE "
-		           + "WHERE SUMMARY_MONTHLY.MM BETWEEN ? AND ? AND SUMMARY_MONTHLY.YYYY BETWEEN ? AND ? AND DOCTOR_PROFILE.CODE = ? AND BATCH.CLOSE_DATE = '' "
+		           + "WHERE SUMMARY_MONTHLY.MM+SUMMARY_MONTHLY.YYYY BETWEEN ? AND ? AND DOCTOR_PROFILE.CODE = ? AND BATCH.CLOSE_DATE = '' "
 		           + "group by DOCTOR_PROFILE.CODE, COMPANY_NAME,NAME_THAI,NAME_ENG,POSITION,DESCRIPTION,FROM_DATE,RUNNING_NUMBER,BATCH.YYYY "
 		           + "ORDER BY RUNNING_NUMBER DESC";
 
 		try (Connection conn = DbConnector.getDBConnection()) {
 			ps = conn.prepareStatement(SQL);
-			ps.setString(1, startmm);
-			ps.setString(2, endmm);
-			ps.setString(3, startyyyy);
-			ps.setString(4, endyyyy);
+			ps.setString(1, startyyyy+startmm);
+			ps.setString(2, endyyyy+endmm);
 			ps.setString(5, doctorCode);
 			data = DbConnector.convertArrayListHashMap(ps.executeQuery());
 			System.out.println(data);
