@@ -186,7 +186,7 @@ public class GenerateReportSrvl extends HttpServlet {
 				}
 				else {
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
-					message  = sentEmail.SendSingleMailPdfFile(bos, "", doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
 				}
 				
 			break;
@@ -232,7 +232,7 @@ public class GenerateReportSrvl extends HttpServlet {
 					}
 					else {
 						bos = genReport.generateReport(paramConditionNameReport,"", true);	
-						message  = sentEmail.SendSingleMailPdfFile(bos, "", doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+						message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
 					}
 					
 			break;
@@ -267,7 +267,7 @@ public class GenerateReportSrvl extends HttpServlet {
 			title = propTitle.get("title_1")+"\n"+propTitle.get("title_2")+"\n"+propTitle.get("title_3")+"\n"+propTitle.get("title_4")+"\n"+propTitle.get("title_5");
 			header = propHeader.get("header_1")+"\n"+propHeader.get("header_2")+numberAsString+"/"+arrData.get(0).get("batch_date").substring(2, 4);
 			columnheader = propColumnHeader.get("columnheader_1");
-			form = " "+propForm.get("form_eng_1")+datetimeEng+" "+propForm.get("form_eng_2")
+			form = arrData.get(0).get("NAME_ENG")+" "+propForm.get("form_eng_1")+datetimeEng+" "+propForm.get("form_eng_2")
 				   +arrData.get(0).get("POSITION")+" "+propForm.get("form_eng_3")+arrData.get(0).get("DESCRIPTION")+" "+propForm.get("form_eng_4")+formatter.format(set_avg_format)+" ("+engtext+" Bhat Only).";
 			form2 = propForm.get("form_eng_8");
 //			form2 = arrData.get(0).get("NAME_ENG")+" "+propForm.get("form_eng_meet_1")+propForm.get("form_eng_meet_2");
@@ -307,7 +307,7 @@ public class GenerateReportSrvl extends HttpServlet {
 			}
 			else {
 				bos = genReport.generateReport(paramConditionNameReport,"", true);	
-				message  = sentEmail.SendSingleMailPdfFile(bos, "", "", "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+				message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
 			}
 			
 			break;
@@ -343,7 +343,7 @@ public class GenerateReportSrvl extends HttpServlet {
 			form = " "+propForm.get("form_eng_1")+datetimeEng+" "+propForm.get("form_eng_2")
 				   +arrData.get(0).get("POSITION")+" "+propForm.get("form_eng_3")+arrData.get(0).get("DESCRIPTION")+" "+propForm.get("form_eng_4")+formatter.format(set_avg_format)+" ("+engtext+" Bhat Only).";
 //			form2 = propForm.get("form_eng_8");
-			form2 = " has a trip to "+Location+propForm.get("form_eng_meet_1")+MeetingDate+propForm.get("form_eng_7");
+			form2 = arrData.get(0).get("NAME_ENG")+" has a trip to "+Location+propForm.get("form_eng_meet_1")+MeetingDate+propForm.get("form_eng_7");
 			form3 = propForm.get("form_eng_8");
 			columnfooter = propForm.get("form_eng_9")+"\n"+propForm.get("form_eng_10");
 			footer = propFooter.get("footer_1")+"\n"+propFooter.get("footer_2")+"\n"+propFooter.get("footer_3");
@@ -372,7 +372,7 @@ public class GenerateReportSrvl extends HttpServlet {
 			}
 			else {
 				bos = genReport.generateReport(paramConditionNameReport,"", true);	
-				message  = sentEmail.SendSingleMailPdfFile(bos, "", "", "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+				message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
 			}
 			break;
 		case "06" : 
@@ -412,7 +412,7 @@ public class GenerateReportSrvl extends HttpServlet {
 			form = " "+propForm.get("form_eng_1")+datetimeEng+" "+propForm.get("form_eng_2")
 				   +arrData.get(0).get("POSITION")+" "+propForm.get("form_eng_3")+arrData.get(0).get("DESCRIPTION")+" "+propForm.get("form_eng_4")+formatter.format(set_avg_format)+" ("+engtext+" Bhat Only).";
 //			form2 = propForm.get("form_eng_8");
-			form2 = " has a meeting in "+MeetingName+Location+propForm.get("form_eng_meet_1")+MeetingDate+propForm.get("form_eng_7");
+			form2 = arrData.get(0).get("NAME_ENG")+" has a meeting in "+MeetingName+Location+propForm.get("form_eng_meet_1")+MeetingDate+propForm.get("form_eng_7");
 			form3 = propForm.get("form_eng_8");
 			columnfooter = propForm.get("form_eng_9")+"\n"+propForm.get("form_eng_10");
 			footer = propFooter.get("footer_1")+"\n"+propFooter.get("footer_2")+"\n"+propFooter.get("footer_3");
@@ -441,7 +441,7 @@ public class GenerateReportSrvl extends HttpServlet {
 			}
 			else {
 				bos = genReport.generateReport(paramConditionNameReport,"", true);	
-				message  = sentEmail.SendSingleMailPdfFile(bos, "", "", "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+				message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
 			}
 			break;
 			
@@ -482,7 +482,7 @@ public class GenerateReportSrvl extends HttpServlet {
 			form = " "+propForm.get("form_eng_1")+datetimeEng+" "+propForm.get("form_eng_2")
 				   +arrData.get(0).get("POSITION")+" "+propForm.get("form_eng_3")+arrData.get(0).get("DESCRIPTION")+" "+propForm.get("form_eng_4")+formatter.format(set_avg_format)+" ("+engtext+" Bhat Only).";
 //			form2 = propForm.get("form_eng_8");
-			form2 = " is going to attend "+MeetingName+Location+propForm.get("form_eng_meet_1")+MeetingDate+propForm.get("form_eng_7");
+			form2 = arrData.get(0).get("NAME_ENG")+" is going to attend "+MeetingName+Location+propForm.get("form_eng_meet_1")+MeetingDate+propForm.get("form_eng_7");
 			form3 = propForm.get("form_eng_8");
 			columnfooter = propForm.get("form_eng_9")+"\n"+propForm.get("form_eng_10");
 			footer = propFooter.get("footer_1")+"\n"+propFooter.get("footer_2")+"\n"+propFooter.get("footer_3");
@@ -511,7 +511,7 @@ public class GenerateReportSrvl extends HttpServlet {
 			}
 			else {
 				bos = genReport.generateReport(paramConditionNameReport,"", true);	
-				message  = sentEmail.SendSingleMailPdfFile(bos, "", "", "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+				message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
 			}
 			break;
 		}
