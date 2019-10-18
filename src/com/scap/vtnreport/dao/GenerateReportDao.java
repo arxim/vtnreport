@@ -60,7 +60,7 @@ public ArrayList<HashMap<String, String>> getGenerateReportEng(String doctorCode
 		           + "LEFT JOIN TRN_RUNNING_REPORT ON TRN_RUNNING_REPORT.HOSPITAL_CODE = HOSPITAL.CODE "
 				   + "LEFT JOIN DEPARTMENT ON DEPARTMENT.CODE = DOCTOR_PROFILE.DEPARTMENT_CODE "
 				   + "LEFT JOIN BATCH ON BATCH.HOSPITAL_CODE = HOSPITAL.CODE "
-		           + "WHERE SUMMARY_MONTHLY.MM+SUMMARY_MONTHLY.YYYY BETWEEN ? AND ? AND DOCTOR_PROFILE.CODE = ? AND BATCH.CLOSE_DATE = '' "
+		           + "WHERE SUMMARY_MONTHLY.YYYY+SUMMARY_MONTHLY.MM BETWEEN ? AND ? AND DOCTOR_PROFILE.CODE = ? AND BATCH.CLOSE_DATE = '' "
 		           + "group by DOCTOR_PROFILE.CODE, COMPANY_NAME,NAME_THAI,NAME_ENG,POSITION,DESCRIPTION,FROM_DATE,RUNNING_NUMBER,BATCH.YYYY "
 		           + "ORDER BY RUNNING_NUMBER DESC";
 
@@ -68,7 +68,7 @@ public ArrayList<HashMap<String, String>> getGenerateReportEng(String doctorCode
 			ps = conn.prepareStatement(SQL);
 			ps.setString(1, startyyyy+startmm);
 			ps.setString(2, endyyyy+endmm);
-			ps.setString(5, doctorCode);
+			ps.setString(3, doctorCode);
 			data = DbConnector.convertArrayListHashMap(ps.executeQuery());
 			System.out.println(data);
 		} catch (Exception e) {
