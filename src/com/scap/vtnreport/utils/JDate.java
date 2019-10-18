@@ -69,6 +69,20 @@ public class JDate {
         return strYear;
     }
 	
+	static public String getYearThai() {
+        //Date now = new Date(System.currentTimeMillis());
+        Calendar rightNow = Calendar.getInstance();
+        //String strYear = Integer.toString(now.getYear()+1900);
+        String strYear = "";
+        if (rightNow.get(Calendar.YEAR) < 2550) { 
+            strYear = Integer.toString(rightNow.get(Calendar.YEAR) + 543); 
+        } else {
+            strYear = Integer.toString(rightNow.get(Calendar.YEAR));
+        }
+        return strYear;
+    }
+	
+	
 	
 	
 	static public String getDay() {
@@ -96,11 +110,11 @@ public class JDate {
     }
     
     static public String getDateDD_MM_YYY() {
-        return getDay()+" "+ getMonthName()+ " " + getYear();
+        return getDay()+" "+ getMonthName()+ " " + getYearThai();
     }
     
     static public String getDateMM_DD_YYY() {
-        return getMonthNameEng()+ " "+ getDay()+","+ Calendar.getInstance().get(Calendar.YEAR);
+        return getMonthNameEng()+ " "+ getDay()+","+ getYear();
     }
     
     static public String getMonthName() {
