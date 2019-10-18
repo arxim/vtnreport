@@ -38,13 +38,14 @@
 	<parameter name="startYYYY" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="endMM" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="endYYYY" isForPrompting="false" class="java.lang.String"/>
-	<queryString><![CDATA[SELECT HOSPITAL.COMPANY_NAME,DOCTOR_PROFILE.CODE,NAME_THAI,POSITION,BRANCH,SUB_BRANCH,FROM_DATE,DR_NET_PAID_AMT,SUMMARY_MONTHLY.MM,SUMMARY_MONTHLY.YYYY,BATCH.YYYY as batch_date
+	<queryString><![CDATA[SELECT HOSPITAL.COMPANY_NAME,DOCTOR_PROFILE.CODE,NAME_THAI,POSITION,BRANCH,SUB_BRANCH,DESCRIPTION,FROM_DATE,DR_NET_PAID_AMT,SUMMARY_MONTHLY.MM,SUMMARY_MONTHLY.YYYY,BATCH.YYYY as batch_date
 FROM SUMMARY_MONTHLY
 LEFT JOIN DOCTOR_PROFILE ON DOCTOR_PROFILE.CODE = SUMMARY_MONTHLY.DOCTOR_CODE
 LEFT JOIN HOSPITAL ON HOSPITAL.CODE = DOCTOR_PROFILE.HOSPITAL_CODE
 LEFT JOIN BATCH ON BATCH.HOSPITAL_CODE = HOSPITAL.CODE
+LEFT JOIN DEPARTMENT ON DEPARTMENT.CODE = DOCTOR_PROFILE.DEPARTMENT_CODE
 WHERE SUMMARY_MONTHLY.MM BETWEEN $P{startMM} AND $P{endMM} AND SUMMARY_MONTHLY.YYYY BETWEEN $P{startYYYY} AND $P{endYYYY}  AND DOCTOR_PROFILE.CODE = $P{doctor_code} AND BATCH.CLOSE_DATE = ''
-group by DOCTOR_PROFILE.CODE, COMPANY_NAME,NAME_THAI,POSITION,BRANCH,SUB_BRANCH,FROM_DATE,DR_NET_PAID_AMT,SUMMARY_MONTHLY.MM,SUMMARY_MONTHLY.YYYY,BATCH.YYYY]]></queryString>
+group by DOCTOR_PROFILE.CODE, COMPANY_NAME,NAME_THAI,POSITION,BRANCH,SUB_BRANCH,FROM_DATE,DR_NET_PAID_AMT,DESCRIPTION,SUMMARY_MONTHLY.MM,SUMMARY_MONTHLY.YYYY,BATCH.YYYY]]></queryString>
 
 	<field name="COMPANY_NAME" class="java.lang.String"/>
 	<field name="CODE" class="java.lang.String"/>
@@ -52,6 +53,7 @@ group by DOCTOR_PROFILE.CODE, COMPANY_NAME,NAME_THAI,POSITION,BRANCH,SUB_BRANCH,
 	<field name="POSITION" class="java.lang.String"/>
 	<field name="BRANCH" class="java.lang.String"/>
 	<field name="SUB_BRANCH" class="java.lang.String"/>
+	<field name="DESCRIPTION" class="java.lang.String"/>
 	<field name="FROM_DATE" class="java.lang.String"/>
 	<field name="DR_NET_PAID_AMT" class="java.math.BigDecimal"/>
 	<field name="MM" class="java.lang.String"/>
@@ -136,7 +138,7 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 			</band>
 		</pageHeader>
 		<columnHeader>
-			<band height="174"  isSplitAllowed="true" >
+			<band height="179"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="216"
@@ -152,90 +154,29 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						mode="Transparent"
 						x="51"
-						y="63"
-						width="451"
+						y="62"
+						width="452"
 						height="88"
 						key="textField-2"/>
 					<box></box>
-					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Double">
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Double">
 						<font fontName="Tahoma" pdfFontName="tahoma.ttf" size="10" isUnderline="false" isPdfEmbedded ="true" pdfEncoding ="Identity-H" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["            โดยหนังสือฉบับนี้  "+$F{COMPANY_NAME}+"  ขอรับรองว่า  "+$F{NAME_THAI}+"  เป็น"+$F{POSITION}+"  "+$V{branch}+$V{sub_branch}+" ของโรงพยาบาลเวชธานี  โดยเริ่มปฎิบัติงานกับบริษัทฯ ตั้งแตวันที่ "+$V{FROM_DATE_DAY}+" "+$V{FROM_DATE_MONTH}+" "+$V{FROM_DATE_YEAR}+"  ได้รับรายได้เฉลี่ยเดือนละ "+$P{AVG_Amount}+" บาท ("+$P{thai_form}+") รายละเอียดดังนี้"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["            โดยหนังสือฉบับนี้ "+$F{COMPANY_NAME}+" ขอรับรองว่า "+$F{NAME_THAI}+" เป็น "+$F{POSITION}+" "+$V{branch}+$V{sub_branch}+"ของโรงพยาบาลเวชธานี โดยเริ่มปฎิบัติงานกับบริษัทฯ ตั้งแตวันที่ "+$V{FROM_DATE_DAY}+" "+$V{FROM_DATE_MONTH}+" "+$V{FROM_DATE_YEAR}+" ได้รับรายได้เฉลี่ยเดือนละ "+$P{AVG_Amount}+" บาท ("+$P{thai_form}+")"]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement
-						x="201"
-						y="152"
-						width="58"
-						height="16"
-						key="staticText-3"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font fontName="Angsana New" pdfFontName="tahoma.ttf" size="10" isUnderline="true" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
-					</textElement>
-				<text><![CDATA[เดือน]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="318"
-						y="151"
-						width="73"
-						height="16"
-						key="staticText-4"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font fontName="Angsana New" pdfFontName="tahoma.ttf" size="10" isUnderline="true" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
-					</textElement>
-				<text><![CDATA[รายได้(บาท)]]></text>
-				</staticText>
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="25"  isSplitAllowed="true" >
-				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="323"
-						y="5"
-						width="80"
-						height="18"
-						key="textField"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font fontName="Angsana New" pdfFontName="tahoma.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
-					</textElement>
-				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{DR_NET_PAID_AMT}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="187"
-						y="5"
-						width="75"
-						height="18"
-						key="textField"/>
-					<box></box>
-					<textElement textAlignment="Justified">
-						<font fontName="Angsana New" pdfFontName="tahoma.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$V{Month}+" "+$V{Year}]]></textFieldExpression>
-				</textField>
+			<band height="0"  isSplitAllowed="true" >
 			</band>
 		</detail>
 		<columnFooter>
-			<band height="1"  isSplitAllowed="true" >
-			</band>
-		</columnFooter>
-		<pageFooter>
-			<band height="0"  isSplitAllowed="true" >
-			</band>
-		</pageFooter>
-		<lastPageFooter>
-			<band height="282"  isSplitAllowed="true" >
+			<band height="164"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="307"
-						y="0"
+						y="-21"
 						width="170"
 						height="29"
 						key="textField-3"/>
@@ -248,7 +189,7 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 				<staticText>
 					<reportElement
 						x="307"
-						y="69"
+						y="50"
 						width="179"
 						height="44"
 						key="staticText-5"/>
@@ -262,9 +203,9 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 				<staticText>
 					<reportElement
 						x="51"
-						y="147"
-						width="189"
-						height="53"
+						y="106"
+						width="191"
+						height="46"
 						key="staticText-6"/>
 					<box></box>
 					<textElement>
@@ -273,6 +214,14 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 				<text><![CDATA[ฝ่ายการเงิน
 โทรศัพท์ 02-734-0000 ต่อ 2502]]></text>
 				</staticText>
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<lastPageFooter>
+			<band height="282"  isSplitAllowed="true" >
 			</band>
 		</lastPageFooter>
 		<summary>

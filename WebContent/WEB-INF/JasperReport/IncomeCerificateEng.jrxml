@@ -17,7 +17,7 @@
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
-	<property name="ireport.scriptlethandling" value="2" />
+	<property name="ireport.scriptlethandling" value="0" />
 	<property name="ireport.encoding" value="UTF-8" />
 	<import value="java.util.*" />
 	<import value="net.sf.jasperreports.engine.*" />
@@ -30,7 +30,7 @@
 		<defaultValueExpression ><![CDATA["1"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="detail" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["3"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<parameter name="footer" isForPrompting="false" class="java.lang.String">
 		<defaultValueExpression ><![CDATA["7"]]></defaultValueExpression>
@@ -46,6 +46,13 @@
 	</parameter>
 	<parameter name="detail3" isForPrompting="false" class="java.lang.String">
 		<defaultValueExpression ><![CDATA["5"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="currenttime" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["time"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="name" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="doctor_name" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["name"]]></defaultValueExpression>
 	</parameter>
 	<queryString><![CDATA[SELECT * FROM HOSPITAL]]></queryString>
 
@@ -108,7 +115,7 @@
 			</band>
 		</title>
 		<pageHeader>
-			<band height="53"  isSplitAllowed="true" >
+			<band height="88"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="58"
@@ -118,9 +125,22 @@
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font fontName="Tahoma" pdfFontName="tahoma.ttf" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+						<font fontName="Tahoma" pdfFontName="tahomabd.ttf" size="12" isBold="true" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{header}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="58"
+						y="59"
+						width="204"
+						height="17"
+						key="textField-1"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Tahoma" pdfFontName="tahoma.ttf" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{currenttime}]]></textFieldExpression>
 				</textField>
 			</band>
 		</pageHeader>
@@ -142,67 +162,55 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="154"  isSplitAllowed="true" >
+			<band height="354"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="58"
-						y="18"
+						y="29"
 						width="433"
-						height="40"
+						height="72"
 						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Left">
-						<font fontName="Tahoma" pdfFontName="tahoma.ttf" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+					<textElement textAlignment="Left" markup="html" lineSpacing="1_1_2">
+						<font fontName="Tahoma" pdfFontName="tahoma.ttf" isBold="false" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{detail}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["This is to certify that "+$P{doctor_name}+$P{detail}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="58"
-						y="58"
+						y="107"
 						width="433"
-						height="38"
+						height="56"
 						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Left">
+					<textElement textAlignment="Left" markup="html" lineSpacing="1_1_2">
 						<font fontName="Tahoma" pdfFontName="tahoma.ttf" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{detail2}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="58"
-						y="96"
+						y="169"
 						width="433"
 						height="30"
 						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Left">
+					<textElement textAlignment="Left" lineSpacing="1_1_2">
 						<font fontName="Tahoma" pdfFontName="tahoma.ttf" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{detail3}]]></textFieldExpression>
 				</textField>
-			</band>
-		</detail>
-		<columnFooter>
-			<band height="0"  isSplitAllowed="true" >
-			</band>
-		</columnFooter>
-		<pageFooter>
-			<band height="0"  isSplitAllowed="true" >
-			</band>
-		</pageFooter>
-		<lastPageFooter>
-			<band height="175"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="58"
-						y="7"
+						y="213"
 						width="171"
 						height="45"
 						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Left">
+					<textElement textAlignment="Left" lineSpacing="1_1_2">
 						<font fontName="Tahoma" pdfFontName="tahoma.ttf" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{columnfooter}]]></textFieldExpression>
@@ -210,18 +218,26 @@
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="58"
-						y="59"
-						width="100"
+						y="296"
+						width="176"
 						height="56"
 						key="textField"/>
 					<box></box>
-					<textElement textAlignment="Left">
+					<textElement textAlignment="Left" lineSpacing="1_1_2">
 						<font fontName="Tahoma" pdfFontName="tahoma.ttf" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{footer}]]></textFieldExpression>
 				</textField>
 			</band>
-		</lastPageFooter>
+		</detail>
+		<columnFooter>
+			<band height="133"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
 		<summary>
 			<band height="0"  isSplitAllowed="true" >
 			</band>
