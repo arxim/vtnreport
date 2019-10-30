@@ -33,18 +33,25 @@
 							<option value="02">หนังสือรับรองรายได้เฉลี่ย (TH)</option>
 							<option value="03">หนังสือรับรองรายได้เฉลี่ย (EN)</option>
 							<option value="04">หนังสือรับรองรายได้ สำหรับขอวีซ่า(EN)</option>
-							<option value="06">หนังสือรับรองรายได้ สำหรับประชุม (1)(EN)</option>
-							<option value="07">หนังสือรับรองรายได้ สำหรับประชุม (2)(EN)</option>
+							<option value="06">หนังสือรับรองรายได้ สำหรับประชุมไม่ระบุสถานที่ (EN)</option>
+							<option value="07">หนังสือรับรองรายได้ สำหรับประชุมระบุสถานที่ (EN)</option>
 						</select>
 					</div>
-					<!-- <div class="col-xs-6 col-sm-6 form-check form-check-inline">
-					  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-					  <label class="form-check-label" for="inlineCheckbox1">Signature & Rubber Stamp</label>
-					  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-					  <label class="form-check-label" for="inlineCheckbox1">Digital Signature</label>
-					</div> -->
+					<div class="col-xs-6 col-sm-3 control-label">
+						<p class="text-right">
+							<b id="lblReport">Previous Period</b>
+						</p>
+					</div>
+					<div class="col-xs-6 col-sm-3">
+						<select id="dwlReport" class="form-control">
+							<option value="3">3 Month</option>
+							<option value="6">6 Month</option>
+							<option value="12">12 Month</option>
+						</select>
+					</div>
+					
 				</div>
-				<div class="row">
+				<!-- <div class="row">
 						<div class="col-xs-6 col-sm-3 control-label">
 							<p class="text-right">
 								<b id="lblPrintDate">Revenue Date From</b>
@@ -73,7 +80,7 @@
 								</span>
 							</div>
 						</div>
-					</div>
+					</div> -->
 					<div class="row">
 					<div class="col-xs-6 col-sm-3 control-label">
 						<p class="text-right">
@@ -118,60 +125,53 @@
 				<div class="row" id="period">
 					<div class="col-xs-6 col-sm-3 control-label">
 						<p class="text-right">
-							<b id="lblReport">From to</b>
+							<b id="lblReport">Depart Date</b>
 						</p>
 					</div>
-					<div class="col-xs-6 col-sm-9">
-						<input id="txtMeetingDate" name="txtMeetingDate" type="text"class="form-control ui-autocomplete-input" placeholder="Example: 6-23 Agust, 2019">
+					<div class="col-xs-6 col-sm-3" id="">
+							<div class="input-group">
+								<input id="hidDepartDate" name="hidDepartDate" type="hidden" /> 
+								<input type="text" id="txtDepartDate" name="txtDepartDate" class="form-control datePicker" placeholder="dd/mm/yyyy" /> 
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
 					</div>
+					<div class="col-xs-6 col-sm-3 control-label">
+						<p class="text-right">
+							<b id="lblReport">Arrived Date</b>
+						</p>
+					</div>
+					<div class="col-xs-6 col-sm-3" id="">
+							<div class="input-group">
+								<input id="hidArrivedDate" name="hidArrivedDate" type="hidden" /> 
+								<input type="text" id="txtArrivedDate" name="txtArrivedDate" class="form-control datePicker" placeholder="dd/mm/yyyy" /> 
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+					</div>
+					
+					
+					<!-- <div class="col-xs-6 col-sm-9">
+						<input id="txtMeetingDate" name="txtMeetingDate" type="text"class="form-control ui-autocomplete-input" placeholder="Example: 6-23 Agust, 2019">
+					</div> -->
 				</div>
 			</div><!-- End reason -->
 			
-			
-			
-			<!-- 	<div class="row">
-					<div class="col-xs-6 col-sm-3 control-label">
+			 <div class="row" id="sent_mail">
+					<div class="col-xs-6 col-sm-3">
 						<p class="text-right">
-							<b id="lblReport"></b>
-						</p>
-					</div>
-					<div class="col-xs-6 col-sm-6 form-check ">
-						<input class="form-check-input" type="checkbox"
-							id="inlineCheckbox1" value="option1"> <label
-							class="form-check-label" for="inlineCheckbox1">Signature
-							& Rubber Stamp</label> <input class="form-check-input" type="checkbox"
-							id="inlineCheckbox1" value="option1"> <label
-							class="form-check-label" for="inlineCheckbox1">Digital
-							Signature</label>
-					</div>
-
-				</div> -->
-				
-				<!-- <div class="row">
-					<div class="col-xs-6 col-sm-3 control-label">
-						<p class="text-right">
-							<b id="lblReport"></b>
+							<b id="lblReport">E-mail</b>
 						</p>
 					</div>
 					<div class="col-xs-6 col-sm-3 ">
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="DS">
-							<label class="form-check-label" for="gridCheck1"> Digital Signature </label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="ST">
-							<label class="form-check-label" for="gridCheck1"> Signature</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="ST">
-							<label class="form-check-label" for="gridCheck1">Rubber Stamp</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="ST">
-							<label class="form-check-label" for="gridCheck1">Header letter of Vejthani Hospital</label>
-						</div>
+						<input id="txtEmail" name="txtEmail" type="text" class="form-control">
 					</div>
-				</div> -->
+					<div class="col-xs-3 col-sm-3 ">
+						<button type="button" id="btnSendSelfEmail" class="btn btn-default" onclick="SendSelfEmail()">Send E-Mail</button>
+					</div>
+				</div>
 				
 			<div class="row">
 					<div class="col-xs-6 col-sm-3 ">
@@ -179,19 +179,22 @@
 							<b id="lblReport">Sign</b>
 						</p>
 					</div>
-					<div class="col-xs-6 col-sm-3 ">
+					<div class="col-xs-6 col-sm-6 ">
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="SS" id="DS" value="option1">
-	 						<label class="form-check-label" for="inlineRadio1">Digital Sign</label>
+	 						<label class="form-check-label" for="inlineRadio1">Digital Sign </label>
  						
  						
-							<input class="form-check-input" type="radio" name="SS" id="RS" value="option1">
-	 						<label class="form-check-label" for="inlineRadio1">Sign</label>
+							<input class="form-check-input" type="radio" name="SS" id="DSS" value="option1">
+	 						<label class="form-check-label" for="inlineRadio1">Digital Sign & Seal </label>
+	 						
+	 						<input class="form-check-input" type="radio" name="SS" id="SS" value="option1">
+	 						<label class="form-check-label" for="inlineRadio1">Sign & Seal </label>
  						</div>
  						 
 					</div>
 				</div>
-				<div class="row">
+				<!-- <div class="row">
 					<div class="col-xs-6 col-sm-3">
 						<p class="text-right">
 							<b id="lblReport">Company seal</b>
@@ -200,26 +203,32 @@
 					<div class="col-xs-6 col-sm-3 ">
 						<div class="form-check form-check-inline ">
 							<input class="form-check-input" type="radio" name="TT" id="S" value="option1">
-	 						<label class="form-check-label" for="inlineRadio1">Digital Seal&nbsp</label>
+	 						<label class="form-check-label" for="inlineRadio1">Digital Seal</label>
  						
 							<input class="form-check-input" type="radio" name="TT" id="RT" value="option1">
 	 						<label class="form-check-label" for="inlineRadio1">Seal</label>
  						</div>
 					</div>
-				</div>
+				</div> -->
 				
-				
-			</div><!-- Form-Horizontal -->
-				<div id="btnView"  class="row">
-					<div class="col-xs-12 col-sm-12 text-right">
+				<div id="btnView"  class="row ">
+					<div class="col-xs-12 col-sm-3 text-left"></div>
+					<div class="col-xs-12 col-sm-9 text-left">
 						<button type="button" id="btnFormDocument" class="btn btn-default" onclick="setForm()">View</button>
 					</div>
 				</div>
 				<div id="btnSendMail"  class="row">
-					<div class="col-xs-12 col-sm-12 text-right">
+					<div class="col-xs-12 col-sm-3 text-left"></div>
+					<div class="col-xs-12 col-sm-4 text-left">
+						<button type="button" id="btnPreviewForm" class="btn btn-default" onclick="preview()">PreView</button>
+					</div>
+					<div class="col-xs-12 col-sm-5 text-right">
 						<button type="button" id="btnFormDocument" class="btn btn-default" onclick="setSendMail()">Send E-Mail</button>
 					</div>
 				</div>
+				
+			</div><!-- Form-Horizontal -->
+				
 			
 			</div>
 			<hr>

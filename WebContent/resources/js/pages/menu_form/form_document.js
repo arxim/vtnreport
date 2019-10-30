@@ -9,7 +9,7 @@ $(document).ready(function() {
 		if(dw_val=="02"||dw_val=="01"||dw_val=="03"){
 			$("#reason").hide();
 			$("#reason2").hide();
-		}else if(dw_val=="04"){
+		}else if(dw_val=="04"||dw_val=="06"){
 			$("#reason").show();
 			$("#reason2").hide();
 		}else{
@@ -18,13 +18,13 @@ $(document).ready(function() {
 		}
 	});
 	
-	$('#txtStartDate').datepicker({
-		format : "dd/mm/yyyy",
+	$('#txtDepartDate').datepicker({
+		format : "dd/MM/yyyy",
 		autoclose : true,
 		todayHighlight : true
 	});
-	$('#txtEndDate').datepicker({
-		format : "dd/mm/yyyy",
+	$('#txtArrivedDate').datepicker({
+		format : "dd/MM/yyyy",
 		autoclose : true,
 		todayHighlight : true
 	});
@@ -86,8 +86,6 @@ $(document).ready(function() {
 	            },
 	            success: function(data) {
 	                response(data);
-	                $("#txtCounty").val("");
-	                $("#hidCounty").val("");
 	            }
 	        });
 	    },
@@ -97,37 +95,32 @@ $(document).ready(function() {
 	   $("#hidCounty").val(ui.item.id);
 	 },
      change: function( event, ui ) {
-    	 
-    	/* if($("#hidDoctor").val() == ""){
-    		 
+    	 if($("#hidCounty").val() == ""){
  			$("#txtCounty").val("");
  			$("#hidCounty").val("");
- 			
- 		}*/
+ 		}
      }
 	});
 	
 	$("#btnSendMail").hide();
-	 $('input:radio').change(function(){
+	$("#sent_mail").hide();
+	
+	$('input:radio').change(function(){
 	       var id= $(this).attr("id"); 
-	        if(id=="RS"|| id=="RT"){
-	        	$("#btnSendMail").show();
-	        	$("#btnView").hide();
+	        if(id=="DS"){
+	        	$("#btnSendMail").hide();
+	        	$("#btnView").show();
+	        	$("#sent_mail").show();
+	        }else if(id=="DSS"){
+	        	$("#btnSendMail").hide();
+	        	$("#btnView").show();
+	        	$("#sent_mail").show();
 	        }else{
-	        	if($("#RS").is(':checked') || $("#RT").is(':checked') ){
-	        		$("#btnSendMail").show();
-		        	$("#btnView").hide();
-	        	}else{
-	        		$("#btnSendMail").hide();
-		        	$("#btnView").show();
-	        	}
-	        	
-	        	
-	        }
+	        	$("#btnSendMail").show();
+	        	$("#sent_mail").hide();
+	        	$("#btnView").hide();
+	        }	
 	 });   
-	
-	
-	
 	
 });
 
