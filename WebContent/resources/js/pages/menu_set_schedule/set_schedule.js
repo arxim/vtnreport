@@ -1,4 +1,4 @@
-$(document).ready(function() {z
+$(document).ready(function() {
 	getBatch();
 	
 	$('#txtPrintDate').datetimepicker({
@@ -47,10 +47,41 @@ function waitIcon(current_row_wait){
 	table.draw();
 }
 
+var checkrun = 0;
 
-function successCallBack(){
-    // the main process have to be here
-    alert("test");
+function checkrunning(){
+	$.ajax({
+		url : '/vtnreport/CheckSchedulerSrvl',
+		type : 'get',
+		 dataType: 'json',
+		 success : function(data) {
+			if((data[0]["Datetime"]) != 0){
+//				document.getElementById("text").innerHTML = "ระบบกำลังทำงาน  จะทำการส่ง Mailในเวลาเดิม "+(data[0]["Datetime"]+" ต้องการเปลี่ยนแปลงเวลาเดิมหรือไม่");
+				$('#text').html("ระบบกำลังทำงาน  จะทำการส่ง  Mail ในเวลาเดิม "+(data[0]["Datetime"]+" ต้องการเปลี่ยนแปลงเวลาเดิมหรือไม่"));
+				$("#btnCancelEmailSchedule").prop( "disabled", false );
+				checkrun = 1;
+			}
+			else{
+				$("#btnCancelEmailSchedule").prop( "disabled", true );
+				checkrun = 0;
+			}
+}
+	});
+	
+}
+
+function checkmodal(){
+			if(checkrun == 1){
+			  $("#mymodal").modal();
+			}
+			else{
+				$("#mymodal").modal('hide');
+				setScheduleEmail();
+			}
+			
+		 $("#confirm").click(function () {
+			 setScheduleEmail();
+			  });
 }
 
 // Send Email
@@ -70,65 +101,113 @@ function setScheduleEmail(){
 	var cron_schedule ="0 "+mm+" "+hh+" "+date+" "+month+" ?";
 	var yyyy = $('#txtYYYY').val();
 	var mm = $('#txtMM').val();
-	
-	alert(cron_schedule);
+//	var modal = document.getElementById("mymodal");
+//	
+//	alert(cron_schedule);
 	$("#dwlReport").prop( "readonly", true );
 	$("#txtPrintDate").prop( "readonly", true );
 	$("#dwlTerm").prop( "readonly", true );
 	$("#btnView").prop( "disabled", true );
 	$("#btnSendEmail").prop( "disabled", true );
 	
-	//waitIcon(current_row);
-	//if(current_row < total_table.fnGetData().length){
 	$.ajax({
-		url : '/vtnreport/CheckSchedulerSrvl',
-		type : 'get',
-		 dataType: 'json',
-		 success : function(data) {
-//			alert("1:"+(data[0]["Datetime"]));
-			if((data[0]["Datetime"]) != 0){
-			 var r = confirm("ระบบกำลังทำงาน  จะทำการส่ง Mail ตามช่วงเวลา "+(data[0]["Datetime"]+"น. ต้องการปลี่ยนแปลงเวลาเดิมหรือไม่"));
-			  if (r == true) {
-				  $.ajax({
-						url : '/vtnreport/SendEmailNewSrvl',
-						type : 'post',
-						data : {
-							yyyy : yyyy ,
-							mm : mm,
-							hospitalCode : hospitalCode ,
-							report : report,
-							term : term,
-							printDate : cron_schedule
-						},
-						success : function(response) {
-				
-						}
-					});
-			  } else {
-
-			  }
-			}
-			else{
-				 $.ajax({
-						url : '/vtnreport/SendEmailNewSrvl',
-						type : 'post',
-						data : {
-							yyyy : yyyy ,
-							mm : mm,
-							hospitalCode : hospitalCode ,
-							report : report,
-							term : term,
-							printDate : cron_schedule
-						},
-						success : function(response) {
-				
-						}
-					});
-			}
-			
+		url : '/vtnreport/SendEmailNewSrvl',
+		type : 'post',
+		data : {
+			yyyy : yyyy ,
+			mm : mm,
+			hospitalCode : hospitalCode ,
+			report : report,
+			term : term,
+			printDate : cron_schedule,
+			set_reset : "set"
+		},
+		success : function(response) {
+			$('#success').html("กำหนดเวลาเสร็จสิ้น");
+			$("#popupmodal").modal();
+			$("#btnCancelEmailSchedule").prop( "disabled", true );
+//			$("#alertsuccess").alert("show");
+//			$("#alertsuccess").toggleClass('in out'); 
 		}
 	});
+
 	
+	//waitIcon(current_row);
+	//if(current_row < total_table.fnGetData().length){
+//	$.ajax({
+//		url : '/vtnreport/CheckSchedulerSrvl',
+//		type : 'get',
+//		 dataType: 'json',
+//		 success : function(data) {
+////			alert("1:"+(data[0]["Datetime"])); 
+//			if((data[0]["Datetime"]) != 0){
+////				modal.style.display = "none";
+//			document.getElementById("text").innerHTML = "ระบบกำลังทำงาน  จะทำการส่ง Mail ตามช่วงเวลา "+(data[0]["Datetime"]+"น. ต้องการเปลี่ยนแปลงเวลาเดิมหรือไม่");
+////			 var r = confirm("ระบบกำลังทำงาน  จะทำการส่ง Mail ตามช่วงเวลา "+(data[0]["Datetime"]+"น. ต้องการปลี่ยนแปลงเวลาเดิมหรือไม่"));
+////			  if (r == true) {
+////				  $.ajax({
+////						url : '/vtnreport/SendEmailNewSrvl',
+////						type : 'post',
+////						data : {
+////							yyyy : yyyy ,
+////							mm : mm,
+////							hospitalCode : hospitalCode ,
+////							report : report,
+////							term : term,
+////							printDate : cron_schedule
+////						},
+////						success : function(response) {
+////				
+////						}
+////					});
+////			  } else {
+////				  modal.style.display = "none";
+////			  }
+//			}
+//			else{
+////				modal[0].style.display("none");
+////				modal.style.display = "block";
+//				$("#mymodal").modal('hide');
+//				console.log('eiei');
+//				 $.ajax({
+//						url : '/vtnreport/SendEmailNewSrvl',
+//						type : 'post',
+//						data : {
+//							yyyy : yyyy ,
+//							mm : mm,
+//							hospitalCode : hospitalCode ,
+//							report : report,
+//							term : term,
+//							printDate : cron_schedule
+//						},
+//						success : function(response) {
+//				
+//						}
+//					});
+//			}
+//			
+//		 $("#confirm").click(function () {
+//			 $.ajax({
+//					url : '/vtnreport/SendEmailNewSrvl',
+//					type : 'post',
+//					data : {
+//						yyyy : yyyy ,
+//						mm : mm,
+//						hospitalCode : hospitalCode ,
+//						report : report,
+//						term : term,
+//						printDate : cron_schedule
+//					},
+//					success : function(response) {
+//			
+//					}
+//				});
+//			  });
+//			  
+//		 }	  
+//	});
+	
+
 	
 //	$.ajax({
 //		url : '/vtnreport/SendEmailNewSrvl',
@@ -143,6 +222,67 @@ function setScheduleEmail(){
 //		},
 //		success : function(response) {
 //
+//		}
+//	});
+}
+
+function cancelScheduler(){
+	if(checkrun == 1){
+		$('#text').html("ต้องการยกเลิกการส่ง  Mail หรือไม่ ");
+		$('#modaltitle').html("Reset Schedule ");
+		$("#mymodal").modal();
+		}		
+		
+	 $("#confirm").click(function () {
+		 $.ajax({
+			 	url : '/vtnreport/SendEmailNewSrvl',
+				type : 'post',
+				data : {
+					yyyy : "0000" ,
+					mm : "0000",
+					report : "04",
+					set_reset : "reset"
+				},
+				success : function(response) {
+					$('#success').html("ยกเลิกการตั้งเวลาสำเร็จ");
+					$("#popupmodal").modal();
+//					$("#alertsuccess").alert("show");
+//					$("#alertsuccess").toggleClass('in out'); 
+				}
+			});
+		  });
+//	$.ajax({
+//		url : '/vtnreport/CheckSchedulerSrvl',
+//		type : 'get',
+//		 dataType: 'json',
+//		 success : function(data) {
+////			alert("1:"+(data[0]["Datetime"]));
+//			if((data[0]["Datetime"]) != 0){
+//			 var r = confirm("ต้องการยกเลิกการส่ง  Mail หรือไม่ ");
+//			  if (r == true) {
+//				  $.ajax({
+//						url : '/vtnreport/',
+//						type : 'post',
+//						data : {
+//							yyyy : yyyy ,
+//							mm : mm,
+//							hospitalCode : hospitalCode ,
+//							report : report,
+//							term : term,
+//							printDate : cron_schedule
+//						},
+//						success : function(response) {
+//				
+//						}
+//					});
+//			  } else {
+//
+//			  }
+//			}
+//			else{
+//			alert("ไม่มีงานที่กำลังทำงานในระบบ");
+//			}
+//			
 //		}
 //	});
 }
@@ -162,4 +302,5 @@ function getBatch(){
 		}
  }); 
 }
+
 

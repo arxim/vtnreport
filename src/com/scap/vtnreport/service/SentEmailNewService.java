@@ -42,6 +42,7 @@ import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
+import org.quartz.TriggerKey;
 import org.quartz.impl.StdSchedulerFactory;
 
 import com.scap.vtnreport.dao.GetDoctorDao;
@@ -55,9 +56,11 @@ public class SentEmailNewService implements Job{
 	
 	public static String CheckRunning = "";
 	public static Date getDatetrigger = null;  
+	public static TriggerKey gettriggerkey ;
+	public static JobKey getjobkey;
 	private String message;
-	private JobExecutionContext getcontext;
-	private Scheduler schedulerlocal;
+//	private JobExecutionContext getcontext;
+//	private Scheduler schedulerlocal;
 //	private Scheduler scheduler1;
 //	private Scheduler scheduler1 = new StdSchedulerFactory().getScheduler();
 	
@@ -375,6 +378,8 @@ public class SentEmailNewService implements Job{
 //				System.out.println("after:"+CheckRunning);
 			    scheduler1.start();
 				getDatetrigger = trigger1.getNextFireTime();
+				gettriggerkey = trigger1.getKey();
+				getjobkey = trigger1.getJobKey();
 				 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 				System.out.println("[{"+"Datetime"+":["+formatter.format(getDatetrigger)+"]}]");
 				
@@ -503,16 +508,20 @@ public class SentEmailNewService implements Job{
 	}
 		
 		public void stopService() throws Exception {
-//			schedulerlocal.shutdown();
+			Scheduler scheduler1 = new StdSchedulerFactory().getScheduler();
+//			scheduler1.deleteJob(getjobkey);
+//			scheduler1.unscheduleJob(gettriggerkey);
+			System.out.println(scheduler1.getCurrentlyExecutingJobs());
+			scheduler1.shutdown();
 	        CheckRunning = "0";     
-	        System.out.println("scheduler shutdown : "+schedulerlocal.isShutdown());
+	        System.out.println("scheduler shutdown : "+scheduler1.isShutdown());
 	}
 
 
 		public JSONArray isCheckRunning() throws SchedulerException, JSONException {
 			
 //			 SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy hh.mm"); 
-			 SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy hh.mm");
+			 SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy hh.mm aaa");
 			System.out.println(CheckRunning);
 			 String strDate = "";
 			if(CheckRunning.equals("1")) {  

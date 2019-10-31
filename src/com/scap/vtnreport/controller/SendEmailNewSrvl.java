@@ -81,6 +81,7 @@ public class SendEmailNewSrvl extends HttpServlet {
 		int year = Integer.parseInt(yyyy);
 		String to_date = JDate.getLastDayOfMonth(year, month);
 		String email = "";
+		String set_reset = request.getParameter("set_reset");
 		
 		// Get SubReport RealPath
 		ServletContext servletContext = request.getSession().getServletContext();
@@ -230,8 +231,12 @@ public class SendEmailNewSrvl extends HttpServlet {
 			ByteArrayOutputStream bosMergePdfs = null;
 			try {
 				
-				
+				if(set_reset.equals("set")) {
 				sentEmail.SetScheduleSendMail(printDate, hospitalCode, yyyy, mm, absoluteDiskPath, report,0);
+				}
+				else if (set_reset.equals("reset")) {
+				sentEmail.stopService();	
+				}
 				
 				/*ReadProperties prop4 = new ReadProperties();
 				Map<String, String>  propEmailData4 = prop4.getPropertiesData("servermail.properties", "sender_emails");
@@ -340,6 +345,7 @@ public class SendEmailNewSrvl extends HttpServlet {
 		}
 		out.print(message);
 	}
+	
 	
 	
 

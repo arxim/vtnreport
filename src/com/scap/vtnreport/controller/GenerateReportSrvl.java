@@ -8,8 +8,10 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -70,6 +72,7 @@ public class GenerateReportSrvl extends HttpServlet {
 //		SentEmailService sentEmail = new SentEmailService();
 		SentEmailNewService sentEmail = new SentEmailNewService();
 		ArrayList<HashMap<String, String>> arrData = null;
+		ArrayList<HashMap<String, String>> arrNumBatch = null;
 		String message = "";
 //		HttpSession session=request.getSession();
 		Map<String, Map<String, Object>> paramConditionNameReport = new HashMap<String, Map<String, Object>>();
@@ -93,8 +96,12 @@ public class GenerateReportSrvl extends HttpServlet {
 		int set_avg_format = 0;
 		String thaitext =  "";
 		String engtext = "";
+	
+		int num = 0;
+		float AMT_SUM = 0;
+
 		DecimalFormat formatter = new DecimalFormat("#,###");
-		SimpleDateFormat DateFormat = new SimpleDateFormat("MMMMM dd,yyyy");
+		SimpleDateFormat DateFormat = new SimpleDateFormat("MMMMM dd,yyyy" , Locale.US);
 		SimpleDateFormat datedb = new SimpleDateFormat("yyyyMMDD");
 		Date date = new Date();  
 //		String datetime = DateFormat.format(date); // currenttime
@@ -102,14 +109,19 @@ public class GenerateReportSrvl extends HttpServlet {
 		
 		String doctorCode = request.getParameter("hidDoctorCode");
 		String reportCode = request.getParameter("hidReport");
-		String startMM = request.getParameter("hidStartMM");
-		String startYYYY = request.getParameter("hidStartYYYY");
-		String endMM = request.getParameter("hidEndMM");
-		String endYYYY = request.getParameter("hidEndYYYY");
+		String datePeriod = request.getParameter("hidDate");
+//		String startMM = request.getParameter("hidStartMM");
+//		String startYYYY = request.getParameter("hidStartYYYY");
+//		String endMM = request.getParameter("hidEndMM");
+//		String endYYYY = request.getParameter("hidEndYYYY");
 		String MeetingName = request.getParameter("hidMeetingName");
 		String MeetingDate = request.getParameter("hidMeetingDate");
 		String Location = request.getParameter("hidtxtCounty").split(":")[0];
-
+		String ispreview = request.getParameter("hidPreview");
+		String DepartDate = request.getParameter("hidDepartDate");
+		String ArrivedDate = request.getParameter("hidArrivedDate");
+		String Email = request.getParameter("hidEmail");
+		
 //		String reportCode = request.getParameter("reportCode");
 //		String startMM = request.getParameter("startMM");
 //		String startYYYY = request.getParameter("startYYYY");
@@ -120,12 +132,28 @@ public class GenerateReportSrvl extends HttpServlet {
 //		String location = request.getParameter("location");
 //		String meetingDate = request.getParameter("meetingDate");
 		String type = request.getParameter("hidtype");
+		String DepArr = DepartDate.replace("/", " ")+" - "+(ArrivedDate.replace("/", " "));
 		
-		String change = startMM;
-		if(Integer.parseInt(startMM) > Integer.parseInt(endMM)) {
-			startMM = endMM;
-			endMM = change;
-		}
+		Date referenceDate = new Date();
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(referenceDate); 
+		c.add(Calendar.MONTH, -Integer.parseInt(datePeriod));
+		Date result = c.getTime();
+		SimpleDateFormat datestartend = new SimpleDateFormat("yyyy:MM",Locale.US);
+		int month = Integer.parseInt(datePeriod);
+		String startYYYY = datestartend.format(result).split(":")[0];
+		String startMM = datestartend.format(result).split(":")[1];
+		String endYYYY = datestartend.format(referenceDate).split(":")[0];
+		String endMM = datestartend.format(referenceDate).split(":")[1];
+		System.out.println(startYYYY);
+		System.out.println(startMM);
+		System.out.println(endYYYY);
+		System.out.println(endMM);
+//		String change = startMM;
+//		if(Integer.parseInt(startMM) > Integer.parseInt(endMM)) {
+//			startMM = endMM;
+//			endMM = change;
+//		}
 		
 		// Get SubReport RealPath
 		ServletContext servletContext = request.getSession().getServletContext();
@@ -143,33 +171,51 @@ public class GenerateReportSrvl extends HttpServlet {
 		Map<String, String>  propColumnHeader = prop.getPropertiesData("reportdetail.properties", "columnheader");
 		Map<String, String>  propForm = prop.getPropertiesData("reportdetail.properties", "form_eng");
 		Map<String, String>  propFooter = prop.getPropertiesData("reportdetail.properties", "footer");
+
 		
+		try {
+			arrNumBatch = vaDetail.getRunningNumandBatch();
+		} catch (Exception e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		try {
+			arrData = vaDetail.getGenerateReportNew(doctorCode, startYYYY, startMM, endMM, endYYYY);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(arrData.size() <= month) {
+			month = arrData.size();
+		}
+		
+//		count num month for divide average
+		for(int i=0;i< month;i++) {
+			AMT_SUM = AMT_SUM + Float.parseFloat(arrData.get(i).get("DR_NET_TAX_406_AMT"));
+			if(arrData.get(i).get("DR_NET_TAX_406_AMT") != "0") {
+				num++;
+			}
+			else if(arrData.get(i).get("DR_NET_TAX_406_AMT") != "0" && num >= 1) {
+				num++;
+			}
+		}
+//		
+		float getaverage = (AMT_SUM/num);
+		avg_format = String.format ("%.0f", getaverage);
+		set_avg_format = ((int)(Math.round( Integer.parseInt(avg_format) / 10.0) * 10));
+		
+		getrun = arrNumBatch.get(0).get("RUNNING_NUMBER");
+		numberAsString = String.format ("%03d", Integer.parseInt(getrun));
 		
 		switch(reportCode) {
 		case "01":
-//				ByteArrayOutputStream bos = null;
 
-			try {
-				arrData = vaDetail.getGenerateReport(doctorCode, startYYYY, startMM, endMM, endYYYY);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-				getrun = arrData.get(0).get("RUNNING_NUMBER");
-				numberAsString = String.format ("%03d", Integer.parseInt(getrun));
-//				String thaitext =  new ConvertToStringThai().getText(arrData.get(0).get("AVG_AMT"));
-//				String getavg = arrData.get(0).get("AVG_AMT");
-////				DecimalFormat df = new DecimalFormat("0.00##");
-////				String result = df.format(getavg);
-//				String avg_format = String.format ("%.0f", Float.parseFloat(getavg));
-				
-//				
-				getavg = arrData.get(0).get("AVG_AMT");
-				avg_format = String.format ("%.0f", Float.parseFloat(getavg));
-				set_avg_format = ((int)(Math.round( Integer.parseInt(avg_format) / 10.0) * 10));
+			
+
 				thaitext =  new ConvertToStringThai().getText(set_avg_format);
 				
-//				System.out.println(test1+numberAsString+thaitext+JDate.getDateDD_MM_YYY());
+				
 				paramCondition = new HashMap<String, Object>();
 				paramCondition.put("current_date", JDate.getDateDD_MM_YYY());
 				paramCondition.put("Running_Number", numberAsString);
@@ -180,42 +226,25 @@ public class GenerateReportSrvl extends HttpServlet {
 				paramCondition.put("startYYYY", startYYYY);
 				paramCondition.put("endMM", endMM);
 				paramCondition.put("endYYYY", endYYYY);
-//				paramCondition.put("SUBREPORT_DIR", absoluteDiskPath);
 				paramConditionNameReport.put(absoluteDiskPath+"IncomeCerificate.jasper", paramCondition);
 				if(type.equals("1")) {
 				genReport.viewPDFReport(paramConditionNameReport, "", true , response);
 				}
-				else {
+				else if(type.equals("2")) {
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
 					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+				}
+				else {
+					bos = genReport.generateReport(paramConditionNameReport,"", true);	
+					message  = sentEmail.SendSingleMailPdfFile(bos, Email, doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
 				}
 				
 			break;
 			
 		case "02":
-//			ByteArrayOutputStream bos = null;
 
-			try {
-				arrData = vaDetail.getGenerateReport(doctorCode, startYYYY, startMM, endMM, endYYYY);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-				getrun = arrData.get(0).get("RUNNING_NUMBER");
-				numberAsString = String.format ("%03d", Integer.parseInt(getrun));
-//				String thaitext =  new ConvertToStringThai().getText(arrData.get(0).get("AVG_AMT"));
-//				String getavg = arrData.get(0).get("AVG_AMT");
-////				DecimalFormat df = new DecimalFormat("0.00##");
-////				String result = df.format(getavg);
-//				String avg_format = String.format ("%.0f", Float.parseFloat(getavg));
-				
-//				
-				getavg = arrData.get(0).get("AVG_AMT");
-				avg_format = String.format ("%.0f", Float.parseFloat(getavg));
-				set_avg_format = ((int)(Math.round( Integer.parseInt(avg_format) / 10.0) * 10));
 				thaitext =  new ConvertToStringThai().getText(set_avg_format);
 				
-//				System.out.println(test1+numberAsString+thaitext+JDate.getDateDD_MM_YYY());
 				paramCondition = new HashMap<String, Object>();
 				paramCondition.put("current_date", JDate.getDateDD_MM_YYY());
 				paramCondition.put("Running_Number", numberAsString);
@@ -226,38 +255,26 @@ public class GenerateReportSrvl extends HttpServlet {
 				paramCondition.put("startYYYY", startYYYY);
 				paramCondition.put("endMM", endMM);
 				paramCondition.put("endYYYY", endYYYY);
-//				paramCondition.put("SUBREPORT_DIR", absoluteDiskPath);
 				paramConditionNameReport.put(absoluteDiskPath+"IncomeCerificate2.jasper", paramCondition);
 				if(type.equals("1")) {
 					genReport.viewPDFReport(paramConditionNameReport, "", true , response);
 					}
-					else {
+					else if(type.equals("2")) {
 						bos = genReport.generateReport(paramConditionNameReport,"", true);	
 						message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+					}
+					else {
+						bos = genReport.generateReport(paramConditionNameReport,"", true);	
+						message  = sentEmail.SendSingleMailPdfFile(bos, Email, doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
 					}
 					
 			break;
 			
 		case "03":
-//			ByteArrayOutputStream bos = null;
-		
-	
-			try {
-				arrData = vaDetail.getGenerateReportEng(doctorCode, startYYYY, startMM, endMM, endYYYY);
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 
-			getrun = arrData.get(0).get("RUNNING_NUMBER");
-			numberAsString = String.format ("%03d", Integer.parseInt(getrun));
-		
-			getavg = arrData.get(0).get("AVG_AMT");
-			avg_format = String.format ("%.0f", Float.parseFloat(getavg));
-			set_avg_format = ((int)(Math.round( Integer.parseInt(avg_format) / 10.0) * 10));
 			engtext = ConvertToString.convert(set_avg_format);
 			
-//			DateFormat.format(arrData.get(0).get("FROM_DATE"))
+
 			try {
 				datetimeEng = DateFormat.format(datedb.parse(arrData.get(0).get("FROM_DATE")));
 			} catch (ParseException e) {
@@ -266,7 +283,7 @@ public class GenerateReportSrvl extends HttpServlet {
 			}
 
 			title = propTitle.get("title_1")+"\n"+propTitle.get("title_2")+"\n"+propTitle.get("title_3")+"\n"+propTitle.get("title_4")+"\n"+propTitle.get("title_5");
-			header = propHeader.get("header_1")+"\n"+propHeader.get("header_2")+numberAsString+"/"+arrData.get(0).get("batch_date").substring(2, 4);
+			header = propHeader.get("header_1")+"\n"+propHeader.get("header_2")+numberAsString+"/"+arrNumBatch.get(0).get("batch_date").substring(2, 4);
 			columnheader = propColumnHeader.get("columnheader_1");
 			form = " "+propForm.get("form_eng_1")+datetimeEng+" "+propForm.get("form_eng_2")
 				   +arrData.get(0).get("POSITION")+" "+propForm.get("form_eng_3")+arrData.get(0).get("DESCRIPTION")+" "+propForm.get("form_eng_4")+formatter.format(set_avg_format)+" ("+engtext+" Bhat Only).";
@@ -277,20 +294,7 @@ public class GenerateReportSrvl extends HttpServlet {
 			footer = propFooter.get("footer_1")+"\n"+propFooter.get("footer_2")+"\n"+propFooter.get("footer_3");
 			
 			
-//			title = "zzz";
-//			header = "qwe";
-//			columnheader = "asxcvv";
-//			form = "sfa";
-//			form2 = "azz";
-//			form3 = "aw";
-//			columnfooter = "ss";
-//			footer = "test";
-			
 			paramCondition = new HashMap<String, Object>();
-//			paramCondition.put("current_date", JDate.getDateDD_MM_YYY());
-//			paramCondition.put("Running_Number", numberAsString);
-//			paramCondition.put("AVG_Amount", formatter.format(Double.parseDouble(avg_format)));
-//			paramCondition.put("thai_form", thaitext);
 			paramCondition.put("title", title);
 			paramCondition.put("header", header);
 			paramCondition.put("currenttime", datetime);
@@ -301,36 +305,24 @@ public class GenerateReportSrvl extends HttpServlet {
 			paramCondition.put("columnfooter", columnfooter);
 			paramCondition.put("footer", footer);
 			paramCondition.put("doctor_name", arrData.get(0).get("NAME_ENG"));
-//			paramCondition.put("SUBREPORT_DIR", absoluteDiskPath);
 			paramConditionNameReport.put(absoluteDiskPath+"IncomeCerificateEng.jasper", paramCondition);
 			if(type.equals("1")) {
-			genReport.viewPDFReport(paramConditionNameReport, "", true , response);
-			}
-			else {
-				bos = genReport.generateReport(paramConditionNameReport,"", true);	
-				message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
-			}
+				genReport.viewPDFReport(paramConditionNameReport, "", true , response);
+				}
+				else if(type.equals("2")) {
+					bos = genReport.generateReport(paramConditionNameReport,"", true);	
+					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+				}
+				else {
+					bos = genReport.generateReport(paramConditionNameReport,"", true);	
+					message  = sentEmail.SendSingleMailPdfFile(bos, Email, doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+				}
 			
 			break;
 		case "04" :
 
-
-			try {
-				arrData = vaDetail.getGenerateReportEng(doctorCode, startYYYY, startMM, endMM, endYYYY);
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-
-			getrun = arrData.get(0).get("RUNNING_NUMBER");
-			numberAsString = String.format ("%03d", Integer.parseInt(getrun));
-		
-			getavg = arrData.get(0).get("AVG_AMT");
-			avg_format = String.format ("%.0f", Float.parseFloat(getavg));
-			set_avg_format = ((int)(Math.round( Integer.parseInt(avg_format) / 10.0) * 10));
 			engtext = ConvertToString.convert(set_avg_format);
 			
-//			DateFormat.format(arrData.get(0).get("FROM_DATE"))
 			try {
 				datetimeEng = DateFormat.format(datedb.parse(arrData.get(0).get("FROM_DATE")));
 			} catch (ParseException e) {
@@ -339,12 +331,12 @@ public class GenerateReportSrvl extends HttpServlet {
 			}
 
 			title = propTitle.get("title_1")+"\n"+propTitle.get("title_2")+"\n"+propTitle.get("title_3")+"\n"+propTitle.get("title_4")+"\n"+propTitle.get("title_5");
-			header = propHeader.get("header_1")+"\n"+propHeader.get("header_2")+numberAsString+"/"+arrData.get(0).get("batch_date").substring(2, 4);
+			header = propHeader.get("header_1")+"\n"+propHeader.get("header_2")+numberAsString+"/"+arrNumBatch.get(0).get("batch_date").substring(2, 4);
 			columnheader = propColumnHeader.get("columnheader_1");
 			form = " "+propForm.get("form_eng_1")+datetimeEng+" "+propForm.get("form_eng_2")
 				   +arrData.get(0).get("POSITION")+" "+propForm.get("form_eng_3")+arrData.get(0).get("DESCRIPTION")+" "+propForm.get("form_eng_4")+formatter.format(set_avg_format)+" ("+engtext+" Bhat Only).";
 //			form2 = propForm.get("form_eng_8");
-			form2 = arrData.get(0).get("NAME_ENG")+" has a trip to "+Location+propForm.get("form_eng_meet_1")+MeetingDate+propForm.get("form_eng_7");
+			form2 = arrData.get(0).get("NAME_ENG")+" has a trip to "+Location+propForm.get("form_eng_meet_1")+DepArr+propForm.get("form_eng_7");
 			form3 = propForm.get("form_eng_8");
 			columnfooter = propForm.get("form_eng_9")+"\n"+propForm.get("form_eng_10");
 			footer = propFooter.get("footer_1")+"\n"+propFooter.get("footer_2")+"\n"+propFooter.get("footer_3");
@@ -352,10 +344,6 @@ public class GenerateReportSrvl extends HttpServlet {
 		
 			
 			paramCondition = new HashMap<String, Object>();
-//			paramCondition.put("current_date", JDate.getDateDD_MM_YYY());
-//			paramCondition.put("Running_Number", numberAsString);
-//			paramCondition.put("AVG_Amount", formatter.format(Double.parseDouble(avg_format)));
-//			paramCondition.put("thai_form", thaitext);
 			paramCondition.put("title", title);
 			paramCondition.put("header", header);
 			paramCondition.put("currenttime", datetime);
@@ -366,33 +354,22 @@ public class GenerateReportSrvl extends HttpServlet {
 			paramCondition.put("columnfooter", columnfooter);
 			paramCondition.put("footer", footer);
 			paramCondition.put("doctor_name", arrData.get(0).get("NAME_ENG"));
-//			paramCondition.put("SUBREPORT_DIR", absoluteDiskPath);
 			paramConditionNameReport.put(absoluteDiskPath+"IncomeCerificateEng.jasper", paramCondition);
 			if(type.equals("1")) {
-			genReport.viewPDFReport(paramConditionNameReport, "", true , response);
-			}
-			else {
-				bos = genReport.generateReport(paramConditionNameReport,"", true);	
-				message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
-			}
+				genReport.viewPDFReport(paramConditionNameReport, "", true , response);
+				}
+				else if(type.equals("2")) {
+					bos = genReport.generateReport(paramConditionNameReport,"", true);	
+					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+				}
+				else {
+					bos = genReport.generateReport(paramConditionNameReport,"", true);	
+					message  = sentEmail.SendSingleMailPdfFile(bos, Email, doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+				}
 			break;
 		case "06" : 
-			try {
-				arrData = vaDetail.getGenerateReportEng(doctorCode, startYYYY, startMM, endMM, endYYYY);
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-
-			getrun = arrData.get(0).get("RUNNING_NUMBER");
-			numberAsString = String.format ("%03d", Integer.parseInt(getrun));
-		
-			getavg = arrData.get(0).get("AVG_AMT");
-			avg_format = String.format ("%.0f", Float.parseFloat(getavg));
-			set_avg_format = ((int)(Math.round( Integer.parseInt(avg_format) / 10.0) * 10));
 			engtext = ConvertToString.convert(set_avg_format);
 			
-//			DateFormat.format(arrData.get(0).get("FROM_DATE"))
 			try {
 				datetimeEng = DateFormat.format(datedb.parse(arrData.get(0).get("FROM_DATE")));
 			} catch (ParseException e) {
@@ -408,12 +385,12 @@ public class GenerateReportSrvl extends HttpServlet {
 			}
 
 			title = propTitle.get("title_1")+"\n"+propTitle.get("title_2")+"\n"+propTitle.get("title_3")+"\n"+propTitle.get("title_4")+"\n"+propTitle.get("title_5");
-			header = propHeader.get("header_1")+"\n"+propHeader.get("header_2")+numberAsString+"/"+arrData.get(0).get("batch_date").substring(2, 4);
+			header = propHeader.get("header_1")+"\n"+propHeader.get("header_2")+numberAsString+"/"+arrNumBatch.get(0).get("batch_date").substring(2, 4);
 			columnheader = propColumnHeader.get("columnheader_1");
 			form = " "+propForm.get("form_eng_1")+datetimeEng+" "+propForm.get("form_eng_2")
 				   +arrData.get(0).get("POSITION")+" "+propForm.get("form_eng_3")+arrData.get(0).get("DESCRIPTION")+" "+propForm.get("form_eng_4")+formatter.format(set_avg_format)+" ("+engtext+" Bhat Only).";
 //			form2 = propForm.get("form_eng_8");
-			form2 = arrData.get(0).get("NAME_ENG")+" has a meeting in "+MeetingName+Location+propForm.get("form_eng_meet_1")+MeetingDate+propForm.get("form_eng_7");
+			form2 = arrData.get(0).get("NAME_ENG")+" has a meeting in "+MeetingName+Location+propForm.get("form_eng_meet_1")+DepArr+propForm.get("form_eng_7");
 			form3 = propForm.get("form_eng_8");
 			columnfooter = propForm.get("form_eng_9")+"\n"+propForm.get("form_eng_10");
 			footer = propFooter.get("footer_1")+"\n"+propFooter.get("footer_2")+"\n"+propFooter.get("footer_3");
@@ -421,10 +398,6 @@ public class GenerateReportSrvl extends HttpServlet {
 		
 			
 			paramCondition = new HashMap<String, Object>();
-//			paramCondition.put("current_date", JDate.getDateDD_MM_YYY());
-//			paramCondition.put("Running_Number", numberAsString);
-//			paramCondition.put("AVG_Amount", formatter.format(Double.parseDouble(avg_format)));
-//			paramCondition.put("thai_form", thaitext);
 			paramCondition.put("title", title);
 			paramCondition.put("header", header);
 			paramCondition.put("currenttime", datetime);
@@ -435,34 +408,24 @@ public class GenerateReportSrvl extends HttpServlet {
 			paramCondition.put("columnfooter", columnfooter);
 			paramCondition.put("footer", footer);
 			paramCondition.put("doctor_name", arrData.get(0).get("NAME_ENG"));
-//			paramCondition.put("SUBREPORT_DIR", absoluteDiskPath);
 			paramConditionNameReport.put(absoluteDiskPath+"IncomeCerificateEng.jasper", paramCondition);
 			if(type.equals("1")) {
-			genReport.viewPDFReport(paramConditionNameReport, "", true , response);
-			}
-			else {
-				bos = genReport.generateReport(paramConditionNameReport,"", true);	
-				message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
-			}
+				genReport.viewPDFReport(paramConditionNameReport, "", true , response);
+				}
+				else if(type.equals("2")) {
+					bos = genReport.generateReport(paramConditionNameReport,"", true);	
+					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+				}
+				else {
+					bos = genReport.generateReport(paramConditionNameReport,"", true);	
+					message  = sentEmail.SendSingleMailPdfFile(bos, Email, doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+				}
 			break;
 			
 		case "07" :
-			try {
-				arrData = vaDetail.getGenerateReportEng(doctorCode, startYYYY, startMM, endMM, endYYYY);
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 
-			getrun = arrData.get(0).get("RUNNING_NUMBER");
-			numberAsString = String.format ("%03d", Integer.parseInt(getrun));
-		
-			getavg = arrData.get(0).get("AVG_AMT");
-			avg_format = String.format ("%.0f", Float.parseFloat(getavg));
-			set_avg_format = ((int)(Math.round( Integer.parseInt(avg_format) / 10.0) * 10));
 			engtext = ConvertToString.convert(set_avg_format);
 			
-//			DateFormat.format(arrData.get(0).get("FROM_DATE"))
 			try {
 				datetimeEng = DateFormat.format(datedb.parse(arrData.get(0).get("FROM_DATE")));
 			} catch (ParseException e) {
@@ -478,12 +441,12 @@ public class GenerateReportSrvl extends HttpServlet {
 			}
 			
 			title = propTitle.get("title_1")+"\n"+propTitle.get("title_2")+"\n"+propTitle.get("title_3")+"\n"+propTitle.get("title_4")+"\n"+propTitle.get("title_5");
-			header = propHeader.get("header_1")+"\n"+propHeader.get("header_2")+numberAsString+"/"+arrData.get(0).get("batch_date").substring(2, 4);
+			header = propHeader.get("header_1")+"\n"+propHeader.get("header_2")+numberAsString+"/"+arrNumBatch.get(0).get("batch_date").substring(2, 4);
 			columnheader = propColumnHeader.get("columnheader_1");
 			form = " "+propForm.get("form_eng_1")+datetimeEng+" "+propForm.get("form_eng_2")
 				   +arrData.get(0).get("POSITION")+" "+propForm.get("form_eng_3")+arrData.get(0).get("DESCRIPTION")+" "+propForm.get("form_eng_4")+formatter.format(set_avg_format)+" ("+engtext+" Bhat Only).";
 //			form2 = propForm.get("form_eng_8");
-			form2 = arrData.get(0).get("NAME_ENG")+" is going to attend "+MeetingName+Location+propForm.get("form_eng_meet_1")+MeetingDate+propForm.get("form_eng_7");
+			form2 = arrData.get(0).get("NAME_ENG")+" is going to attend "+MeetingName+Location+propForm.get("form_eng_meet_1")+DepArr+propForm.get("form_eng_7");
 			form3 = propForm.get("form_eng_8");
 			columnfooter = propForm.get("form_eng_9")+"\n"+propForm.get("form_eng_10");
 			footer = propFooter.get("footer_1")+"\n"+propFooter.get("footer_2")+"\n"+propFooter.get("footer_3");
@@ -491,10 +454,6 @@ public class GenerateReportSrvl extends HttpServlet {
 		
 			
 			paramCondition = new HashMap<String, Object>();
-//			paramCondition.put("current_date", JDate.getDateDD_MM_YYY());
-//			paramCondition.put("Running_Number", numberAsString);
-//			paramCondition.put("AVG_Amount", formatter.format(Double.parseDouble(avg_format)));
-//			paramCondition.put("thai_form", thaitext);
 			paramCondition.put("title", title);
 			paramCondition.put("header", header);
 			paramCondition.put("currenttime", datetime);
@@ -508,16 +467,25 @@ public class GenerateReportSrvl extends HttpServlet {
 //			paramCondition.put("SUBREPORT_DIR", absoluteDiskPath);
 			paramConditionNameReport.put(absoluteDiskPath+"IncomeCerificateEng.jasper", paramCondition);
 			if(type.equals("1")) {
-			genReport.viewPDFReport(paramConditionNameReport, "", true , response);
-			}
-			else {
-				bos = genReport.generateReport(paramConditionNameReport,"", true);	
-				message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
-			}
+				genReport.viewPDFReport(paramConditionNameReport, "", true , response);
+				}
+				else if(type.equals("2")) {
+					bos = genReport.generateReport(paramConditionNameReport,"", true);	
+					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+				}
+				else {
+					bos = genReport.generateReport(paramConditionNameReport,"", true);	
+					message  = sentEmail.SendSingleMailPdfFile(bos, Email, doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+				}
 			break;
 		}
-//		System.out.print("hello");
-		vaDetail.runningNumber();
+//		System.out.print("hello");	
+		
+		System.out.println(!ispreview.equals("true"));
+		if(ispreview.equals("false")) {
+			vaDetail.runningNumber();
+			System.out.println("1");
+			}
 	}
 
 }

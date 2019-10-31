@@ -43,7 +43,7 @@
 						</p>
 					</div>
 					<div class="col-xs-6 col-sm-3">
-						<select id="dwlReport" class="form-control">
+						<select id="datePeriod" class="form-control">
 							<option value="3">3 Month</option>
 							<option value="6">6 Month</option>
 							<option value="12">12 Month</option>
@@ -130,7 +130,6 @@
 					</div>
 					<div class="col-xs-6 col-sm-3" id="">
 							<div class="input-group">
-								<input id="hidDepartDate" name="hidDepartDate" type="hidden" /> 
 								<input type="text" id="txtDepartDate" name="txtDepartDate" class="form-control datePicker" placeholder="dd/mm/yyyy" /> 
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-calendar"></span>
@@ -144,7 +143,6 @@
 					</div>
 					<div class="col-xs-6 col-sm-3" id="">
 							<div class="input-group">
-								<input id="hidArrivedDate" name="hidArrivedDate" type="hidden" /> 
 								<input type="text" id="txtArrivedDate" name="txtArrivedDate" class="form-control datePicker" placeholder="dd/mm/yyyy" /> 
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-calendar"></span>
@@ -245,16 +243,21 @@
 		<form id="frmReport" name="frmReport" action="/vtnreport/GenerateReportSrvl" method="post" target="_blank">
 
 				<input type="hidden" id="hidtype" name="hidtype" />
-				<input type="hidden" id="hidStartMM" name="hidStartMM" />
-				<input type="hidden" id="hidEndMM" name="hidEndMM" />
+				<input type="hidden" id="hidDate" name="hidDate" />
+				<!-- <input type="hidden" id="hidEndMM" name="hidEndMM" />
 				<input type="hidden" id="hidStartYYYY" name="hidStartYYYY" />
-				<input type="hidden" id="hidEndYYYY" name="hidEndYYYY" />
+				<input type="hidden" id="hidEndYYYY" name="hidEndYYYY" /> -->
 				<input type="hidden" id="hidHospitalCode" name="hidHospitalCode" value="<%= session.getAttribute("hospitalcode")%>" />
 				<input type="hidden" id="hidDoctorCode" name="hidDoctorCode" />
 				<input type="hidden" id="hidReport" name="hidReport" />
 				<input type="hidden" id="hidMeetingName" name="hidMeetingName" />
 				<input type="hidden" id="hidMeetingDate" name="hidMeetingDate" />
 				<input type="hidden" id="hidtxtCounty" name="hidtxtCounty" />
+				<input type="hidden" id="hidPreview" name="hidPreview" />
+				<input id="hidDepartDate" name="hidDepartDate" type="hidden" /> 
+				<input id="hidArrivedDate" name="hidArrivedDate" type="hidden" /> 
+				<input id="hidEmail" name="hidEmail" type="hidden" /> 
+
 			</form>
 			
 		<jsp:include page="../../../resources/template/modalMessage.jsp"></jsp:include>
