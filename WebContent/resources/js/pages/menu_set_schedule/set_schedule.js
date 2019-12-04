@@ -47,41 +47,88 @@ function waitIcon(current_row_wait){
 	table.draw();
 }
 
-var checkrun = 0;
 
-function checkrunning(){
+function checkrunning(type){
 	$.ajax({
 		url : '/vtnreport/CheckSchedulerSrvl',
 		type : 'get',
 		 dataType: 'json',
 		 success : function(data) {
-			if((data[0]["Datetime"]) != 0){
-//				document.getElementById("text").innerHTML = "ระบบกำลังทำงาน  จะทำการส่ง Mailในเวลาเดิม "+(data[0]["Datetime"]+" ต้องการเปลี่ยนแปลงเวลาเดิมหรือไม่");
-				$('#text').html("ระบบกำลังทำงาน  จะทำการส่ง  Mail ในเวลาเดิม "+(data[0]["Datetime"]+" ต้องการเปลี่ยนแปลงเวลาเดิมหรือไม่"));
-				$("#btnCancelEmailSchedule").prop( "disabled", false );
-				checkrun = 1;
-			}
-			else{
-				$("#btnCancelEmailSchedule").prop( "disabled", true );
-				checkrun = 0;
-			}
+			 if(type=='c'){
+				 if((data[0]["Datetime"]) != 0){
+					 $('#success').html("ขณะนี้ระบบถูกกำหนดวันและเวลาในการส่ง  Mail เป็นวัน   "+(data[0]["Datetime"]+" "));
+					 $("#popupmodal").modal();
+					 $("#btnCancelEmailSchedule").prop( "disabled", false );
+				 }else{
+					 $('#success').html("ขณะนี้ระบบยังไม่ถูกกำหนดวันและเวลาในการส่ง  Mail");
+					 $("#popupmodal").modal();
+				 }
+					
+			 }else{
+				 if((data[0]["Datetime"]) != 0){
+					 $('#text').html("ขณะนี้ระบบถูกกำหนดวันและเวลาในการส่ง  Mail เป็นวัน   "+(data[0]["Datetime"]+"  ต้องการเปลี่ยนวันและเวลาส่ง  Mail หรือไม่ ?"));
+					 $("#mymodal").modal();
+				 }else{
+					 setScheduleEmail();
+					 $("#btnCancelEmailSchedule").prop( "disabled", true );
+				 }
+				 
+			 }
+			 
+			 
+			 
+				/*if((data[0]["Datetime"]) != 0){
+					alert("eiei1"+data);
+					if(type=='c'){
+						$('#success').html("ขณะนี้ระบบถูกกำหนดวันและเวลาในการส่ง  Mail เป็นวัน   "+(data[0]["Datetime"]+" "));
+						$("#popupmodal").modal();
+						$("#btnCancelEmailSchedule").prop( "disabled", false );
+					}else{
+						$('#text').html("ขณะนี้ระบบถูกกำหนดวันและเวลาในการส่ง  Mail เป็นวัน   "+(data[0]["Datetime"]+"  ต้องการเปลี่ยนวันและเวลาส่ง  Mail หรือไม่ ?"));
+						$("#mymodal").modal();
+					}
+					
+				}else{
+					alert("eiei2"+data);
+					if(type='s'){
+						if($("#txtPrintDate").val()==""){
+							$('#success').html(" กรุณาเลือก Date Time ก่อน  set schedule ");
+							$("#popupmodal").modal();
+						}else{
+							setScheduleEmail();
+						}
+					}else{
+						$('#success').html("ขณะนี้ระบบยังไม่ถูกกำหนดวันและเวลาในการส่ง  Mail");
+						$("#popupmodal").modal();
+						$("#btnCancelEmailSchedule").prop( "disabled", true );
+					}
+					
+				}*/
+			
+			
 }
 	});
 	
 }
 
 function checkmodal(){
-			if(checkrun == 1){
-			  $("#mymodal").modal();
-			}
-			else{
-				$("#mymodal").modal('hide');
-				setScheduleEmail();
-			}
-			
-		 $("#confirm").click(function () {
-			 setScheduleEmail();
-			  });
+	/*if(dateTime==""){
+		$('#success').html(" กรุณาเลือก Date Time ก่อน  set schedule ");
+		$("#popupmodal").modal();
+	}else{*/
+/*		if (checkrun == 1) {
+			$("#mymodal").modal();
+		} else {
+			$("#mymodal").modal('hide');
+			setScheduleEmail();
+		}
+*/
+	if($("#txtPrintDate").val()==""){
+		$('#success').html(" กรุณาเลือก Date Time ก่อน  set schedule ");
+		$("#popupmodal").modal();
+	}else{
+		checkrunning('s');
+	}
 }
 
 // Send Email
@@ -125,7 +172,7 @@ function setScheduleEmail(){
 		success : function(response) {
 			$('#success').html("กำหนดเวลาเสร็จสิ้น");
 			$("#popupmodal").modal();
-			$("#btnCancelEmailSchedule").prop( "disabled", true );
+			$("#btnCancelEmailSchedule").prop( "disabled", false );
 //			$("#alertsuccess").alert("show");
 //			$("#alertsuccess").toggleClass('in out'); 
 		}
@@ -227,11 +274,11 @@ function setScheduleEmail(){
 }
 
 function cancelScheduler(){
-	if(checkrun == 1){
+	//if(checkrun == 1){
 		$('#text').html("ต้องการยกเลิกการส่ง  Mail หรือไม่ ");
 		$('#modaltitle').html("Reset Schedule ");
 		$("#mymodal").modal();
-		}		
+	//	}		
 		
 	 $("#confirm").click(function () {
 		 $.ajax({
@@ -244,8 +291,11 @@ function cancelScheduler(){
 					set_reset : "reset"
 				},
 				success : function(response) {
+					$("#txtPrintDate").prop('readonly', false);
+					$("#txtPrintDate").val("");
 					$('#success').html("ยกเลิกการตั้งเวลาสำเร็จ");
 					$("#popupmodal").modal();
+					
 //					$("#alertsuccess").alert("show");
 //					$("#alertsuccess").toggleClass('in out'); 
 				}

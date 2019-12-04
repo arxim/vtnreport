@@ -128,13 +128,14 @@ public ArrayList<HashMap<String, String>> getGenerateReportNew(String doctorCode
 		PreparedStatement ps = null;
 		ArrayList<HashMap<String, String>> data = new ArrayList<HashMap<String, String>>();
 			
-		final String SQL ="SELECT COMPANY_NAME,DOCTOR_PROFILE.CODE,NAME_THAI,NAME_ENG,POSITION,DESCRIPTION,FROM_DATE,DR_NET_TAX_406_AMT "
+		final String SQL ="SELECT COMPANY_NAME,DOCTOR_PROFILE.CODE,NAME_THAI,NAME_ENG,ISNULL(PO.DESCRIPTION_ENG,'') AS POSITION,DESCRIPTION,FROM_DATE,DR_NET_TAX_406_AMT "
 				+ "FROM PAYMENT_MONTHLY "
 				+ "LEFT JOIN DOCTOR_PROFILE ON DOCTOR_PROFILE.CODE = PAYMENT_MONTHLY.DOCTOR_CODE "
 				+ "LEFT JOIN HOSPITAL ON HOSPITAL.CODE = DOCTOR_PROFILE.HOSPITAL_CODE "
 				+ "LEFT JOIN DEPARTMENT ON DEPARTMENT.CODE = DOCTOR_PROFILE.DEPARTMENT_CODE "
+				+ "LEFT JOIN MST_POSITION PO ON PO.POSITION_CODE = DOCTOR_PROFILE.POSITION "
 				+ "WHERE PAYMENT_MONTHLY.YYYY+PAYMENT_MONTHLY.MM BETWEEN ? AND ? AND DOCTOR_PROFILE.CODE = ? "
-				+ "group by DOCTOR_PROFILE.CODE, COMPANY_NAME,NAME_THAI,NAME_ENG,POSITION,DESCRIPTION,FROM_DATE,DR_NET_TAX_406_AMT";
+				+ "group by DOCTOR_PROFILE.CODE, COMPANY_NAME,NAME_THAI,NAME_ENG,PO.DESCRIPTION_ENG,DESCRIPTION,FROM_DATE,DR_NET_TAX_406_AMT";
 		
 		try (Connection conn = DbConnector.getDBConnection()) {
 			ps = conn.prepareStatement(SQL);
@@ -142,6 +143,7 @@ public ArrayList<HashMap<String, String>> getGenerateReportNew(String doctorCode
 			ps.setString(2, endyyyy+endmm);
 			ps.setString(3, doctorCode);
 			data = DbConnector.convertArrayListHashMap(ps.executeQuery());
+			System.out.println(SQL);
 			System.out.println(data);
 		} catch (Exception e) {
 			throw e;

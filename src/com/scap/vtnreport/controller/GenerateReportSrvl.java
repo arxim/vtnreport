@@ -121,6 +121,8 @@ public class GenerateReportSrvl extends HttpServlet {
 		String DepartDate = request.getParameter("hidDepartDate");
 		String ArrivedDate = request.getParameter("hidArrivedDate");
 		String Email = request.getParameter("hidEmail");
+		String Subjmail = request.getParameter("subj_mail");
+		
 		
 //		String reportCode = request.getParameter("reportCode");
 //		String startMM = request.getParameter("startMM");
@@ -201,7 +203,13 @@ public class GenerateReportSrvl extends HttpServlet {
 			}
 		}
 //		
-		float getaverage = (AMT_SUM/num);
+		float getaverage = 0;
+		if(num<=0) {
+			 getaverage = 0;
+		}else{
+			 getaverage = (AMT_SUM/num);
+		}
+		
 		avg_format = String.format ("%.0f", getaverage);
 		set_avg_format = ((int)(Math.round( Integer.parseInt(avg_format) / 10.0) * 10));
 		
@@ -226,17 +234,17 @@ public class GenerateReportSrvl extends HttpServlet {
 				paramCondition.put("startYYYY", startYYYY);
 				paramCondition.put("endMM", endMM);
 				paramCondition.put("endYYYY", endYYYY);
+				paramCondition.put("datePeriod", datePeriod);
 				paramConditionNameReport.put(absoluteDiskPath+"IncomeCerificate.jasper", paramCondition);
 				if(type.equals("1")) {
 				genReport.viewPDFReport(paramConditionNameReport, "", true , response);
 				}
 				else if(type.equals("2")) {
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
-					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
-				}
-				else {
+					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, Subjmail,propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+				}else {
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
-					message  = sentEmail.SendSingleMailPdfFile(bos, Email, doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+					message  = sentEmail.SendSingleMailPdfFile(bos, Email, doctorCode, Subjmail,propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
 				}
 				
 			break;
@@ -255,17 +263,18 @@ public class GenerateReportSrvl extends HttpServlet {
 				paramCondition.put("startYYYY", startYYYY);
 				paramCondition.put("endMM", endMM);
 				paramCondition.put("endYYYY", endYYYY);
+				paramCondition.put("datePeriod", datePeriod);
 				paramConditionNameReport.put(absoluteDiskPath+"IncomeCerificate2.jasper", paramCondition);
 				if(type.equals("1")) {
 					genReport.viewPDFReport(paramConditionNameReport, "", true , response);
 					}
 					else if(type.equals("2")) {
 						bos = genReport.generateReport(paramConditionNameReport,"", true);	
-						message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+						message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, Subjmail,propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
 					}
 					else {
 						bos = genReport.generateReport(paramConditionNameReport,"", true);	
-						message  = sentEmail.SendSingleMailPdfFile(bos, Email, doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+						message  = sentEmail.SendSingleMailPdfFile(bos, Email, doctorCode, Subjmail,propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
 					}
 					
 			break;
@@ -274,22 +283,20 @@ public class GenerateReportSrvl extends HttpServlet {
 
 			engtext = ConvertToString.convert(set_avg_format);
 			
-
+			if(arrData.size()>0) {
 			try {
 				datetimeEng = DateFormat.format(datedb.parse(arrData.get(0).get("FROM_DATE")));
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
+				System.out.println(e);
 				e.printStackTrace();
 			}
-
+			
 			title = propTitle.get("title_1")+"\n"+propTitle.get("title_2")+"\n"+propTitle.get("title_3")+"\n"+propTitle.get("title_4")+"\n"+propTitle.get("title_5");
 			header = propHeader.get("header_1")+"\n"+propHeader.get("header_2")+numberAsString+"/"+arrNumBatch.get(0).get("batch_date").substring(2, 4);
 			columnheader = propColumnHeader.get("columnheader_1");
 			form = " "+propForm.get("form_eng_1")+datetimeEng+" "+propForm.get("form_eng_2")
 				   +arrData.get(0).get("POSITION")+" "+propForm.get("form_eng_3")+arrData.get(0).get("DESCRIPTION")+" "+propForm.get("form_eng_4")+formatter.format(set_avg_format)+" ("+engtext+" Bhat Only).";
 			form2 = propForm.get("form_eng_8");
-//			form2 = arrData.get(0).get("NAME_ENG")+" "+propForm.get("form_eng_meet_1")+propForm.get("form_eng_meet_2");
-//			form3 = propForm.get("form_eng_8");
 			columnfooter = propForm.get("form_eng_9")+"\n"+propForm.get("form_eng_10");
 			footer = propFooter.get("footer_1")+"\n"+propFooter.get("footer_2")+"\n"+propFooter.get("footer_3");
 			
@@ -311,22 +318,22 @@ public class GenerateReportSrvl extends HttpServlet {
 				}
 				else if(type.equals("2")) {
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
-					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, Subjmail,propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
 				}
 				else {
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
-					message  = sentEmail.SendSingleMailPdfFile(bos, Email, doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+					message  = sentEmail.SendSingleMailPdfFile(bos, Email, doctorCode, Subjmail,propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
 				}
-			
+			}else {}
 			break;
 		case "04" :
 
 			engtext = ConvertToString.convert(set_avg_format);
-			
+			if(arrData.size()>0) {
 			try {
 				datetimeEng = DateFormat.format(datedb.parse(arrData.get(0).get("FROM_DATE")));
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
+				System.out.println(e);
 				e.printStackTrace();
 			}
 
@@ -360,20 +367,21 @@ public class GenerateReportSrvl extends HttpServlet {
 				}
 				else if(type.equals("2")) {
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
-					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, Subjmail,propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
 				}
 				else {
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
-					message  = sentEmail.SendSingleMailPdfFile(bos, Email, doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+					message  = sentEmail.SendSingleMailPdfFile(bos, Email, doctorCode,Subjmail,propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
 				}
+			}else {}
 			break;
 		case "06" : 
 			engtext = ConvertToString.convert(set_avg_format);
-			
+			if(arrData.size()>0) {
 			try {
 				datetimeEng = DateFormat.format(datedb.parse(arrData.get(0).get("FROM_DATE")));
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
+				System.out.println(e);
 				e.printStackTrace();
 			}
 			
@@ -414,18 +422,19 @@ public class GenerateReportSrvl extends HttpServlet {
 				}
 				else if(type.equals("2")) {
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
-					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, Subjmail,propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
 				}
 				else {
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
-					message  = sentEmail.SendSingleMailPdfFile(bos, Email, doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+					message  = sentEmail.SendSingleMailPdfFile(bos, Email, doctorCode, Subjmail,propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
 				}
+			}else {}
 			break;
 			
 		case "07" :
 
 			engtext = ConvertToString.convert(set_avg_format);
-			
+			if(arrData.size()>0) {
 			try {
 				datetimeEng = DateFormat.format(datedb.parse(arrData.get(0).get("FROM_DATE")));
 			} catch (ParseException e) {
@@ -471,15 +480,15 @@ public class GenerateReportSrvl extends HttpServlet {
 				}
 				else if(type.equals("2")) {
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
-					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, Subjmail,propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
 				}
 				else {
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
-					message  = sentEmail.SendSingleMailPdfFile(bos, Email, doctorCode, "03",propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+					message  = sentEmail.SendSingleMailPdfFile(bos, Email, doctorCode,Subjmail,propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
 				}
+			}else {}
 			break;
 		}
-//		System.out.print("hello");	
 		
 		System.out.println(!ispreview.equals("true"));
 		if(ispreview.equals("false")) {

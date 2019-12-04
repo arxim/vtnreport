@@ -68,25 +68,29 @@ public class SentEmailNewService implements Job{
 	public String SendSingleMailPdfFile(ByteArrayOutputStream pdfStream,String mail,String doctor,String report,String auth_email,String auth_password) {
 		ReadProperties prop = new ReadProperties();
 		Map<String, String>  propData = prop.getDataReadPropertiesFile("servermail.properties");
-		//String auth_host = propData.get("auth_host");
-		//String auth_port = propData.get("auth_port");
-		//String auth_email = propData.get("auth_email");
-		//String auth_password = propData.get("auth_password");
-		String bcc_email = auth_email;//propData.get("bcc_email");
+		String auth_host = propData.get("auth_host");
+		String auth_port = propData.get("auth_port");
+//		String auth_email_ = propData.get("auth_email");
+//		String auth_password_ = propData.get("auth_password");
+		String bcc_email = propData.get("bcc_email");
+//		String bcc_email = auth_email;//propData.get("bcc_email");
 		String subject="",body="",msg = "",pdf_name="";
 
 		Properties props = new Properties();
-		//props.put("mail.smtp.host", auth_host);
-		//props.put("mail.smtp.starttls.enable","true");
-		//props.put("mail.smtp.socketFactory.port", auth_port);
-		//props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-//		props.put("mail.smtp.auth", "true");
-//		props.put("mail.smtp.port", auth_port);
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "465");
+		props.put("mail.smtp.host", auth_host);
+		props.put("mail.smtp.starttls.enable","true");
+		props.put("mail.smtp.socketFactory.port", auth_port);
+		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", auth_port);
+		
+		
+		
+		//props.put("mail.smtp.host", "smtp.gmail.com");
+		/*props.put("mail.smtp.port", "465");
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.socketFactory.port", "465");
-		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");*/
 		
 		
 		if(report.equals("01")) {
@@ -97,18 +101,10 @@ public class SentEmailNewService implements Job{
 			subject = propData.get("subject_payment");
 			body = propData.get("body_payment");
 			pdf_name="DF_Payment_Report.pdf";
-		}else if(report.equals("03")){
-			subject = "IncomePayment";
-			body = "Detail Of IncomePayment";
-			pdf_name="IncomePayment.pdf";
-//		}else if(report.equals("04")){
-//			
-//		}else if(report.equals("05")){
-//			
-//		}else if(report.equals("06")){
-//			
-		}else{
-			
+		}else {
+			subject = report;
+			body = report;
+			pdf_name= doctor+".pdf";
 		}
 		
 		
@@ -151,6 +147,7 @@ public class SentEmailNewService implements Job{
 			
 		} catch (MessagingException e) {
 			msg = "FAIL";
+			System.out.println(e);
 			e.printStackTrace();
 		} 
 		
@@ -222,7 +219,7 @@ public class SentEmailNewService implements Job{
 						
 						System.out.println(j+"  "+arrData.get(j).get("DOCTOR_CODE")+"    password="+arrData.get(j).get("PASS_ENCRYPT").trim());
 				
-						if(!arrData.get(j).get("VOUCHER").equals("0.00")) {
+//						if(!arrData.get(j).get("VOUCHER").equals("0.00")) {
 							paramCondition = new HashMap<String, Object>();
 							paramCondition.put("from_doctor", arrData.get(j).get("DOCTOR_CODE"));
 							paramCondition.put("to_doctor", arrData.get(j).get("DOCTOR_CODE"));
@@ -233,8 +230,10 @@ public class SentEmailNewService implements Job{
 							paramCondition.put("SUBREPORT_DIR", absoluteDiskPath);
 							paramConditionNameReport.put(absoluteDiskPath + "PaymentVoucher.jasper", paramCondition);
 							list_report="Y";
-						}
-						if(!arrData.get(j).get("REVENUE_DETAIL").equals("0.00")) {
+//						}else {
+//							paramConditionNameReport.put("", null);
+//						}
+//					if(!arrData.get(j).get("REVENUE_DETAIL").equals("0.00")) {
 							paramCondition = new HashMap<String, Object>();
 							paramCondition.put("hospital_code", hospitalCode);
 							paramCondition.put("from_doctor", arrData.get(j).get("DOCTOR_CODE"));
@@ -247,8 +246,10 @@ public class SentEmailNewService implements Job{
 							paramCondition.put("order_item_category", "%%");
 							paramConditionNameReport.put(absoluteDiskPath + "SummaryRevenueByDetail.jasper", paramCondition);
 							list_report="Y";
-						}
-						if(!arrData.get(j).get("UNPAID").equals("0.00")) {
+//						}else {
+//							paramConditionNameReport.put("", null);
+//						}
+//						if(!arrData.get(j).get("UNPAID").equals("0.00")) {
 							paramCondition = new HashMap<String, Object>();
 							paramCondition.put("from_date", "00000000");
 							paramCondition.put("to_date", to_date);
@@ -260,8 +261,11 @@ public class SentEmailNewService implements Job{
 							paramConditionNameReport.put(absoluteDiskPath + "SummaryDFUnpaidByDetailAsOfDate.jasper", paramCondition);
 							list_report="Y";
 
-						}
-						if(!arrData.get(j).get("EXPENSE").equals("0.00")) {
+//						}else {
+//							paramConditionNameReport.put("", null);
+//						}
+						
+//						if(!arrData.get(j).get("EXPENSE").equals("0.00")) {
 							paramCondition = new HashMap<String, Object>();
 							paramCondition.put("hospital_code", hospitalCode);
 							paramCondition.put("from_doctor", arrData.get(j).get("DOCTOR_CODE"));
@@ -272,20 +276,23 @@ public class SentEmailNewService implements Job{
 							paramCondition.put("doctor_department", "%%");
 							paramCondition.put("order_item", "%%");
 							paramCondition.put("order_item_category", "%%");
+							paramCondition.put("merge", "Y");
 							paramConditionNameReport.put(absoluteDiskPath + "ExpenseDetail.jasper", paramCondition);
 							list_report="Y";
-						}
+//						}else {
+//							paramConditionNameReport.put("", null);
+//						}
 						
 						if(!arrData.get(j).get("EMAIL").trim().equals("0")) {
-							if(!list_report.equals("")) {
+//							if(!list_report.equals("")) {
 								bosMergePdfs = prepareFile.generateReport(paramConditionNameReport, arrData.get(j).get("PASS_ENCRYPT").trim(), true);
 								message  = sentEmail.SendSingleMailPdfFile(bosMergePdfs, arrData.get(j).get("EMAIL").trim(), arrData.get(j).get("DOCTOR_CODE"), report,propEmailData4.get("sender_emails."+i),propPassWordData4.get("sender_pwds."+i));
 								
-							}
+//							}
 							
 						}else {message = "FAIL";}
 						
-						if(message.equals("PASS") && list_report.equals("Y")){
+						if(message.equals("PASS")){
 							StatusSendMail.SendMailPaymentSuccess(hospitalCode, arrData.get(j).get("DOCTOR_CODE"),mm,yyyy);
 						}
 						list_report="";
@@ -297,6 +304,7 @@ public class SentEmailNewService implements Job{
 		} catch (Exception e) {
 			message = "FAIL";
 			e.printStackTrace();
+			System.out.println(e);
 		}
 		finally {
 			 if (bosMergePdfs != null)
@@ -304,6 +312,7 @@ public class SentEmailNewService implements Job{
 					bosMergePdfs.close();
 				} catch (IOException e) {
 					e.printStackTrace();
+					System.out.println(e);
 				}
 			}
 		return message;
@@ -388,6 +397,7 @@ public class SentEmailNewService implements Job{
 				        
 		} catch (SchedulerException e) {
 			e.printStackTrace();
+			System.out.println(e);
 		}
 		System.out.println("after:"+CheckRunning);
 	}
@@ -466,11 +476,11 @@ public class SentEmailNewService implements Job{
 				try {
 					c.setTime(DateFormat.parse(datetime));
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
+					System.out.println(e);
 				}
 	//			c.add(Calendar.DATE, 1); 
-				c.add(Calendar.MINUTE, 1);
+				c.add(Calendar.DATE, 1);
 				datetime = DateFormat.format(c.getTime());
 				System.out.println(datetime); // check date time
 
@@ -479,7 +489,7 @@ public class SentEmailNewService implements Job{
 					stopService(context);
 					
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
+					System.out.println(e);
 					e.printStackTrace();
 				}	
 				SetScheduleSendMail(datetime, hospitalCode, yyyy, mm, absoluteDiskPath, report,1);
@@ -493,7 +503,7 @@ public class SentEmailNewService implements Job{
 				stopService(context);
 				
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				System.out.println(e);
 				e.printStackTrace();
 			}
 		}
@@ -521,7 +531,7 @@ public class SentEmailNewService implements Job{
 		public JSONArray isCheckRunning() throws SchedulerException, JSONException {
 			
 //			 SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy hh.mm"); 
-			 SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy hh.mm aaa");
+			SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy hh.mm aaa");
 			System.out.println(CheckRunning);
 			 String strDate = "";
 			if(CheckRunning.equals("1")) {  

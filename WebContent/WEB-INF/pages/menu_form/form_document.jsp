@@ -167,7 +167,7 @@
 						<input id="txtEmail" name="txtEmail" type="text" class="form-control">
 					</div>
 					<div class="col-xs-3 col-sm-3 ">
-						<button type="button" id="btnSendSelfEmail" class="btn btn-default" onclick="SendSelfEmail()">Send E-Mail</button>
+						<button type="button" id="btnSendSelfEmail" class="btn btn-default" onclick="SendSelfEmail()">Sent E-Mail</button>
 					</div>
 				</div>
 				
@@ -227,17 +227,34 @@
 				
 			</div><!-- Form-Horizontal -->
 				
+			<div class="modal fade" id="popupmodal">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3 class="modal-title">Informations</h3>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						</div>
+						<div class="modal-body">
+							<p align="left" id="success"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			
 			
 			</div>
 			<hr>
 			</div>
 			
 		<input type="hidden" id="hidUserCode" name="hidUserCode" value="<%= session.getAttribute("userid") %>">
+		<input type="hidden" id="hidUserName" name="hidUserName" value="<%= session.getAttribute("name")%>">	
 		<input type="hidden" id="hidRole" name="hidRole" value="<%= session.getAttribute("role") %>">
 		<input type="hidden" id="hidHospitalCode" name="hidHospitalCode" value="<%= session.getAttribute("hospitalcode")%>">
+			
 		<form id="frmPaymentAll" action="/vtnreport/getPaymentContentAllSrvl" method="post"> </form>
 		<form id="frmPayment" action="/vtnreport/getPaymentContentSrvl" method="post"> </form>
 		<form id="frmTax" action="/vtnreport/getTaxContentSrvl" method="post"> </form>
+		<form id="frmEmail" action="/vtnreport/getEmailContentSrvl" method="post"> </form>
 		<form id="frmEmailSchedule" action="/vtnreport/setMailScheduleSrvl" method="post"> </form>
 		<form id="frmFormDocument" action="/vtnreport/getFormContentSrvl" method="post"> </form>
 		<form id="frmReport" name="frmReport" action="/vtnreport/GenerateReportSrvl" method="post" target="_blank">
@@ -257,6 +274,8 @@
 				<input id="hidDepartDate" name="hidDepartDate" type="hidden" /> 
 				<input id="hidArrivedDate" name="hidArrivedDate" type="hidden" /> 
 				<input id="hidEmail" name="hidEmail" type="hidden" /> 
+				<input id="subj_mail" name="subj_mail" type="hidden" /> 
+				
 
 			</form>
 			

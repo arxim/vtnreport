@@ -55,7 +55,7 @@
 					<img src="resources/images/logo-vejthani.png" class="img-responsive" alt="logo vejthani" width="220" height="170">
 				</div>
 	      	</div>
-			<div class="col-xs-12 col-sm-8 text-center">
+			<div class="col-xs-12 col-sm-9 text-center">
 				<c:choose>
 			     <c:when test="${sessionScope.menuitem!= null}"> 
 			         ${sessionScope.menuitem}
@@ -65,7 +65,7 @@
 			     	</c:otherwise>
 			    </c:choose>
 			</div>
-			<div class="col-xs-12 col-sm-2 text-center">
+			<div class="col-xs-12 col-sm-1 text-center">
 	 			<ul class="nav navbar-nav navbar-right">
 					<li style="color: #19067f">
 					   <div class="col hidden-xs">	

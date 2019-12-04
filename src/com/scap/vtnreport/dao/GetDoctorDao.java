@@ -2,6 +2,7 @@ package com.scap.vtnreport.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -223,5 +224,36 @@ public JSONObject getDoctorTax406Datatable(String hospitalCode,String yyyy,Strin
 		return data;
 		
 	}
+	
+public JSONArray getDoctorSentSelfEmail(String hospitalCode,String doctor_code) {
+		
+		PreparedStatement ps = null;
+		
+		JSONArray jsonArray = null;
+		
+		final String SQL ="SELECT HOSPITAL_CODE,CODE,EMAIL FROM DOCTOR WHERE HOSPITAL_CODE= ? AND CODE = ? ";
+
+		try (Connection conn = DbConnector.getDBConnection()) {
+			ps = conn.prepareStatement(SQL);
+			ps.setString(1, hospitalCode);
+			ps.setString(2, doctor_code);
+			jsonArray = DbConnector.getJsonAutoComplete(ps.executeQuery());
+			System.out.println(SQL);
+			System.out.println(jsonArray);
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			if (ps != null)
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+		
+		return jsonArray;
+	}
+
+
 	
 }

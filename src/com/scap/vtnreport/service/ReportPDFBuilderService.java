@@ -110,6 +110,7 @@ public class ReportPDFBuilderService {
 			//System.out.println("file "+reportName.get(i));
 			//System.out.println("param "+paramCondition.get(reportName.get(i)));
 			//System.out.println("con "+conn);
+			System.out.println(paramCondition.toString());
 			try {
 				listJasperPrint.add(JasperFillManager.fillReport(reportName.get(i), paramCondition.get(reportName.get(i)), conn));
 			} catch (JRException e) {

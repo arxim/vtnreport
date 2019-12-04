@@ -14,7 +14,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/pages/main_menu/main_menu.js" type="text/javascript"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/pages/menu_set_schedule/set_schedule.js" type="text/javascript"></script>
 </head>
-<body onload="checkrunning()">
+<body>
 		<div class="panel panel-vtn">
 			<div class="panel-heading text-center">
 				<b>Set Schedule Email</b>
@@ -60,11 +60,15 @@
 					</div>
 					
 				<div class="row">
-					<div class="col-xs-12 col-sm-12 text-right">
+					<div class="col-xs-12 col-sm-3 text-right">
 						<!-- <button type="button" id="btnView" class="btn btn-default" onclick="getDoctor()">View</button> -->
 						<!-- <button type="button" id="btnSetEmailSchedule" class="btn btn-default" onclick="setScheduleEmail()">Set Schedule</button> -->
-						<button type="button" id="btnSetEmailSchedule" class="btn btn-default" onclick="checkmodal()">Set Schedule</button>
-						<button type="button" id="btnCancelEmailSchedule" class="btn btn-default" onclick="cancelScheduler()">Reset Schedule</button>
+					<button type="button" id="btnSetEmailSchedule" class="btn btn-default text-left" onclick="checkrunning('c')">Check Schedule</button>
+					</div>
+					<div class="col-xs-12 col-sm-9 text-right">	
+						
+						<button type="button" id="btnSetEmailSchedule" class="btn btn-default " onclick="checkmodal('s')">Set Schedule</button>
+						<button type="button" id="btnCancelEmailSchedule" class="btn btn-default " onclick="cancelScheduler()">Reset Schedule</button>
 					</div>
 				</div>
 				
@@ -80,24 +84,41 @@
 				          <p id="text"></p>
 				        </div>
 				        <div class="modal-footer">
-				          <button type="button" id="confirm" class="btn btn-default" data-dismiss="modal">Confirm</button>
+				          <button type="button" id="confirm" class="btn btn-default" data-dismiss="modal" onclick="setScheduleEmail()">Confirm</button>
 				          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 	  
 				 	  </div>
 				 	</div>
 				 </div>
 				</div>	
 				
-			<div class="modal fade" id="popupmodal">
+			<!-- <div class="modal fade" id="popupmodal">
 				 <div class="modal-dialog modal-sm">
 				 <div class="modal-content">
+				  <div class="modal-header">
+				 	  	<button type="button" class="close" data-dismiss="modal">&times;</button>
+				          <h4 class="modal-title">Information</h4>
+				  </div>
 				  <div class="modal-body">
 				  	<button type="button" class="close" data-dismiss="modal">&times;</button>
 				  	<p align="center" id="success"></p>
 				  </div>
 				  </div>
 				 </div>
-				</div> 
-				
+				</div> -->
+
+			<div class="modal fade" id="popupmodal">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3 class="modal-title">Informations</h3>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						</div>
+						<div class="modal-body">
+							<p align="left" id="success"></p>
+						</div>
+					</div>
+				</div>
+			</div>
 			<!--  <div class="alert alert-success alert-dismissible fade out" id="alertsuccess" >
 			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 			    <p id="success"></p>
@@ -108,11 +129,14 @@
 			</div>
 			
 		<input type="hidden" id="hidUserCode" name="hidUserCode" value="<%= session.getAttribute("userid") %>">
+		<input type="hidden" id="hidUserName" name="hidUserName" value="<%= session.getAttribute("name")%>">	
 		<input type="hidden" id="hidRole" name="hidRole" value="<%= session.getAttribute("role") %>">
 		<input type="hidden" id="hidHospitalCode" name="hidHospitalCode" value="<%= session.getAttribute("hospitalcode")%>">
+			
 		<form id="frmPaymentAll" action="/vtnreport/getPaymentContentAllSrvl" method="post"> </form>
 		<form id="frmPayment" action="/vtnreport/getPaymentContentSrvl" method="post"> </form>
 		<form id="frmTax" action="/vtnreport/getTaxContentSrvl" method="post"> </form>
+		<form id="frmEmail" action="/vtnreport/getEmailContentSrvl" method="post"> </form>
 		<form id="frmEmailSchedule" action="/vtnreport/setMailScheduleSrvl" method="post"> </form>
 		<form id="frmFormDocument" action="/vtnreport/getFormContentSrvl" method="post"> </form>
 		
