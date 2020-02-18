@@ -8,12 +8,12 @@
 		 orientation="Portrait"
 		 pageWidth="595"
 		 pageHeight="842"
-		 columnWidth="535"
+		 columnWidth="595"
 		 columnSpacing="0"
-		 leftMargin="30"
-		 rightMargin="30"
-		 topMargin="20"
-		 bottomMargin="20"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
@@ -53,6 +53,9 @@
 	<parameter name="name" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="doctor_name" isForPrompting="false" class="java.lang.String">
 		<defaultValueExpression ><![CDATA["name"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="path_image" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["E:\\vtnReportEPayment\\vtnreport\\WebContent\\WEB-INF\\JasperReport\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString><![CDATA[SELECT * FROM HOSPITAL]]></queryString>
 
@@ -98,11 +101,11 @@
 			</band>
 		</background>
 		<title>
-			<band height="164"  isSplitAllowed="true" >
+			<band height="206"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="338"
-						y="78"
+						y="136"
 						width="195"
 						height="66"
 						key="textField"/>
@@ -112,6 +115,17 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{title}]]></textFieldExpression>
 				</textField>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="9"
+						y="6"
+						width="580"
+						height="180"
+						key="image-5"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+"header.png"]]></imageExpression>
+				</image>
 			</band>
 		</title>
 		<pageHeader>
@@ -228,10 +242,43 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{footer}]]></textFieldExpression>
 				</textField>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="84"
+						y="262"
+						width="120"
+						height="31"
+						key="image-1"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+"Signature.jpg"]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="16"
+						y="270"
+						width="68"
+						height="32"
+						key="image-2"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+"logo-vejthani.png"]]></imageExpression>
+				</image>
 			</band>
 		</detail>
 		<columnFooter>
 			<band height="133"  isSplitAllowed="true" >
+				<image  scaleImage="FillFrame" vAlign="Bottom" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="3"
+						y="73"
+						width="587"
+						height="55"
+						key="image-4"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+"footer.png"]]></imageExpression>
+				</image>
 			</band>
 		</columnFooter>
 		<pageFooter>

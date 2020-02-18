@@ -8,12 +8,12 @@
 		 orientation="Portrait"
 		 pageWidth="595"
 		 pageHeight="842"
-		 columnWidth="535"
+		 columnWidth="595"
 		 columnSpacing="0"
-		 leftMargin="30"
-		 rightMargin="30"
-		 topMargin="20"
-		 bottomMargin="20"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
@@ -32,13 +32,26 @@
 	<parameter name="current_date" isForPrompting="false" class="java.lang.String">
 		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<parameter name="doctor_code" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="doctor_code" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["91562"]]></defaultValueExpression>
+	</parameter>
 	<parameter name="AVG_Amount" isForPrompting="false" class="java.lang.String"/>
-	<parameter name="startMM" isForPrompting="false" class="java.lang.String"/>
-	<parameter name="startYYYY" isForPrompting="false" class="java.lang.String"/>
-	<parameter name="endMM" isForPrompting="false" class="java.lang.String"/>
-	<parameter name="endYYYY" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="startMM" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["10"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="startYYYY" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["2018"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="endMM" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["12"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="endYYYY" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["2019"]]></defaultValueExpression>
+	</parameter>
 	<parameter name="datePeriod" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="path_image" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["E:\\vtnReportEPayment\\vtnreport\\WebContent\\WEB-INF\\JasperReport\\"]]></defaultValueExpression>
+	</parameter>
 	<queryString><![CDATA[SELECT HOSPITAL.COMPANY_NAME,DOCTOR_PROFILE.CODE,NAME_THAI,ISNULL(PO.DESCRIPTION_THI,'') AS POSITION,ISNULL(DB.BRANCH_DESP_THAI,'') AS BRANCH,ISNULL(DSB.SUB_BRANCH_DESP_THA,'') AS SUB_BRANCH,
 DESCRIPTION,FROM_DATE,DR_NET_PAID_AMT,PAYMENT_MONTHLY.MM,PAYMENT_MONTHLY.YYYY,BATCH.YYYY as batch_date
 FROM PAYMENT_MONTHLY
@@ -123,15 +136,26 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 			</band>
 		</background>
 		<title>
-			<band height="53"  isSplitAllowed="true" >
+			<band height="196"  isSplitAllowed="true" >
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="9"
+						y="8"
+						width="580"
+						height="180"
+						key="image-5"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+"header.png"]]></imageExpression>
+				</image>
 			</band>
 		</title>
 		<pageHeader>
-			<band height="46"  isSplitAllowed="true" >
+			<band height="32"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="51"
-						y="13"
+						y="8"
 						width="225"
 						height="22"
 						key="textField-1"/>
@@ -147,20 +171,20 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 			<band height="179"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
-						x="216"
+						x="0"
 						y="12"
-						width="133"
+						width="595"
 						height="27"
 						key="staticText-2"/>
 					<box></box>
-					<textElement textAlignment="Justified">
+					<textElement textAlignment="Center">
 						<font fontName="Angsana New" pdfFontName="tahomabd.ttf" size="14" isBold="true" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
 					</textElement>
 				<text><![CDATA[หนังสือรับรองรายได้]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="51"
+						x="64"
 						y="62"
 						width="452"
 						height="88"
@@ -181,7 +205,7 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 			<band height="164"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="307"
+						x="320"
 						y="-21"
 						width="170"
 						height="29"
@@ -194,7 +218,7 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 				</textField>
 				<staticText>
 					<reportElement
-						x="307"
+						x="320"
 						y="50"
 						width="179"
 						height="44"
@@ -208,7 +232,7 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 				</staticText>
 				<staticText>
 					<reportElement
-						x="51"
+						x="64"
 						y="106"
 						width="191"
 						height="46"
@@ -220,6 +244,28 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 				<text><![CDATA[ฝ่ายการเงิน
 โทรศัพท์ 02-734-0000 ต่อ 2502]]></text>
 				</staticText>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="362"
+						y="17"
+						width="120"
+						height="31"
+						key="image-1"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+"Signature.jpg"]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="285"
+						y="27"
+						width="78"
+						height="32"
+						key="image-2"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+"logo-vejthani.png"]]></imageExpression>
+				</image>
 			</band>
 		</columnFooter>
 		<pageFooter>
@@ -228,6 +274,17 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 		</pageFooter>
 		<lastPageFooter>
 			<band height="282"  isSplitAllowed="true" >
+				<image  scaleImage="FillFrame" vAlign="Bottom" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="4"
+						y="225"
+						width="587"
+						height="55"
+						key="image-4"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+"footer.png"]]></imageExpression>
+				</image>
 			</band>
 		</lastPageFooter>
 		<summary>

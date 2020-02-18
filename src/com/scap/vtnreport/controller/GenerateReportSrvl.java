@@ -162,6 +162,7 @@ public class GenerateReportSrvl extends HttpServlet {
 		String relativeWebPath = "/WEB-INF/JasperReport/";
 		String absoluteDiskPath = servletContext.getRealPath(relativeWebPath);
 		
+		
 		//Get Property Mail
 		ReadProperties prop = new ReadProperties();
 		Map<String, String>  propEmailData = prop.getPropertiesData("servermail.properties", "sender_emails");
@@ -235,6 +236,7 @@ public class GenerateReportSrvl extends HttpServlet {
 				paramCondition.put("endMM", endMM);
 				paramCondition.put("endYYYY", endYYYY);
 				paramCondition.put("datePeriod", datePeriod);
+				paramCondition.put("path_image", absoluteDiskPath);
 				paramConditionNameReport.put(absoluteDiskPath+"IncomeCerificate.jasper", paramCondition);
 				if(type.equals("1")) {
 				genReport.viewPDFReport(paramConditionNameReport, "", true , response);
@@ -264,6 +266,7 @@ public class GenerateReportSrvl extends HttpServlet {
 				paramCondition.put("endMM", endMM);
 				paramCondition.put("endYYYY", endYYYY);
 				paramCondition.put("datePeriod", datePeriod);
+				paramCondition.put("path_image", absoluteDiskPath);
 				paramConditionNameReport.put(absoluteDiskPath+"IncomeCerificate2.jasper", paramCondition);
 				if(type.equals("1")) {
 					genReport.viewPDFReport(paramConditionNameReport, "", true , response);
@@ -312,6 +315,7 @@ public class GenerateReportSrvl extends HttpServlet {
 			paramCondition.put("columnfooter", columnfooter);
 			paramCondition.put("footer", footer);
 			paramCondition.put("doctor_name", arrData.get(0).get("NAME_ENG"));
+			paramCondition.put("path_image", absoluteDiskPath);
 			paramConditionNameReport.put(absoluteDiskPath+"IncomeCerificateEng.jasper", paramCondition);
 			if(type.equals("1")) {
 				genReport.viewPDFReport(paramConditionNameReport, "", true , response);
@@ -361,6 +365,7 @@ public class GenerateReportSrvl extends HttpServlet {
 			paramCondition.put("columnfooter", columnfooter);
 			paramCondition.put("footer", footer);
 			paramCondition.put("doctor_name", arrData.get(0).get("NAME_ENG"));
+			paramCondition.put("path_image", absoluteDiskPath);
 			paramConditionNameReport.put(absoluteDiskPath+"IncomeCerificateEng.jasper", paramCondition);
 			if(type.equals("1")) {
 				genReport.viewPDFReport(paramConditionNameReport, "", true , response);
@@ -416,6 +421,7 @@ public class GenerateReportSrvl extends HttpServlet {
 			paramCondition.put("columnfooter", columnfooter);
 			paramCondition.put("footer", footer);
 			paramCondition.put("doctor_name", arrData.get(0).get("NAME_ENG"));
+			paramCondition.put("path_image", absoluteDiskPath);
 			paramConditionNameReport.put(absoluteDiskPath+"IncomeCerificateEng.jasper", paramCondition);
 			if(type.equals("1")) {
 				genReport.viewPDFReport(paramConditionNameReport, "", true , response);
@@ -473,6 +479,7 @@ public class GenerateReportSrvl extends HttpServlet {
 			paramCondition.put("columnfooter", columnfooter);
 			paramCondition.put("footer", footer);
 			paramCondition.put("doctor_name", arrData.get(0).get("NAME_ENG"));
+			paramCondition.put("path_image", absoluteDiskPath);
 //			paramCondition.put("SUBREPORT_DIR", absoluteDiskPath);
 			paramConditionNameReport.put(absoluteDiskPath+"IncomeCerificateEng.jasper", paramCondition);
 			if(type.equals("1")) {

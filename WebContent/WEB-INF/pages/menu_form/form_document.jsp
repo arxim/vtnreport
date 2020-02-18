@@ -179,14 +179,13 @@
 					</div>
 					<div class="col-xs-6 col-sm-6 ">
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="SS" id="DS" value="option1">
+							<input class="form-check-input" type="radio" name="SS" id="DS" value="">
 	 						<label class="form-check-label" for="inlineRadio1">Digital Sign </label>
  						
- 						
-							<input class="form-check-input" type="radio" name="SS" id="DSS" value="option1">
+							<input class="form-check-input" type="radio" name="SS" id="DSS" value="">
 	 						<label class="form-check-label" for="inlineRadio1">Digital Sign & Seal </label>
 	 						
-	 						<input class="form-check-input" type="radio" name="SS" id="SS" value="option1">
+	 						<input class="form-check-input" type="radio" name="SS" id="SS" value="">
 	 						<label class="form-check-label" for="inlineRadio1">Sign & Seal </label>
  						</div>
  						 
@@ -221,7 +220,7 @@
 						<button type="button" id="btnPreviewForm" class="btn btn-default" onclick="preview()">PreView</button>
 					</div>
 					<div class="col-xs-12 col-sm-5 text-right">
-						<button type="button" id="btnFormDocument" class="btn btn-default" onclick="setSendMail()">Send E-Mail</button>
+						<button type="button" id="btnSetSendMail" class="btn btn-default" onclick="setSendMail()">Send E-Mail</button>
 					</div>
 				</div>
 				

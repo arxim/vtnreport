@@ -2,6 +2,7 @@ $(document).ready(function() {
 	checkRole();
 	$("#reason").hide();
 	$("#reason2").hide();
+	$("#SS").attr("checked","checked");
 	
 	$('#dwlReport').change(function() {
 		var dw_val =$('#'+$(this).attr("id")).val();
@@ -10,12 +11,14 @@ $(document).ready(function() {
 			$("#reason").hide();
 			$("#reason2").hide();
 		}else if(dw_val=="04"||dw_val=="06"){
+			
 			$("#reason").show();
 			$("#reason2").hide();
 		}else{
 			$("#reason").show();
 			$("#reason2").show();
 		}
+		
 	});
 	
 	 
@@ -104,8 +107,9 @@ $(document).ready(function() {
      }
 	});
 	
-	$("#btnSendMail").hide();
-	$("#sent_mail").hide();
+	$("#btnSendMail").show();
+	$("#sent_mail").show();
+	$("#btnView").hide();
 	
 	$('input:radio').change(function(){
 			getRunningNum = 0;
