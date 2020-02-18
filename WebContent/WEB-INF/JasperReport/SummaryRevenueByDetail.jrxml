@@ -24,16 +24,16 @@
 	<import value="net.sf.jasperreports.engine.data.*" />
 
 	<parameter name="year" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["2013"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA["2020"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="month" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["10"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA["01"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="from_doctor" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["0"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA["91148"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="to_doctor" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["Z"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA["91148"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="hospital_code" isForPrompting="false" class="java.lang.String">
 		<defaultValueExpression ><![CDATA["VTN01"]]></defaultValueExpression>
@@ -50,7 +50,9 @@
 	<parameter name="order_item_category" isForPrompting="false" class="java.lang.String">
 		<defaultValueExpression ><![CDATA["%"]]></defaultValueExpression>
 	</parameter>
-	<queryString><![CDATA[(SELECT 
+	<queryString><![CDATA[SELECT * FROM (
+(SELECT 
+		CASE WHEN INVOICE_DATE <= (SELECT CONVERT(varchar(6),(BATCH_NO-2))+'99' FROM BATCH WHERE HOSPITAL_CODE='VTN01' AND CLOSE_DATE ='') AND (SD.GUARANTEE_NOTE LIKE '%OLD%') AND DR_AMT=0 THEN 'N' ELSE 'S' END AS CHK,
 		DP.CODE AS PROFILE_CODE,
 		DP.NAME_THAI AS PROFILE_NAME,
 		1 AS 'TYPE_QUERY',
@@ -87,7 +89,14 @@
 			END
 		END AS 'DR_AMT',
 		--SD.DR_AMT AS 'DR_AMT', 
-		SD.GUARANTEE_NOTE,
+		CASE WHEN GUARANTEE_NOTE LIKE '%EXTRA%' THEN 'EXTRA' ELSE 
+	   CASE WHEN GUARANTEE_NOTE LIKE 'IN%' THEN 'IN' ELSE
+	   CASE WHEN GUARANTEE_NOTE LIKE 'OVER%' THEN 'OVER' ELSE
+	   CASE WHEN GUARANTEE_NOTE LIKE '%ABSORB GUARANTEE%' THEN GUARANTEE_NOTE ELSE 
+	   CASE WHEN GUARANTEE_NOTE LIKE '%ABSORB SOME GUARANTEE%' THEN GUARANTEE_NOTE ELSE 
+	   CASE WHEN GUARANTEE_NOTE LIKE '%ABSORB OLD GUARANTEE%' THEN GUARANTEE_NOTE ELSE
+	   CASE WHEN GUARANTEE_NOTE LIKE '%ABSORB OLD SOME%' THEN GUARANTEE_NOTE ELSE 
+	   '' END END END END END END END AS GUARANTEE_NOTE,
 		SD.IS_WRITE_OFF AS 'IS_WRITE_OFF', 
 		CASE WHEN SD.PAY_BY_AR = 'Y' THEN 'A' ELSE 'B' END AS PAY_METHOD,
 		--SD.DESCRIPTION_THAI AS 'DESCRIPTION_THAI',
@@ -122,9 +131,11 @@
 	--AND SD.IS_PAID = 'Y'
 	AND SD.AMOUNT_AFT_DISCOUNT > 0
 	AND (SD.GUARANTEE_NOTE LIKE '%OLD%' OR SD.DR_AMT > 0)
+	--AND SD.DR_AMT > 0
 	)
 UNION
 	(SELECT top 3000
+		'S' AS CHK,
 		DP.CODE AS PROFILE_CODE,
 		DP.NAME_THAI AS PROFILE_NAME,
 		2 AS 'TYPE_QUERY',		
@@ -180,6 +191,7 @@ UNION
 	AND DR.DEPARTMENT_CODE LIKE $P{doctor_department})
 UNION
 	(SELECT DISTINCT
+		'S' AS CHK,
 		DP.CODE AS PROFILE_CODE,
 		DP.NAME_THAI AS PROFILE_NAME,
 		2 AS 'TYPE_QUERY',		
@@ -233,6 +245,7 @@ UNION
 	AND STP.HOSPITAL_CODE LIKE $P{hospital_code}
 	AND DR.DOCTOR_CATEGORY_CODE LIKE $P{doctor_category}
 	AND DR.DEPARTMENT_CODE LIKE $P{doctor_department})
+)TRN WHERE TRN.CHK='S'
 ORDER BY PROFILE_CODE,DOCTOR_CODE ,PAY_METHOD , END_DATE , END_TIME ,TYPE_QUERY  , ADMISSION_TYPE_CODE ,  INVOICE_DATE  , INVOICE_NO ;]]></queryString>
 
 	<field name="PROFILE_CODE" class="java.lang.String"/>
@@ -414,7 +427,7 @@ ORDER BY PROFILE_CODE,DOCTOR_CODE ,PAY_METHOD , END_DATE , END_TIME ,TYPE_QUERY 
 		<group  name="doctor" isStartNewPage="true" >
 			<groupExpression><![CDATA[$F{DOCTOR_CODE}]]></groupExpression>
 			<groupHeader>
-			<band height="15"  isSplitAllowed="true" >
+			<band height="17"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
@@ -557,7 +570,7 @@ ORDER BY PROFILE_CODE,DOCTOR_CODE ,PAY_METHOD , END_DATE , END_TIME ,TYPE_QUERY 
 			</band>
 			</groupHeader>
 			<groupFooter>
-			<band height="15"  isSplitAllowed="true" >
+			<band height="16"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="261"
@@ -1057,21 +1070,6 @@ ORDER BY PROFILE_CODE,DOCTOR_CODE ,PAY_METHOD , END_DATE , END_TIME ,TYPE_QUERY 
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["".equalsIgnoreCase( $F{START_TIME}.toString() ) ? "" : $F{START_TIME}.substring( 0, 2 )+":"+$F{START_TIME}.substring( 2, 4 )+":"+$F{START_TIME}.substring( 4, 6 )]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="498"
-						y="0"
-						width="27"
-						height="15"
-						key="textField-18"/>
-					<box></box>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="Tahoma" pdfFontName="tahoma.ttf" size="5"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[( $F{GUARANTEE_NOTE}.equals( "ABSORB GUARANTEE" ) ? "<Advance>" : ($F{GUARANTEE_NOTE}.equals( "ABSORB SOME GUARANTEE" ) ? "<AbSome>" :
-( $F{GUARANTEE_NOTE}.contains( "EXTRA" ) ? "<xtr>" : ($F{GUARANTEE_NOTE}.startsWith( "IN" ) ? "<In_g>" : ( $F{GUARANTEE_NOTE}.startsWith( "OVER" ) ? "<Ovr_g>" : ( $F{GUARANTEE_NOTE}.equals( "ABSORB OLD GUARANTEE" ) ? "<AbOld>" : 
-( $F{GUARANTEE_NOTE}.equals( "ABSORB OLD SOME" ) ? "<AbOldPtl>" : "" )))))))]]></textFieldExpression>
-				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="392"
@@ -1110,6 +1108,26 @@ ORDER BY PROFILE_CODE,DOCTOR_CODE ,PAY_METHOD , END_DATE , END_TIME ,TYPE_QUERY 
 						<font fontName="Tahoma" size="8"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[($F{IS_WRITE_OFF}.equals( "Y" ) ? "W" : "" )]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="497"
+						y="2"
+						width="30"
+						height="12"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Tahoma" size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[( $F{GUARANTEE_NOTE}.equals( "EXTRA" ) ? "<xtr>" :
+( $F{GUARANTEE_NOTE}.equals( "IN" ) ? "<In_g>" : 
+( $F{GUARANTEE_NOTE}.equals( "OVER" ) ? "<Ovr_g>" : 
+( $F{GUARANTEE_NOTE}.equals( "ABSORB OLD GUARANTEE" ) ? "<AbOld>" : 
+( $F{GUARANTEE_NOTE}.equals( "ABSORB OLD SOME" ) ? "<AbOldPtl>" :
+( $F{GUARANTEE_NOTE}.equals( "ABSORB SOME GUARANTEE" ) ? "<AbSome>" : 
+( $F{GUARANTEE_NOTE}.equals( "ABSORB OLD SOME" ) ? "<AbOldPtl>" :
+( $F{GUARANTEE_NOTE}.equals( "ABSORB GUARANTEE" ) ? "<Advance>" : "" ))))))))]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>

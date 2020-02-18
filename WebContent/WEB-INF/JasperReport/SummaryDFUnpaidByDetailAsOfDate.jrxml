@@ -27,13 +27,13 @@
 		<defaultValueExpression ><![CDATA["00000000"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="to_date" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["99999999"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA["20200131"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="doctor" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["%"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA["91148"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="hospital_code" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["%"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA["VTN01"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="as_of_date" isForPrompting="false" class="java.lang.String">
 		<defaultValueExpression ><![CDATA["99999999"]]></defaultValueExpression>
@@ -44,7 +44,9 @@
 	<parameter name="payor_code" isForPrompting="false" class="java.lang.String">
 		<defaultValueExpression ><![CDATA["%"]]></defaultValueExpression>
 	</parameter>
-	<queryString><![CDATA[SELECT 
+	<queryString><![CDATA[SELECT * FROM (
+SELECT 
+CASE WHEN INVOICE_DATE <= (SELECT CONVERT(varchar(6),(BATCH_NO-2))+'99' FROM BATCH WHERE HOSPITAL_CODE='VTN01' AND CLOSE_DATE ='') AND (SD.GUARANTEE_NOTE LIKE '%OLD%') AND DR_AMT=0 THEN 'N' ELSE 'S' END AS CHK,
 DP.CODE AS PROFILE_CODE,
 DP.NAME_THAI AS PROFILE_NAME,
 SD.VERIFY_DATE AS 'VERIFY_DATE',
@@ -86,7 +88,9 @@ SD.ACTIVE = '1' AND DR.ACTIVE = '1' AND SD.ORDER_ITEM_ACTIVE = '1' AND
 SD.YYYY = '' AND SD.MM = '' AND
 (SD.BATCH_NO = '' OR SD.BATCH_NO IS NULL) AND 
 SD.INVOICE_TYPE <> 'ORDER' AND
-SD.HOSPITAL_CODE LIKE $P{hospital_code}
+SD.HOSPITAL_CODE LIKE $P{hospital_code} AND
+(SD.GUARANTEE_NOTE LIKE '%OLD%' OR SD.DR_AMT > 0)
+)TRN WHERE TRN.CHK='S'
 ORDER BY PROFILE_CODE,DOCTOR_CODE,INVOICE_DATE,VERIFY_DATE]]></queryString>
 
 	<field name="PROFILE_CODE" class="java.lang.String"/>
