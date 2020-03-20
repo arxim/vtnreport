@@ -101,11 +101,22 @@
 			</band>
 		</background>
 		<title>
-			<band height="206"  isSplitAllowed="true" >
+			<band height="262"  isSplitAllowed="true" >
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="6"
+						width="595"
+						height="180"
+						key="image-5"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+"header.png"]]></imageExpression>
+				</image>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="338"
-						y="136"
+						x="381"
+						y="177"
 						width="195"
 						height="66"
 						key="textField"/>
@@ -115,24 +126,13 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{title}]]></textFieldExpression>
 				</textField>
-				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="9"
-						y="6"
-						width="580"
-						height="180"
-						key="image-5"/>
-					<box></box>
-					<graphicElement stretchType="NoStretch"/>
-					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+"header.png"]]></imageExpression>
-				</image>
 			</band>
 		</title>
 		<pageHeader>
-			<band height="88"  isSplitAllowed="true" >
+			<band height="74"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="58"
+						x="96"
 						y="6"
 						width="217"
 						height="41"
@@ -145,8 +145,8 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="58"
-						y="59"
+						x="96"
+						y="54"
 						width="204"
 						height="17"
 						key="textField-1"/>
@@ -159,11 +159,11 @@
 			</band>
 		</pageHeader>
 		<columnHeader>
-			<band height="30"  isSplitAllowed="true" >
+			<band height="36"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="58"
-						y="8"
+						x="96"
+						y="18"
 						width="217"
 						height="18"
 						key="textField"/>
@@ -179,10 +179,10 @@
 			<band height="354"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="58"
-						y="29"
+						x="96"
+						y="30"
 						width="433"
-						height="72"
+						height="56"
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Left" markup="html" lineSpacing="1_1_2">
@@ -192,10 +192,10 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="58"
-						y="107"
+						x="96"
+						y="88"
 						width="433"
-						height="56"
+						height="50"
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Left" markup="html" lineSpacing="1_1_2">
@@ -205,8 +205,8 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="58"
-						y="169"
+						x="96"
+						y="140"
 						width="433"
 						height="30"
 						key="textField"/>
@@ -218,7 +218,7 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="58"
+						x="96"
 						y="213"
 						width="171"
 						height="45"
@@ -231,7 +231,7 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="58"
+						x="96"
 						y="296"
 						width="176"
 						height="56"
@@ -244,7 +244,7 @@
 				</textField>
 				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="84"
+						x="122"
 						y="262"
 						width="120"
 						height="31"
@@ -255,8 +255,8 @@
 				</image>
 				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="16"
-						y="270"
+						x="59"
+						y="262"
 						width="68"
 						height="32"
 						key="image-2"/>
@@ -267,22 +267,22 @@
 			</band>
 		</detail>
 		<columnFooter>
-			<band height="133"  isSplitAllowed="true" >
-				<image  scaleImage="FillFrame" vAlign="Bottom" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="3"
-						y="73"
-						width="587"
-						height="55"
-						key="image-4"/>
-					<box></box>
-					<graphicElement stretchType="NoStretch"/>
-					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+"footer.png"]]></imageExpression>
-				</image>
+			<band height="0"  isSplitAllowed="true" >
 			</band>
 		</columnFooter>
 		<pageFooter>
-			<band height="0"  isSplitAllowed="true" >
+			<band height="92"  isSplitAllowed="true" >
+				<image  scaleImage="FillFrame" vAlign="Bottom" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="4"
+						y="5"
+						width="589"
+						height="83"
+						key="image-6"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["E:\\vtnReportEPayment\\vtnreport\\WebContent\\WEB-INF\\JasperReport\\footer.png"]]></imageExpression>
+				</image>
 			</band>
 		</pageFooter>
 		<summary>

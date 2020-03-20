@@ -33,20 +33,20 @@
 		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<parameter name="doctor_code" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["90562"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA["70001"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="AVG_Amount" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="startMM" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["10"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA["01"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="startYYYY" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["2018"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA["2019"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="endMM" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["10"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA["02"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="endYYYY" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["2019"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA["2020"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="datePeriod" isForPrompting="false" class="java.lang.String">
 		<defaultValueExpression ><![CDATA["3 เดือน"]]></defaultValueExpression>
@@ -140,9 +140,9 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 			<band height="186"  isSplitAllowed="true" >
 				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="7"
+						x="0"
 						y="3"
-						width="580"
+						width="593"
 						height="180"
 						key="image-6"/>
 					<box></box>
@@ -162,24 +162,24 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 						key="textField-1"/>
 					<box></box>
 					<textElement>
-						<font fontName="Angsana New" pdfFontName="tahoma.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+						<font fontName="Tahoma" pdfFontName="tahoma.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["ที่ วธ.กงพ. "+$P{Running_Number}+"/"+$V{batch_date_thai}]]></textFieldExpression>
 				</textField>
 			</band>
 		</pageHeader>
 		<columnHeader>
-			<band height="174"  isSplitAllowed="true" >
+			<band height="127"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="4"
-						y="12"
+						y="4"
 						width="587"
 						height="27"
 						key="staticText-2"/>
 					<box></box>
 					<textElement textAlignment="Center">
-						<font fontName="Angsana New" pdfFontName="tahomabd.ttf" size="14" isBold="true" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+						<font fontName="Tahoma" pdfFontName="tahomabd.ttf" size="14" isBold="true" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
 					</textElement>
 				<text><![CDATA[หนังสือรับรองรายได้]]></text>
 				</staticText>
@@ -187,12 +187,12 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 					<reportElement
 						mode="Transparent"
 						x="75"
-						y="63"
+						y="33"
 						width="451"
-						height="88"
+						height="70"
 						key="textField-2"/>
 					<box></box>
-					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Double">
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="1_1_2">
 						<font fontName="Tahoma" pdfFontName="tahoma.ttf" size="10" isUnderline="false" isPdfEmbedded ="true" pdfEncoding ="Identity-H" isStrikeThrough="false" />
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["            โดยหนังสือฉบับนี้  "+$F{COMPANY_NAME}+"  ขอรับรองว่า  "+$F{NAME_THAI}+"  เป็น"+$F{POSITION}+"  "+$V{branch}+$V{sub_branch}+" ของโรงพยาบาลเวชธานี  โดยเริ่มปฎิบัติงานกับบริษัทฯ ตั้งแตวันที่ "+$V{FROM_DATE_DAY}+" "+$V{FROM_DATE_MONTH}+" "+$V{FROM_DATE_YEAR}+"  ได้รับรายได้เฉลี่ย "+$P{datePeriod}+" เดือนละ "+$P{AVG_Amount}+" บาท ("+$P{thai_form}+") รายละเอียดดังนี้"]]></textFieldExpression>
@@ -200,26 +200,26 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 				<staticText>
 					<reportElement
 						x="225"
-						y="152"
+						y="109"
 						width="58"
 						height="16"
 						key="staticText-3"/>
 					<box></box>
 					<textElement textAlignment="Justified">
-						<font fontName="Angsana New" pdfFontName="tahoma.ttf" size="10" isUnderline="true" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+						<font fontName="Tahoma" pdfFontName="tahoma.ttf" size="10" isUnderline="true" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
 					</textElement>
 				<text><![CDATA[เดือน]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="342"
-						y="151"
+						y="108"
 						width="73"
 						height="16"
 						key="staticText-4"/>
 					<box></box>
 					<textElement textAlignment="Justified">
-						<font fontName="Angsana New" pdfFontName="tahoma.ttf" size="10" isUnderline="true" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+						<font fontName="Tahoma" pdfFontName="tahoma.ttf" size="10" isUnderline="true" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
 					</textElement>
 				<text><![CDATA[รายได้(บาท)]]></text>
 				</staticText>
@@ -237,30 +237,30 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="25"  isSplitAllowed="true" >
+			<band height="16"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="347"
-						y="5"
+						y="0"
 						width="80"
-						height="18"
+						height="16"
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Left">
-						<font fontName="Angsana New" pdfFontName="tahoma.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+						<font fontName="Tahoma" pdfFontName="tahoma.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{DR_NET_PAID_AMT}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="211"
-						y="5"
+						y="0"
 						width="75"
-						height="18"
+						height="16"
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Justified">
-						<font fontName="Angsana New" pdfFontName="tahoma.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+						<font fontName="Tahoma" pdfFontName="tahoma.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$V{Month}+" "+$V{Year}]]></textFieldExpression>
 				</textField>
@@ -277,7 +277,7 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 						key="textField-3"/>
 					<box></box>
 					<textElement textAlignment="Center">
-						<font fontName="Angsana New" pdfFontName="tahoma.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+						<font fontName="Tahoma" pdfFontName="tahoma.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["ออกให้ ณ วันที่ "+$P{current_date}]]></textFieldExpression>
 				</textField>
@@ -290,7 +290,7 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 						key="staticText-5"/>
 					<box></box>
 					<textElement textAlignment="Center">
-						<font fontName="Angsana New" pdfFontName="tahoma.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+						<font fontName="Tahoma" pdfFontName="tahoma.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
 					</textElement>
 				<text><![CDATA[(นางสาวขนิษฐา  บุญเพียร)
 ผู้อำนวยการฝ่ายบัญชีและการเงิน]]></text>
@@ -304,7 +304,7 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 						key="staticText-6"/>
 					<box></box>
 					<textElement>
-						<font fontName="Angsana New" pdfFontName="tahoma.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+						<font fontName="Tahoma" pdfFontName="tahoma.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
 					</textElement>
 				<text><![CDATA[ฝ่ายการเงิน
 โทรศัพท์ 02-734-0000 ต่อ 2502]]></text>
@@ -322,8 +322,8 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 				</image>
 				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="327"
-						y="31"
+						x="322"
+						y="22"
 						width="78"
 						height="32"
 						key="image-2"/>
@@ -334,21 +334,21 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 			</band>
 		</columnFooter>
 		<pageFooter>
-			<band height="0"  isSplitAllowed="true" >
+			<band height="92"  isSplitAllowed="true" >
 			</band>
 		</pageFooter>
 		<lastPageFooter>
-			<band height="171"  isSplitAllowed="true" >
+			<band height="92"  isSplitAllowed="true" >
 				<image  scaleImage="FillFrame" vAlign="Bottom" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="4"
-						y="113"
-						width="587"
-						height="55"
-						key="image-3"/>
+						y="6"
+						width="589"
+						height="83"
+						key="image-7"/>
 					<box></box>
 					<graphicElement stretchType="NoStretch"/>
-					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+"footer.png"]]></imageExpression>
+					<imageExpression class="java.lang.String"><![CDATA["E:\\vtnReportEPayment\\vtnreport\\WebContent\\WEB-INF\\JasperReport\\footer.png"]]></imageExpression>
 				</image>
 			</band>
 		</lastPageFooter>

@@ -12,10 +12,9 @@ public class ConvertToStringThai {
 		private static final String[] SCALE_TH = { "ล้าน", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน", "" };
 		private static final String[] DIGIT_TH = { "ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า" };
 		private static final String[] SYMBOLS_TH = { "ลบ", "บาท", "ถ้วน", "สตางค์" ,"ยี่", "เอ็ด", ",", " ", "฿"};
-		
 		private String valueText;
 		
-		// ···········Methods··············//
+		// ยทยทยทยทยทยทยทยทยทยทยทMethodsยทยทยทยทยทยทยทยทยทยทยทยทยทยท//
 		public String getText(double amount) {
 			BigDecimal value = new BigDecimal(amount);
 			this.valueText = getThaiBaht(value);
@@ -41,7 +40,7 @@ public class ConvertToStringThai {
 			}
 	
 	public String getText(String amount) {
-			//ไม่ต้องการเครื่องหมายคอมมาร์, ไม่ต้องการช่องว่าง, ไม่ต้องการตัวหนังสือ บาท, ไม่ต้องการสัญลักษณ์สกุลเงินบาท
+			//เน�เธกเน�เธ•เน�เธญเธ�เธ�เธฒเธฃเน€เธ�เธฃเธทเน�เธญเธ�เธซเธกเธฒเธขเธ�เธญเธกเธกเธฒเธฃเน�, เน�เธกเน�เธ•เน�เธญเธ�เธ�เธฒเธฃเธ�เน�เธญเธ�เธงเน�เธฒเธ�, เน�เธกเน�เธ•เน�เธญเธ�เธ�เธฒเธฃเธ•เธฑเธงเธซเธ�เธฑเธ�เธชเธทเธญ เธ�เธฒเธ—, เน�เธกเน�เธ•เน�เธญเธ�เธ�เธฒเธฃเธชเธฑเธ�เธฅเธฑเธ�เธฉเธ“เน�เธชเธ�เธธเธฅเน€เธ�เธดเธ�เธ�เธฒเธ—
 		for (String element : SYMBOLS_TH) {
 				amount = amount.replace (element, "");
 		}
@@ -127,10 +126,10 @@ public class ConvertToStringThai {
 			}
 	
 		/**
-	     * @param args
-	     */
+	ย ย ย ย ย * @param args
+	ย ย ย ย ย */
 			public static void main (String[] args) {
-		// จุดทศนิยมปัดเป็นสองตำแหน่ง
+		// เธ�เธธเธ”เธ—เธจเธ�เธดเธขเธกเธ�เธฑเธ”เน€เธ�เน�เธ�เธชเธญเธ�เธ•เธณเน�เธซเธ�เน�เธ�
 //			System.out.println("Negative value of -1257.5463 : " + new ConvertToStringThai().getText(-1257.5463));
 //			System.out.println("Positive value of 1234.0000 : " + new ConvertToStringThai().getText(1234.000));
 //			System.out.println("Negative string value of -1,234.5463 : " + new ConvertToStringThai().getText("-1,234.5463"));

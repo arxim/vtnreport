@@ -104,7 +104,7 @@ public class GenerateReportSrvl extends HttpServlet {
 		SimpleDateFormat DateFormat = new SimpleDateFormat("MMMMM dd,yyyy" , Locale.US);
 		SimpleDateFormat datedb = new SimpleDateFormat("yyyyMMDD");
 		Date date = new Date();  
-//		String datetime = DateFormat.format(date); // currenttime
+		String datetime_en = DateFormat.format(date); // currenttime
 		String datetime = JDate.getDateMM_DD_YYY();
 		
 		String doctorCode = request.getParameter("hidDoctorCode");
@@ -223,8 +223,8 @@ public class GenerateReportSrvl extends HttpServlet {
 			
 
 				thaitext =  new ConvertToStringThai().getText(set_avg_format);
-				
-				
+				System.out.println("thaitext  "+thaitext);
+				System.out.println("current_date  "+JDate.getDateDD_MM_YYY());
 				paramCondition = new HashMap<String, Object>();
 				paramCondition.put("current_date", JDate.getDateDD_MM_YYY());
 				paramCondition.put("Running_Number", numberAsString);
@@ -254,7 +254,8 @@ public class GenerateReportSrvl extends HttpServlet {
 		case "02":
 
 				thaitext =  new ConvertToStringThai().getText(set_avg_format);
-				
+				System.out.println("thaitext  "+thaitext);
+				System.out.println("current_date  "+JDate.getDateDD_MM_YYY());
 				paramCondition = new HashMap<String, Object>();
 				paramCondition.put("current_date", JDate.getDateDD_MM_YYY());
 				paramCondition.put("Running_Number", numberAsString);
@@ -307,7 +308,7 @@ public class GenerateReportSrvl extends HttpServlet {
 			paramCondition = new HashMap<String, Object>();
 			paramCondition.put("title", title);
 			paramCondition.put("header", header);
-			paramCondition.put("currenttime", datetime);
+			paramCondition.put("currenttime", datetime_en);
 			paramCondition.put("columnheader", columnheader);
 			paramCondition.put("detail", form);
 			paramCondition.put("detail2", form2);
@@ -357,7 +358,7 @@ public class GenerateReportSrvl extends HttpServlet {
 			paramCondition = new HashMap<String, Object>();
 			paramCondition.put("title", title);
 			paramCondition.put("header", header);
-			paramCondition.put("currenttime", datetime);
+			paramCondition.put("currenttime", datetime_en);
 			paramCondition.put("columnheader", columnheader);
 			paramCondition.put("detail", form);
 			paramCondition.put("detail2", form2);
@@ -413,7 +414,7 @@ public class GenerateReportSrvl extends HttpServlet {
 			paramCondition = new HashMap<String, Object>();
 			paramCondition.put("title", title);
 			paramCondition.put("header", header);
-			paramCondition.put("currenttime", datetime);
+			paramCondition.put("currenttime", datetime_en);
 			paramCondition.put("columnheader", columnheader);
 			paramCondition.put("detail", form);
 			paramCondition.put("detail2", form2);
@@ -471,7 +472,7 @@ public class GenerateReportSrvl extends HttpServlet {
 			paramCondition = new HashMap<String, Object>();
 			paramCondition.put("title", title);
 			paramCondition.put("header", header);
-			paramCondition.put("currenttime", datetime);
+			paramCondition.put("currenttime", datetime_en);
 			paramCondition.put("columnheader", columnheader);
 			paramCondition.put("detail", form);
 			paramCondition.put("detail2", form2);
