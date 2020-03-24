@@ -96,6 +96,8 @@ public class GenerateReportSrvl extends HttpServlet {
 		int set_avg_format = 0;
 		String thaitext =  "";
 		String engtext = "";
+		String logo_name="";
+		String signature_name="";
 	
 		int num = 0;
 		float AMT_SUM = 0;
@@ -135,6 +137,8 @@ public class GenerateReportSrvl extends HttpServlet {
 //		String meetingDate = request.getParameter("meetingDate");
 		String type = request.getParameter("hidtype");
 		String DepArr = DepartDate.replace("/", " ")+" - "+(ArrivedDate.replace("/", " "));
+		String Sign = request.getParameter("hid_sign");
+		
 		
 		Date referenceDate = new Date();
 		Calendar c = Calendar.getInstance(); 
@@ -147,15 +151,29 @@ public class GenerateReportSrvl extends HttpServlet {
 		String startMM = datestartend.format(result).split(":")[1];
 		String endYYYY = datestartend.format(referenceDate).split(":")[0];
 		String endMM = datestartend.format(referenceDate).split(":")[1];
-		System.out.println(startYYYY);
+/*		System.out.println(startYYYY);
 		System.out.println(startMM);
 		System.out.println(endYYYY);
-		System.out.println(endMM);
+		System.out.println(endMM);*/
 //		String change = startMM;
 //		if(Integer.parseInt(startMM) > Integer.parseInt(endMM)) {
 //			startMM = endMM;
 //			endMM = change;
 //		}
+		
+		//Get logo & signature for report
+		if(Sign.equals("DSS")) {
+			logo_name="logo-vejthani.png";
+			signature_name="Signature.jpg";
+			
+		}else if(Sign.equals("DS")){
+			logo_name="logo-vejthani_wh.png";
+			signature_name="Signature.jpg";
+			
+		}else {
+			logo_name="logo-vejthani_wh.png";
+			signature_name="Signature_wh.jpg";
+		}
 		
 		// Get SubReport RealPath
 		ServletContext servletContext = request.getSession().getServletContext();
@@ -237,14 +255,18 @@ public class GenerateReportSrvl extends HttpServlet {
 				paramCondition.put("endYYYY", endYYYY);
 				paramCondition.put("datePeriod", datePeriod);
 				paramCondition.put("path_image", absoluteDiskPath);
+				paramCondition.put("logo_name", logo_name);
+				paramCondition.put("signature_name", signature_name);
 				paramConditionNameReport.put(absoluteDiskPath+"IncomeCerificate.jasper", paramCondition);
 				if(type.equals("1")) {
-				genReport.viewPDFReport(paramConditionNameReport, "", true , response);
+					genReport.viewPDFReport(paramConditionNameReport, "", true , response);
 				}
 				else if(type.equals("2")) {
+					//case sign&seal report,so need send to df user.
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
-					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, Subjmail,propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.dfuser"), doctorCode, Subjmail,propEmailData.get("sender_emails.dfuser"),propPassWordData.get("sender_pwds.dfuser"));
 				}else {
+					//case send to self email.
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
 					message  = sentEmail.SendSingleMailPdfFile(bos, Email, doctorCode, Subjmail,propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
 				}
@@ -268,13 +290,16 @@ public class GenerateReportSrvl extends HttpServlet {
 				paramCondition.put("endYYYY", endYYYY);
 				paramCondition.put("datePeriod", datePeriod);
 				paramCondition.put("path_image", absoluteDiskPath);
+				paramCondition.put("logo_name", logo_name);
+				paramCondition.put("signature_name", signature_name);
 				paramConditionNameReport.put(absoluteDiskPath+"IncomeCerificate2.jasper", paramCondition);
 				if(type.equals("1")) {
 					genReport.viewPDFReport(paramConditionNameReport, "", true , response);
 					}
 					else if(type.equals("2")) {
+						//case sign&seal report,so need send to df user.
 						bos = genReport.generateReport(paramConditionNameReport,"", true);	
-						message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, Subjmail,propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+						message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.dfuser"), doctorCode, Subjmail,propEmailData.get("sender_emails.dfuser"),propPassWordData.get("sender_pwds.dfuser"));
 					}
 					else {
 						bos = genReport.generateReport(paramConditionNameReport,"", true);	
@@ -317,13 +342,16 @@ public class GenerateReportSrvl extends HttpServlet {
 			paramCondition.put("footer", footer);
 			paramCondition.put("doctor_name", arrData.get(0).get("NAME_ENG"));
 			paramCondition.put("path_image", absoluteDiskPath);
+			paramCondition.put("logo_name", logo_name);
+			paramCondition.put("signature_name", signature_name);
 			paramConditionNameReport.put(absoluteDiskPath+"IncomeCerificateEng.jasper", paramCondition);
 			if(type.equals("1")) {
 				genReport.viewPDFReport(paramConditionNameReport, "", true , response);
 				}
 				else if(type.equals("2")) {
+					//case sign&seal report,so need send to df user.
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
-					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, Subjmail,propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.dfuser"), doctorCode, Subjmail,propEmailData.get("sender_emails.dfuser"),propPassWordData.get("sender_pwds.dfuser"));
 				}
 				else {
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
@@ -367,13 +395,16 @@ public class GenerateReportSrvl extends HttpServlet {
 			paramCondition.put("footer", footer);
 			paramCondition.put("doctor_name", arrData.get(0).get("NAME_ENG"));
 			paramCondition.put("path_image", absoluteDiskPath);
+			paramCondition.put("logo_name", logo_name);
+			paramCondition.put("signature_name", signature_name);
 			paramConditionNameReport.put(absoluteDiskPath+"IncomeCerificateEng.jasper", paramCondition);
 			if(type.equals("1")) {
 				genReport.viewPDFReport(paramConditionNameReport, "", true , response);
 				}
 				else if(type.equals("2")) {
+					//case sign&seal report,so need send to df user.
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
-					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, Subjmail,propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.dfuser"), doctorCode, Subjmail,propEmailData.get("sender_emails.dfuser"),propPassWordData.get("sender_pwds.dfuser"));
 				}
 				else {
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
@@ -423,13 +454,16 @@ public class GenerateReportSrvl extends HttpServlet {
 			paramCondition.put("footer", footer);
 			paramCondition.put("doctor_name", arrData.get(0).get("NAME_ENG"));
 			paramCondition.put("path_image", absoluteDiskPath);
+			paramCondition.put("logo_name", logo_name);
+			paramCondition.put("signature_name", signature_name);
 			paramConditionNameReport.put(absoluteDiskPath+"IncomeCerificateEng.jasper", paramCondition);
 			if(type.equals("1")) {
 				genReport.viewPDFReport(paramConditionNameReport, "", true , response);
 				}
 				else if(type.equals("2")) {
+					//case sign&seal report,so need send to df user.
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
-					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, Subjmail,propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.dfuser"), doctorCode, Subjmail,propEmailData.get("sender_emails.dfuser"),propPassWordData.get("sender_pwds.dfuser"));
 				}
 				else {
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
@@ -481,14 +515,17 @@ public class GenerateReportSrvl extends HttpServlet {
 			paramCondition.put("footer", footer);
 			paramCondition.put("doctor_name", arrData.get(0).get("NAME_ENG"));
 			paramCondition.put("path_image", absoluteDiskPath);
+			paramCondition.put("logo_name", logo_name);
+			paramCondition.put("signature_name", signature_name);
 //			paramCondition.put("SUBREPORT_DIR", absoluteDiskPath);
 			paramConditionNameReport.put(absoluteDiskPath+"IncomeCerificateEng.jasper", paramCondition);
 			if(type.equals("1")) {
 				genReport.viewPDFReport(paramConditionNameReport, "", true , response);
 				}
 				else if(type.equals("2")) {
+					//case sign&seal report,so need send to df user.
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
-					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.0"), doctorCode, Subjmail,propEmailData.get("sender_emails.0"),propPassWordData.get("sender_pwds.0"));
+					message  = sentEmail.SendSingleMailPdfFile(bos, propEmailData.get("sender_emails.dfuser"), doctorCode, Subjmail,propEmailData.get("sender_emails.dfuser"),propPassWordData.get("sender_pwds.dfuser"));
 				}
 				else {
 					bos = genReport.generateReport(paramConditionNameReport,"", true);	
@@ -501,7 +538,7 @@ public class GenerateReportSrvl extends HttpServlet {
 		System.out.println(!ispreview.equals("true"));
 		if(ispreview.equals("false")) {
 			vaDetail.runningNumber();
-			System.out.println("1");
+			System.out.println("1+ runningNumber");
 			}
 	}
 

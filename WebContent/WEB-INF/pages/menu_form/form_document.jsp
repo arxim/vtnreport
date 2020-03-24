@@ -274,7 +274,7 @@
 				<input id="hidArrivedDate" name="hidArrivedDate" type="hidden" /> 
 				<input id="hidEmail" name="hidEmail" type="hidden" /> 
 				<input id="subj_mail" name="subj_mail" type="hidden" /> 
-				
+				<input id="hid_sign" name="hid_sign" type="hidden" value="SS"/> 
 
 			</form>
 			

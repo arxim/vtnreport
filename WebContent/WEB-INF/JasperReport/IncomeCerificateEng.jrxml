@@ -57,6 +57,12 @@
 	<parameter name="path_image" isForPrompting="false" class="java.lang.String">
 		<defaultValueExpression ><![CDATA["E:\\vtnReportEPayment\\vtnreport\\WebContent\\WEB-INF\\JasperReport\\"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="signature_name" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo_name" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
+	</parameter>
 	<queryString><![CDATA[SELECT * FROM HOSPITAL]]></queryString>
 
 	<field name="CODE" class="java.lang.String"/>
@@ -244,25 +250,25 @@
 				</textField>
 				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="122"
+						x="102"
 						y="262"
 						width="120"
 						height="31"
 						key="image-1"/>
 					<box></box>
 					<graphicElement stretchType="NoStretch"/>
-					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+"Signature.jpg"]]></imageExpression>
+					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+$P{signature_name}]]></imageExpression>
 				</image>
 				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="59"
+						x="39"
 						y="262"
 						width="68"
 						height="32"
 						key="image-2"/>
 					<box></box>
 					<graphicElement stretchType="NoStretch"/>
-					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+"logo-vejthani.png"]]></imageExpression>
+					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+$P{logo_name}]]></imageExpression>
 				</image>
 			</band>
 		</detail>

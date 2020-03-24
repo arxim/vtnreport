@@ -54,6 +54,12 @@
 	<parameter name="path_image" isForPrompting="false" class="java.lang.String">
 		<defaultValueExpression ><![CDATA["E:\\vtnReportEPayment\\vtnreport\\WebContent\\WEB-INF\\JasperReport\\"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="logo_name" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="signature_name" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
+	</parameter>
 	<queryString><![CDATA[SELECT HOSPITAL.COMPANY_NAME,DOCTOR_PROFILE.CODE,NAME_THAI,ISNULL(PO.DESCRIPTION_THI,'')AS POSITION,
 ISNULL(DB.BRANCH_DESP_THAI,'') AS BRANCH ,ISNULL(DSB.SUB_BRANCH_DESP_THA,'') AS SUB_BRANCH ,
 FROM_DATE,DR_NET_PAID_AMT,PAYMENT_MONTHLY.MM,PAYMENT_MONTHLY.YYYY,BATCH.YYYY as batch_date
@@ -318,7 +324,7 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 						key="image-1"/>
 					<box></box>
 					<graphicElement stretchType="NoStretch"/>
-					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+"Signature.jpg"]]></imageExpression>
+					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+$P{signature_name}]]></imageExpression>
 				</image>
 				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -329,7 +335,7 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 						key="image-2"/>
 					<box></box>
 					<graphicElement stretchType="NoStretch"/>
-					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+"logo-vejthani.png"]]></imageExpression>
+					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+$P{logo_name}]]></imageExpression>
 				</image>
 			</band>
 		</columnFooter>

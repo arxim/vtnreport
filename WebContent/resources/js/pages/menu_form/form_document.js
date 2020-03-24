@@ -2,6 +2,7 @@ $(document).ready(function() {
 	checkRole();
 	$("#reason").hide();
 	$("#reason2").hide();
+	$("#self_mail").hide();
 	$("#SS").attr("checked","checked");
 	
 	$('#dwlReport').change(function() {
@@ -108,10 +109,11 @@ $(document).ready(function() {
 	});
 	
 	$("#btnSendMail").show();
-	$("#sent_mail").show();
+	$("#sent_mail").hide();
 	$("#btnView").hide();
 	
 	$('input:radio').change(function(){
+		$("#hid_sign").val($("input:radio[name=SS]:checked").attr("id"));
 			getRunningNum = 0;
 	       var id= $(this).attr("id"); 
 	        if(id=="DS"){
@@ -192,7 +194,7 @@ function setForm(){
 }
 
 function setSendMail(){
-	StartForm("3","false");
+	StartForm("2","false");
 }
 
 function preview(){
@@ -205,7 +207,6 @@ function SendSelfEmail(){
 }
 
 function StartForm(reporttype,preview){
-	
 	var reportCode = $('#dwlReport').val();
 	var startDate = $('#datePeriod').val();
 	var doctorCode = $('#txtDoctorCode').val();
@@ -218,13 +219,10 @@ function StartForm(reporttype,preview){
 	var Email = $('#txtEmail');
 	var type = reporttype;
 	
-//	alert("re:"+reportCode+"stDate:"+startDate+"stM:"+startMM+"stY:"+startYYYY);
+	
 	$("#hidtype").val(type);
 	$("#hidReport").val(reportCode);
 	$("#hidDate").val(startDate);
-//	$("#hidStartYYYY").val(startYYYY);
-//	$("#hidEndMM").val(endMM);
-//	$("#hidEndYYYY").val(endYYYY);
 	$("#hidDoctorCode").val(doctorCode);
 	$("#hidMeetingName").val(meetingName);
 	$("#hidMeetingDate").val(meetingDate);
@@ -233,8 +231,8 @@ function StartForm(reporttype,preview){
 	$("#hidArrivedDate").val(ArrivedDate);
 	$("#hidEmail").val(Email);
 	$("#subj_mail").val($("#dwlReport option:selected").text());
-	/*alert(preview);
-	alert(getRunningNum);*/
+	
+	
 	$.ajax({
 		url : '/vtnreport/GetRunningNumberSrvl',
 		type : 'post',
@@ -251,9 +249,8 @@ function StartForm(reporttype,preview){
 			/*alert((running_batch[0]["RUNNING_NUMBER"]));*/
 			$("#hidbatch").val((running_batch[0]["batch_date"]));
 			
-			if(type=="3"){
+			if(type=="3" || type=="2"){
 				$("#sent-loading-modal").modal();
-				
 				$.ajax({
 					url : '/vtnreport/GenerateReportSrvl',
 					type : 'post',
@@ -270,6 +267,7 @@ function StartForm(reporttype,preview){
 					hidtype:$("#hidtype").val(),
 					hidPreview:$("#hidPreview").val(),
 					subj_mail:$("#dwlReport option:selected").text(),
+					hid_sign:$("#hid_sign").val(),
 					},
 					success : function() {
 						$("#sent-loading-modal").modal('hide');
