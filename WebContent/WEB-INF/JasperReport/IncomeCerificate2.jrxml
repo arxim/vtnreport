@@ -96,18 +96,18 @@ DESCRIPTION,PAYMENT_MONTHLY.MM,PAYMENT_MONTHLY.YYYY,BATCH.YYYY]]></queryString>
 	$F{MM}.equals("08") ? "สิงหาคม" :
 	 $F{MM}.equals("09") ? "กันยายน" :
 	  $F{MM}.equals("10") ? "ตุลาคม" :
-	   $F{MM}.equals("11") ? "พฤษจิกายน" :
+	   $F{MM}.equals("11") ? "พฤศจิกายน" :
 	    $F{MM}.equals("12") ? "ธันวาคม" : "")]]></variableExpression>
 	</variable>
 	<variable name="FROM_DATE_YEAR" class="java.lang.String" resetType="None" calculation="Nothing">
 		<variableExpression><![CDATA[
-Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variableExpression>
+$F{FROM_DATE}.equals("") ? "" :Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variableExpression>
 	</variable>
 	<variable name="avg" class="java.math.BigDecimal" resetType="None" calculation="Average">
 		<variableExpression><![CDATA[$F{DR_NET_PAID_AMT}]]></variableExpression>
 	</variable>
 	<variable name="FROM_DATE_MONTH" class="java.lang.String" resetType="None" calculation="Nothing">
-		<variableExpression><![CDATA[($F{FROM_DATE}.substring( 4, 6 ).equals("01") ? "มกราคม" : 
+		<variableExpression><![CDATA[$F{FROM_DATE}.equals("") ? "" :($F{FROM_DATE}.substring( 4, 6 ).equals("01") ? "มกราคม" : 
   $F{FROM_DATE}.substring( 4, 6 ).equals("02") ? "กุมภาพันธ์" :
    $F{FROM_DATE}.substring( 4, 6 ).equals("03") ? "มีนาคม" : 
     $F{FROM_DATE}.substring( 4, 6 ).equals("04") ? "เมษายน" :
@@ -121,7 +121,7 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 	    $F{FROM_DATE}.substring( 4, 6 ).equals("12") ? "ธันวาคม" : "")]]></variableExpression>
 	</variable>
 	<variable name="FROM_DATE_DAY" class="java.lang.String" resetType="None" calculation="Nothing">
-		<variableExpression><![CDATA[$F{FROM_DATE}.substring( 6,8 )]]></variableExpression>
+		<variableExpression><![CDATA[$F{FROM_DATE}.equals("") ? "-" :$F{FROM_DATE}.substring( 6,8 )]]></variableExpression>
 	</variable>
 	<variable name="Year" class="java.lang.String" resetType="None" calculation="Nothing">
 		<variableExpression><![CDATA[Integer.toString(Integer.parseInt($F{YYYY}.substring(0, 4))+543)]]></variableExpression>
@@ -174,7 +174,7 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 			</band>
 		</pageHeader>
 		<columnHeader>
-			<band height="186"  isSplitAllowed="true" >
+			<band height="241"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
 						x="0"
@@ -199,14 +199,14 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="1_1_2">
 						<font fontName="Tahoma" pdfFontName="tahoma.ttf" size="10" isUnderline="false" isPdfEmbedded ="true" pdfEncoding ="Identity-H" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["            โดยหนังสือฉบับนี้ "+$F{COMPANY_NAME}+" ขอรับรองว่า "+$F{NAME_THAI}+" เป็น "+$F{POSITION}+" "+$V{branch}+$V{sub_branch}+"ของโรงพยาบาลเวชธานี โดยเริ่มปฎิบัติงานกับบริษัทฯ ตั้งแตวันที่ "+$V{FROM_DATE_DAY}+" "+$V{FROM_DATE_MONTH}+" "+$V{FROM_DATE_YEAR}+" ได้รับรายได้เฉลี่ย "+$P{datePeriod}+" เดือนละ "+$P{AVG_Amount}+" บาท ("+$P{thai_form}+")"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["            โดยหนังสือฉบับนี้ "+$F{COMPANY_NAME}+" ขอรับรองว่า "+$F{NAME_THAI}+" เป็น "+$F{POSITION}+" "+$V{branch}+$V{sub_branch}+"ของโรงพยาบาลเวชธานี โดยเริ่มปฎิบัติงานกับบริษัทฯ ตั้งแตวันที่ "+$V{FROM_DATE_DAY}+" "+$V{FROM_DATE_MONTH}+" "+$V{FROM_DATE_YEAR}+" ได้รับรายได้เฉลี่ย "+$P{datePeriod}+" เดือน เดือนละ "+$P{AVG_Amount}+" บาท ("+$P{thai_form}+")"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="320"
-						y="154"
+						y="136"
 						width="170"
-						height="29"
+						height="21"
 						key="textField-3"/>
 					<box></box>
 					<textElement textAlignment="Center">
@@ -214,6 +214,42 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["ออกให้ ณ วันที่ "+$P{current_date}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement
+						x="320"
+						y="196"
+						width="179"
+						height="44"
+						key="staticText-5"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Tahoma" pdfFontName="tahoma.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+					</textElement>
+				<text><![CDATA[(นางสาวณัฐนันท์   สุกนาค)
+ผู้จัดการฝ่ายการเงิน]]></text>
+				</staticText>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="367"
+						y="163"
+						width="120"
+						height="31"
+						key="image-1"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+$P{signature_name}]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="288"
+						y="164"
+						width="211"
+						height="32"
+						key="image-2"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+$P{logo_name}]]></imageExpression>
+				</image>
 			</band>
 		</columnHeader>
 		<detail>
@@ -222,20 +258,6 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 		</detail>
 		<columnFooter>
 			<band height="164"  isSplitAllowed="true" >
-				<staticText>
-					<reportElement
-						x="320"
-						y="50"
-						width="179"
-						height="44"
-						key="staticText-5"/>
-					<box></box>
-					<textElement textAlignment="Center">
-						<font fontName="Tahoma" pdfFontName="tahoma.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
-					</textElement>
-				<text><![CDATA[(นางสาวขนิษฐา  บุญเพียร)
-ผู้อำนวยการฝ่ายบัญชีและการเงิน]]></text>
-				</staticText>
 				<staticText>
 					<reportElement
 						x="64"
@@ -248,30 +270,8 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 						<font fontName="Tahoma" pdfFontName="tahoma.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
 					</textElement>
 				<text><![CDATA[ฝ่ายการเงิน
-โทรศัพท์ 02-734-0000 ต่อ 2502]]></text>
+โทรศัพท์ 02 734 0390]]></text>
 				</staticText>
-				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="362"
-						y="17"
-						width="120"
-						height="31"
-						key="image-1"/>
-					<box></box>
-					<graphicElement stretchType="NoStretch"/>
-					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+$P{signature_name}]]></imageExpression>
-				</image>
-				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="283"
-						y="18"
-						width="78"
-						height="32"
-						key="image-2"/>
-					<box></box>
-					<graphicElement stretchType="NoStretch"/>
-					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+$P{logo_name}]]></imageExpression>
-				</image>
 			</band>
 		</columnFooter>
 		<pageFooter>
@@ -289,7 +289,7 @@ Integer.toString(Integer.parseInt($F{FROM_DATE}.substring(0, 4))+543)]]></variab
 						key="image-6"/>
 					<box></box>
 					<graphicElement stretchType="NoStretch"/>
-					<imageExpression class="java.lang.String"><![CDATA["E:\\vtnReportEPayment\\vtnreport\\WebContent\\WEB-INF\\JasperReport\\footer.png"]]></imageExpression>
+					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+"footer.png"]]></imageExpression>
 				</image>
 			</band>
 		</lastPageFooter>

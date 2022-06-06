@@ -107,7 +107,7 @@
 			</band>
 		</background>
 		<title>
-			<band height="262"  isSplitAllowed="true" >
+			<band height="261"  isSplitAllowed="true" >
 				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
@@ -122,7 +122,7 @@
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="381"
-						y="177"
+						y="152"
 						width="195"
 						height="66"
 						key="textField"/>
@@ -188,7 +188,7 @@
 						x="96"
 						y="30"
 						width="433"
-						height="56"
+						height="70"
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Left" markup="html" lineSpacing="1_1_2">
@@ -199,9 +199,9 @@
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="96"
-						y="88"
+						y="100"
 						width="433"
-						height="50"
+						height="61"
 						key="textField"/>
 					<box></box>
 					<textElement textAlignment="Left" markup="html" lineSpacing="1_1_2">
@@ -212,7 +212,7 @@
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="96"
-						y="140"
+						y="161"
 						width="433"
 						height="30"
 						key="textField"/>
@@ -250,10 +250,10 @@
 				</textField>
 				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="102"
-						y="262"
-						width="120"
-						height="31"
+						x="96"
+						y="267"
+						width="183"
+						height="28"
 						key="image-1"/>
 					<box></box>
 					<graphicElement stretchType="NoStretch"/>
@@ -261,8 +261,8 @@
 				</image>
 				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="39"
-						y="262"
+						x="215"
+						y="261"
 						width="68"
 						height="32"
 						key="image-2"/>
@@ -287,7 +287,7 @@
 						key="image-6"/>
 					<box></box>
 					<graphicElement stretchType="NoStretch"/>
-					<imageExpression class="java.lang.String"><![CDATA["E:\\vtnReportEPayment\\vtnreport\\WebContent\\WEB-INF\\JasperReport\\footer.png"]]></imageExpression>
+					<imageExpression class="java.lang.String"><![CDATA[$P{path_image}+"footer.png"]]></imageExpression>
 				</image>
 			</band>
 		</pageFooter>
